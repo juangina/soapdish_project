@@ -12,28 +12,27 @@
       <div class="home-search p-5">
         <div class="overlay p-5">
           <h1 class="display-4 mb-4">
-            Property Searching Just Got So Easy
+            Life Just Got Easier
           </h1>
-          <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae quas, asperiores eveniet vel nostrum magnam
-            voluptatum tempore! Consectetur, id commodi!</p>
+          <p class="lead">Search for your favorite soap.  We have a range of soap that will fit nearly everyones needs.  Share one of these lovely creations with a friend!</p>
           <div class="search">
             <form action="#">
               <!-- Form Row 1 -->
               <div class="form-row">
                 <div class="col-md-4 mb-3">
                   <label class="sr-only">Keywords</label>
-                  <input type="text" name="keywords" class="form-control" placeholder="Keyword (Pool, Garage, etc)">
+                  <input type="text" name="keywords" class="form-control" placeholder="Keyword (Rosemary, Lavender, etc)">
                 </div>
 
                 <div class="col-md-4 mb-3">
-                  <label class="sr-only">City</label>
-                  <input type="text" name="city" class="form-control" placeholder="City">
+                  <label class="sr-only">Name</label>
+                  <input type="text" name="name" class="form-control" placeholder="Name">
                 </div>
 
                 <div class="col-md-4 mb-3">
-                  <label class="sr-only">State</label>
-                  <select name="state" class="form-control">
-                    <option selected="true" disabled="disabled">State (All)</option>
+                  <label class="sr-only">Scent</label>
+                  <select name="scent" class="form-control">
+                    <option selected="true" disabled="disabled">Scent (All)</option>
                     {% for key, value in state_choices.items %}
                     <option value="{{key}}">{{ value }}</option>
                     {% endfor %}
@@ -43,9 +42,9 @@
               <!-- Form Row 2 -->
               <div class="form-row">
                 <div class="col-md-6 mb-3">
-                  <label class="sr-only">Bedrooms</label>
-                  <select name="bedrooms" class="form-control">
-                    <option selected="true" disabled="disabled">Bedrooms (All)</option>
+                  <label class="sr-only">Colorant</label>
+                  <select name="colorant" class="form-control">
+                    <option selected="true" disabled="disabled">Colorant (All)</option>
                     {% for key, value in bedroom_choices.items %}
                     <option value="{{key}}">{{ value }}</option>
                     {% endfor %}
@@ -74,49 +73,46 @@
   <!-- Listings -->
   <section id="listings" class="py-5">
     <div class="container">
-      <h3 class="text-center mb-3">Latest Listings</h3>
+      <h3 class="text-center mb-3">Latest Bars</h3>
       <!--Listing Iteration-->
       <div class="row">
-        {% if listings %}
-          {% for listing in listings %}
+        {% if bars %}
+          {% for bar in bars %}
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="card listing-preview">
-              <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
+              <img class="card-img-top" src="{{ bar.photo_main.url }}" alt="">
               <div class="card-img-overlay">
                 <h2>
-                  <span class="badge badge-secondary text-white">${{listing.price | intcomma}}</span>
+                  <span class="badge badge-secondary text-white">${{bar.price | intcomma}}</span>
                 </h2>
               </div>
               <div class="card-body">
                 <div class="listing-heading text-center">
-                  <h4 class="text-primary">{{listing.title}}</h4>
+                  <h4 class="text-primary">{{bar.name}}</h4>
                   <p>
-                    <i class="fas fa-map-marker text-secondary"></i> {{listing.city}} {{listing.state}}, {{listing.zipcode}}</p>
+                    <i class="fas fa-map-marker text-secondary"></i> {{bar.description}} </p>
+                </div>
+                <hr>
+                <div class="row py-2 text-secondary">
+                  <div class="col-12"><i class="fas fa-th-large"></i> Fragrance: {{bar.fragrance}}</div>
+                </div>
+                <div class="row py-2 text-secondary">
+                  <div class="col-12"><i class="fas fa-th-large"></i> Nutrients: {{bar.nutrients}}</div>
+                </div>
+                <div class="row py-2 text-secondary">
+                  <div class="col-12"><i class="fas fa-th-large"></i> Exfolients: {{bar.exfolients}}</div>
                 </div>
                 <hr>
                 <div class="row py-2 text-secondary">
                   <div class="col-6">
-                    <i class="fas fa-th-large"></i> Sqft: {{listing.sqft}}</div>
-                  <div class="col-6">
-                    <i class="fas fa-car"></i> Garage: {{listing.garage}}</div>
-                </div>
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-bed"></i> Bedrooms: {{listing.bedrooms}}</div>
-                  <div class="col-6">
-                    <i class="fas fa-bath"></i> Bathrooms: {{listing.bathrooms}}</div>
-                </div>
-                <hr>
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-user"></i> {{listing.realtor}}</div>
+                    <i class="fas fa-user"></i> {{bar.creator}}</div>
                 </div>
                 <div class="row text-secondary pb-2">
                   <div class="col-6">
-                    <i class="fas fa-clock"></i> {{listing.list_date | timesince}}</div>
+                    <i class="fas fa-clock"></i> {{bar.created_date | timesince}}</div>
                 </div>
                 <hr>
-                <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">More Info</a>
+                <a href="#" class="btn btn-primary btn-block">More Info</a>
               </div>
             </div>
           </div>

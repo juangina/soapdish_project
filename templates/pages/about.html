@@ -9,8 +9,9 @@
     <div class="container">
       <div class="row text-center">
         <div class="col-md-12">
-          <h1 class="display-4">About BT Real Estate</h1>
-          <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
+          <h1 class="display-4">About Soap Dish</h1>
+          <p class="lead">Soap Dish is a Father-Daughter collaboration to make fun and nutrional skin loving soap.</p>
+          <p class="lead">Vegetable Based Soap:  An Affordable Luxury!</p>
         </div>
       </div>
     </div>
@@ -35,29 +36,27 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8">
-          <h2>We Search For The Perfect Home</h2>
-          <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
-          <img src="{% static 'img/about.jpg' %}" alt="">
-          <p class="mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse officia repudiandae ad saepe ex, amet
-            neque quod accusamus rem quia magnam magni dolorum facilis ullam minima perferendis? Exercitationem at quaerat
-            commodi id libero eveniet harum perferendis laborum molestias quia.</p>
+          <h2>We Search For The Perfect Bar of Soap</h2>
+          <p class="lead">Below is a picture where all the magic happens!</p>
+          <img src="{% static 'img/about_the_lab_01.jpg' %}" alt="">
+          <p class="mt-4">We like to call this area, "The Lab".  We carved out a space in our basement to practice the art and science of making soap.  Our creators experience with science, technology, and art helps with the soapmaking process.  The best part is testing your products.</p>
         </div>
         <div class="col-md-4">
-          {% if mvp_realtors %}
-            {% for realtor in mvp_realtors %}
+          {% if mvc_creators %}
+            {% for creator in mvc_creators %}
             <div class="card">
-              <img class="card-img-top" src="{{ realtor.photo.url }}" alt="Seller of the month">
+              <img class="card-img-top" src=" {{ creator.photo.url }}" alt="Seller of the month">
               <div class="card-body">
-                <h5 class="card-title">Seller Of The Month</h5>
-                <h6 class="text-secondary">{{realtor.name}}</h6>
-                <p class="card-text">{{realtor.description}}
+                <h5 class="card-title">Creator Of The Month</h5>
+                <h6 class="text-secondary">{{creater.name}}</h6>
+                <p class="card-text">{{creator.description}}
                 </p>
               </div>
             </div>
             {% endfor %}
           {% else %}
             <div class="col-md-12">
-              <p>No MVP This Month</p>
+              <p>No MVC This Month</p>
             </div>
           {% endif %}
         </div>
@@ -67,10 +66,10 @@
 
   <!-- Work -->
   <section id="work" class="bg-dark text-white text-center">
-    <h2 class="display-4">We Work For You</h2>
-    <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit aperiam, unde aliquid at similique!</h4>
+    <h2 class="display-4">We Create For You</h2>
+    <h4>Soap Dish was born to provide a simple means to collaborate on our creativity.  This collaboration of love goes into every Bar we create!</h4>
     <hr>
-    <a href="listings.html" class="btn btn-secondary text-white btn-lg">View Our Featured Listings</a>
+    <a href="#" class="btn btn-secondary text-white btn-lg">View Our Featured Soap Bars</a>
   </section>
 
   <!-- Team -->
@@ -78,24 +77,24 @@
     <div class="container">
       <h2 class="text-center">Our Team</h2>
       <div class="row text-center">
-        <!-- Iterate through Realtors if available -->
-        {% if realtors %}
-          {% for realtor in realtors %}
+        <!-- Iterate through Creators if available -->
+        {% if creators %}
+          {% for creator in creators %}
           <div class="col-md-4">
-            <img src="{{ realtor.photo.url }}" alt="" class="rounded-circle mb-3">
-            <h4>{{realtor.name}}</h4>
+            <img src=" {{ creator.photo.url }}" alt="" class="rounded-circle mb-3">
+            <h4>{{creator.name}}</h4>
             <p class="text-success">
-              <i class="fas fa-award text-success mb-3"></i> Realtor</p>
+              <i class="fas fa-award text-success mb-3"></i> Creator</p>
             <hr>
             <p>
-              <i class="fas fa-phone"></i> {{realtor.phone}}</p>
+              <i class="fas fa-phone"></i> {{creator.phone}}</p>
             <p>
-              <i class="fas fa-envelope-open"></i> {{realtor.email}}</p>
+              <i class="fas fa-envelope-open"></i> {{creator.email}}</p>
           </div>
           {% endfor %}
         {% else %}
           <div class="col-md-12">
-            <p>No Team Members Currently Available</p>
+            <p>No Creators Currently Available</p>
           </div>
         {% endif %}
       </div>
