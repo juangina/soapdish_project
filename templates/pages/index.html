@@ -6,66 +6,92 @@
 
 {% block content%}
 
-  <!-- Showcase and Search Bar -->
+  <!-- Showcase and Search Button -->
   <section id="showcase">
     <div class="container text-center">
-      <div class="home-search p-5">
-        <div class="overlay p-5">
-          <h1 class="display-4 mb-4">
+      <div class="home-search p-4">
+        <div class="overlay p-4">
+          <h1 class="display-3 mb-4">
             Life Just Got Easier
           </h1>
-          <p class="lead">Search for your favorite soap.  We have a range of soap that will fit nearly everyones needs.  Share one of these lovely creations with a friend!</p>
+          <p class="lead">Search for your favorite soap.</p>  
+          <p>We have a range of soap that will fit nearly everyones needs. Share one of these lovely creations with a friend!</p>
           <div class="search">
-            <form action="#">
-              <!-- Form Row 1 -->
-              <div class="form-row">
-                <div class="col-md-4 mb-3">
-                  <label class="sr-only">Keywords</label>
-                  <input type="text" name="keywords" class="form-control" placeholder="Keyword (Rosemary, Lavender, etc)">
-                </div>
-
-                <div class="col-md-4 mb-3">
-                  <label class="sr-only">Name</label>
-                  <input type="text" name="name" class="form-control" placeholder="Name">
-                </div>
-
-                <div class="col-md-4 mb-3">
-                  <label class="sr-only">Scent</label>
-                  <select name="scent" class="form-control">
-                    <option selected="true" disabled="disabled">Scent (All)</option>
-                    {% for key, value in state_choices.items %}
-                    <option value="{{key}}">{{ value }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-              </div>
-              <!-- Form Row 2 -->
-              <div class="form-row">
-                <div class="col-md-6 mb-3">
-                  <label class="sr-only">Colorant</label>
-                  <select name="colorant" class="form-control">
-                    <option selected="true" disabled="disabled">Colorant (All)</option>
-                    {% for key, value in bedroom_choices.items %}
-                    <option value="{{key}}">{{ value }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <select name="price" class="form-control" id="type">
-                    <option selected="true" disabled="disabled">Max Price (Any)</option>
-                    {% for key, value in price_choices.items %}
-                    <option value="{{key}}">{{ value }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-              </div>
-              <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
-            </form>
+            <button class="btn btn-secondary btn-block btn-lg" data-toggle="modal" data-target="#searchModal" data-backdrop="true">Search</button>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Search Modal -->
+  <div class="modal fade" id="searchModal" role="dialog">
+    <div class="modal-dialog modal-xl ">
+      <div class="modal-content bg-info">
+        <div class="modal-header">
+          <h5 class="modal-title" id="searchModalLabel">Make An Inquiry</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'search' %}">
+            <!-- Form Row 1 -->
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label class="sr-only">Keywords</label>
+                <input type="text" name="keywords" class="form-control" placeholder="Keyword (Rosemary, Lavender, etc)">
+              </div>
+            </div>
+            <!-- Form Row 2 -->
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label class="sr-only">Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Name">
+              </div>
+            </div>
+            <!-- Form Row 3 -->
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label class="sr-only">Fragrance</label>
+                <select name="fragrance" class="form-control">
+                  <option selected="true" disabled="disabled">Fragrance (All)</option>
+                  {% for key, value in fragrance_choices.items %}
+                  <option value="{{key}}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <!-- Form Row 4 -->
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <label class="sr-only">Colorant</label>
+                <select name="colorant" class="form-control">
+                  <option selected="true" disabled="disabled">Colorant (All)</option>
+                  {% for key, value in colorants_choices.items %}
+                  <option value="{{key}}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <!-- Form Row 5 -->
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <select name="price" class="form-control" id="type">
+                  <option selected="true" disabled="disabled">Max Price (Any)</option>
+                  {% for key, value in price_choices.items %}
+                  <option value="{{key}}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-block mt-4" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Alerts -->
   {% include 'partials/_alerts.html' %}

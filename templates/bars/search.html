@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+<!-- Used to format integer number with commas -->
+{% load humanize %}
+
+{% block title %} | Search Results {% endblock %}
+
+{% block content%}
+
+  <!-- Search Bar -->
+  <section id="showcase-inner" class="showcase-search text-white py-5">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <form action="{% url 'search' %}">
+            <!-- Form Row 1 -->
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">Keywords</label>
+                <input type="text" name="keywords" class="form-control" placeholder="Keyword (Rosemary, Lavendar, etc)" value="{{values.keywords}}">
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Name" value="{{values.name}}">
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">Fragrance</label>
+                <select name="fragrance" class="form-control">
+                  {% if values.fragrance %}
+                    <option value="" >Fragrance (All)</option>
+                  {% else %}
+                    <option selected="true" disabled="disabled">Fragrance (All)</option>
+                  {% endif %}
+                  {% for key, value in fragrance_choices.items %}
+                    <!-- If the value key is selected, add the selected attribute -->
+                    <option value="{{key}}"
+                      {% if key == values.fragrance %}
+                        selected
+                      {% endif %}
+                    >{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <!-- Form Row 2 -->
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label class="sr-only">Colorant</label>
+                <select name="colorant" class="form-control">
+                  {% if values.colorant %}
+                    <option value="" >Colorant (All)</option>
+                  {% else %}
+                  <option selected="true" disabled="disabled">Colorant (Any)</option>
+                  {% endif %}
+                  {% for key, value in colorants_choices.items %}
+                    <!-- If the value key is selected, add the selected attribute -->
+                    <option value="{{key}}" {% if key == values.colorant %} selected {% endif %}>{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <select name="price" class="form-control">
+                  {% if values.price %}
+                    <option value="" >Max Price (All)</option>
+                  {% else %}
+                    <option selected="true" disabled="disabled">Max Price (All)</option>
+                  {% endif %}
+                  {% for key, value in price_choices.items %}
+                  <!-- If the value key is selected, add the selected attribute -->
+                  <option value="{{key}}"
+                    {% if key == values.price %}
+                      selected
+                    {% endif %}
+                  >{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="#">Browse Listings</a>
+          </li>
+          <li class="breadcrumb-item active"> Search Results</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Listings -->
+  <section id="listings" class="py-5">
+    <div class="container">
+      <!--Listing Iteration-->
+      <div class="row">
+        {% if bars %}
+          {% for bar in bars %}
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card listing-preview">
+              <img class="card-img-top" src="{{ bar.photo_main.url }}" alt="">
+              <div class="card-img-overlay">
+                <h2>
+                  <span class="badge badge-secondary text-white">${{bar.price | intcomma}}</span>
+                </h2>
+              </div>
+              <div class="card-body">
+                <div class="listing-heading text-center">
+                  <h4 class="text-primary">{{bar.name}}</h4>
+                  <p>
+                    <i class="fas fa-map-marker text-secondary"></i> {{bar.description}} </p>
+                </div>
+                <hr>
+                <div class="row py-2 text-secondary">
+                  <div class="col-12"><i class="fas fa-th-large"></i> Fragrance: {{bar.fragrance}}</div>
+                </div>
+                <div class="row py-2 text-secondary">
+                  <div class="col-12"><i class="fas fa-th-large"></i> Nutrients: {{bar.nutrients}}</div>
+                </div>
+                <div class="row py-2 text-secondary">
+                  <div class="col-12"><i class="fas fa-th-large"></i> Exfolients: {{bar.exfolients}}</div>
+                </div>
+                <hr>
+                <div class="row py-2 text-secondary">
+                  <div class="col-6">
+                    <i class="fas fa-user"></i> {{bar.creator}}</div>
+                </div>
+                <div class="row text-secondary pb-2">
+                  <div class="col-6">
+                    <i class="fas fa-clock"></i> {{bar.created_date | timesince}}</div>
+                </div>
+                <hr>
+                <a href="#" class="btn btn-primary btn-block">More Info</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="col-md-12">
+            <p>No Listings Available</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  
+{% endblock %}

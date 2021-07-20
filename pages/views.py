@@ -1,13 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from bars.choices import price_choices, fragrance_choices, colorants_choices
 
-from creators.models import Creator
 from bars.models import Bar
+from creators.models import Creator
+
+# def index(request):
+#     return HttpResponse('<h1>Hello World</h1>')
 
 def index(request):
-    bars = Bar.objects.order_by('-created_date')
+    bars = Bar.objects.order_by('-created_date')[:3]
     context = {
-        'bars': bars
+        'bars': bars,
+        'price_choices': price_choices,
+        'colorants_choices': colorants_choices,
+        'fragrance_choices': fragrance_choices,
     }
     return render(request, 'pages/index.html', context)
 
