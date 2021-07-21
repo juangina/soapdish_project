@@ -26,11 +26,19 @@ price_choices = {
 }
 
 colorants_choices = {
-        'TDP': 'Titanium Dioxide Pigment',
-        'GP': 'Green Chrome Oxide Pigment',
-        'SO': 'Sunset Orange Mica',
-        'LM': 'Lavendar Mica',
-        'AC': 'Activated Charcoal',
-        'GS': 'Gold Sparkle Mica',
-        'CP': 'Cappuccino ',
+        'Titanium Dioxide Pigment': 'Titanium Dioxide Pigment',
+        'Green Chrome Oxide Pigment': 'Green Chrome Oxide Pigment',
+        'Sunset Orange Mica': 'Sunset Orange Mica',
+        'Lavender Mica': 'Lavender Mica',
+        'Activated Charcoal': 'Activated Charcoal',
+        'Gold Sparkle Mica': 'Gold Sparkle Mica',
+        'Cappuccino Mica': 'Cappuccino Mica',
+        'Racing Stripe Orange Mica': 'Racing Stripe Orange Mica',
+        'Kelly Green Mica': 'Kelly Green Mica',
+        'Kermit Green Mica': 'Kermit Green Mica',
+        'Raspberry Mica': 'Raspberry Mica',
+        'Yellow Mica': 'Yellow Mica',
+        'Buttercup Mica': 'Buttercup Mica',
+        'Magenta Mica': 'Magenta Mica',
+        'Natural Hemp Seed Colorant':'Natural Hemp Seed Colorant'
 }

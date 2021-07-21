@@ -47,7 +47,7 @@ def search(request):
     if 'colorant' in request.GET:
         colorant = request.GET['colorant']
         if colorant:
-            queryset_list = queryset_list.filter(colorants__iexact=colorant)
+            queryset_list = queryset_list.filter(colorants__icontains=colorant)
     # Search for Price in price
     if 'price' in request.GET:
         price = request.GET['price']

@@ -9,7 +9,7 @@ from creators.models import Creator
 #     return HttpResponse('<h1>Hello World</h1>')
 
 def index(request):
-    bars = Bar.objects.order_by('-created_date')[:3]
+    bars = Bar.objects.order_by('-batch_code')[:3]
     context = {
         'bars': bars,
         'price_choices': price_choices,
