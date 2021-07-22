@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% load static %}
+
+{% load humanize %}
 
 {% block title %} | The Collection {% endblock %}
 
@@ -11,9 +12,9 @@
       <div class="row text-center">
         <div class="col-md-12">
           <h1 class="display-4">Browse Our Collection</h1>
-          <p class="lead">Our soap uses all natural ingredients including , Olive Oil, Coconut Oil, Cocoa butter, Shea Butter, andH Hemp Seed Oil.</p>
+          <p class="lead">Our soap uses all natural ingredients including , Olive Oil, Coconut Oil, Cocoa butter, Shea Butter, and Hemp Seed Oil.</p>
           <p class="lead">Special Requests are Encouraged.  Please consult the Membership page for more details.</p>
-          <p class="lead">Vegetable Based Soap:  An Affordable Luxury!</p>
+          <p class="lead">Vegetable Based Soaps:  An Affordable Luxury!</p>
         </div>
       </div>
     </div>
@@ -75,7 +76,7 @@
                     <i class="fas fa-clock"></i> {{bar.created_date | timesince}}</div>
                 </div>
                 <hr>
-                <a href="#" class="btn btn-primary btn-block">More Info</a>
+                <a href="{% url 'bar' bar.id %}" class="btn btn-primary btn-block">More Info</a>
                 </div>
             </div>
             </div>
@@ -86,7 +87,55 @@
             </div>
         {% endif %}
         </div>
+        <!--Pagenation Row Logic-->
+        <div class="row">
+            <div class="col-md-12">
+            <!-- Check if Pagination is Required -->
+            {% if bars.has_other_pages%}
+                <!-- Start Horizontal html block list of items -->
+                <ul class="pagination">
+                <!-- Logic for First Pagination List Item -->
+                {% if bars.has_previous %}
+                    <li class="page-item">
+                    <a href="?page={{bars.previous_page_number}}" class="page-link">&laquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                    <a class="page-link">&laquo;</a>
+                    </li>
+                {% endif %}
+
+                <!-- Logic for Pagination Numbered List Items -->
+                {% for i in bars.paginator.page_range %}
+                    {% if bars.number == i %}
+                    <li class="page-item active">
+                    <a class="page-link">{{i}}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item" >
+                    <a href="?page={{i}}" class="page-link">{{i}}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- Logic for Last Pagination List Item -->
+                {% if bars.has_next %}
+                    <li class="page-item">
+                    <a href="?page={{bars.next_page_number}}" class="page-link">&raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                    <a class="page-link">&raquo;</a>
+                    </li>
+                {% endif %}
+                </ul>
+            {% endif %}
+            </div>
+        </div>
+
     </div>
 </section>
+
+
 
 {% endblock %}

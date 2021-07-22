@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-#from .models import Bars
 from .models import Bar
 
 class BarsAdmin(admin.ModelAdmin):
@@ -8,7 +7,7 @@ class BarsAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'name')
     list_editable = ('is_cured',)
     search_fields = ('name',)
-    list_per_page = 2
+    list_per_page = 3
 
 
 #admin.site.register(Bars, BarsAdmin)

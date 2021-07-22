@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} | The Collection {% endblock %}
+
+{% block content%}
+
+<!-- Showcase -->
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">Dashboard</h1>
+          <p class="lead">Our soap uses all natural ingredients including , Olive Oil, Coconut Oil, Cocoa butter, Shea Butter, andH Hemp Seed Oil.</p>
+          <p class="lead">Special Requests are Encouraged.  Please consult the Membership page for more details.</p>
+          <p class="lead">Vegetable Based Soap:  An Affordable Luxury!</p>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+<div class="container">
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+        <a href="{% url 'index' %}">
+            <i class="fas fa-home"></i> Home</a>
+        </li>
+        <li class="breadcrumb-item active">Featured Bars</li>
+    </ol>
+    </nav>
+</div>
+</section>
+
+<!-- Service Listing -->
+<section id="listings" class="py-5">
+    <div class="container">
+        <!--Listing Iteration-->
+        <div class="row">
+            Main Products/Services
+        </div>
+    </div>
+</section>
+
+<!-- Services Offered -->
+<section id="services" class="py-5 bg-secondary text-white">
+<div class="container">
+    <div class="row text-center">
+    <div class="col-md-4">
+        <i class="fas fa-comment fa-4x mr-4"></i>
+        <hr>
+        <h3>Consulting Services</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
+        hic dignissimos ratione ea quae.</p>
+    </div>
+    <div class="col-md-4">
+        <i class="fas fa-home fa-4x mr-4"></i>
+        <hr>
+        <h3>Propery Management</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
+        hic dignissimos ratione ea quae.</p>
+    </div>
+    <div class="col-md-4">
+        <i class="fas fa-suitcase fa-4x mr-4"></i>
+        <hr>
+        <h3>Renting & Selling</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
+        hic dignissimos ratione ea quae.</p>
+    </div>
+    </div>
+</div>
+</section>
+    
+    {% endblock %}
