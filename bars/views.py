@@ -12,7 +12,7 @@ def index(request):
 
     bars = Bar.objects.order_by('-created_date')
 
-    paginator = Paginator(bars, 3)
+    paginator = Paginator(bars, 6)
     page = request.GET.get('page')
     paged_bars = paginator.get_page(page)
 
