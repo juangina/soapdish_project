@@ -42,20 +42,30 @@
                 >
                     <a class="nav-link" href="{% url 'bars' %}">Featured Bars</a>
                 </li>
+                <!--Store Link-->
+                <li 
+                    {% if 'store' in request.path %}
+                        class="nav-item active mr-3"
+                    {%  else %}
+                        class="nav-item mr-3"
+                    {% endif %}
+                >
+                    <a class="nav-link" href="{% url 'store' %}">Store</a>
+            </li>
             </ul>
             <!--Margin Right Nav Bar List-->
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <!--Dashboard Link-->
                     <li 
-                    {% if 'dashboard' in request.path %}
-                        class="nav-item active mr-3"
-                    {%  else %}
-                        class="nav-item mr-3"
-                    {% endif %}
-                    >
-                    <a class="nav-link" href="{% url 'dashboard' %}">
-                    Welcome {{user.username}} (Dashboard)</a>
+                        {% if 'dashboard' in request.path %}
+                            class="nav-item active mr-3"
+                        {%  else %}
+                            class="nav-item mr-3"
+                        {% endif %}
+                        >
+                        <a class="nav-link" href="{% url 'dashboard' %}">
+                        Welcome {{user.username}} (Dashboard)</a>
                     </li>    
                     <!--Logout Link cast as a Form Submission-->
                     <li class="nav-item mr-3">
@@ -93,6 +103,12 @@
                     </li>
                 {% endif %}
             </ul>
+            <div class="form-inline my-2 my-lg-0">              
+                <a href="{% url 'cart' %}">
+                   <img  id="cart-icon" src="{% static 'img/cart.png' %}">
+               </a>
+               <p id="cart-total">{{cartItems}}</p>
+           </div>
         </div>
         </div>
     </nav>

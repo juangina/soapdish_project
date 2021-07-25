@@ -2,9 +2,14 @@ from django.shortcuts import get_object_or_404, render
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from bars.choices import price_choices, fragrance_choices, colorants_choices
 from .models import Bar
-
+from store.utils import cookieCart, cartData, guestOrder
 
 def index(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+
     bars = Bar.objects.order_by('-created_date')
 
     paginator = Paginator(bars, 3)
@@ -12,20 +17,32 @@ def index(request):
     paged_bars = paginator.get_page(page)
 
     context = {
-        'bars': paged_bars
+        'bars': paged_bars,
+        'cartItems': cartItems
         }
     return render(request, 'bars/bars.html', context)
 
 def bar(request, bar_id):
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+    
     #bar = bar.objects.get(id=bar_id)
     bar = get_object_or_404(Bar, pk=bar_id)
     
     context = {
-        'bar': bar
+        'bar': bar,
+        'cartItems': cartItems        
     }
     return render(request, 'bars/bar.html', context)
 
 def search(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+
     queryset_list = Bar.objects.order_by('-created_date')
 
     # Search for Keywords in recipe
@@ -59,6 +76,7 @@ def search(request):
         'colorants_choices': colorants_choices,
         'fragrance_choices': fragrance_choices,
         'bars': queryset_list,
-        'values': request.GET
+        'values': request.GET,
+        'cartItems': cartItems
     }
     return render(request, 'bars/search.html', context)

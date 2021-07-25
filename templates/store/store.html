@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+	<!-- Showcase -->
+	<section id="showcase-inner" class="py-5 text-white">
+		<div class="container">
+		<div class="row text-center">
+			<div class="col-md-12">
+			<h1 class="display-4">Shop Our Collection</h1>
+			<p class="lead">Our soap uses all natural ingredients including , Olive Oil, Coconut Oil, Cocoa butter, Shea Butter, and Hemp Seed Oil.</p>
+			<p class="lead">Special Requests are Encouraged.  Please consult the Membership page for more details.</p>
+			<p class="lead">Vegetable Based Soaps:  An Affordable Luxury!</p>
+			</div>
+		</div>
+		</div>
+	</section>
+
+  	<!-- Breadcrumb -->
+	<section id="bc" class="mt-3">
+	<div class="container">
+		<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+			<a href="{% url 'index' %}">
+				<i class="fas fa-home"></i> Home</a>
+			</li>
+			<li class="breadcrumb-item active">Available Products</li>
+		</ol>
+		</nav>
+	</div>
+	</section>
+
+	<!-- Products -->
+	<section id="listings" class="py-5">
+		<div class="container">
+			<!--Listing Iteration-->
+			<div class="row">
+			{% if products %}
+
+				<div class="row">
+					{% for product in products %}
+					<div class="col-lg-4">
+						<img class="thumbnail" src="{{product.imageURL}}">
+						<div class="box-element product">
+							<h6><strong>{{product.name}}</strong></h6>
+							<hr>
+
+							<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+							
+							<a class="btn btn-outline-success" href="#">View</a>
+							<h4 style="display: inline-block; float: right"><strong>${{product.price}}</strong></h4>
+
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+
+			{% else %}
+				<div class="col-md-12">
+					<p>We are sorry.  There are no Soapdish products available at this time.</p>
+				</div>
+			{% endif %}
+			</div>
+		</div>
+	</section>
+
+{% endblock content %}
