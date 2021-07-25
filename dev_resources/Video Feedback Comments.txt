@@ -1,0 +1,10 @@
+
+MBPro
+5 months ago
+First, thank you for the excellent tutorial! You may want to close the img tag when you do the row-cart section since that makes the whole row not align items correctly. It took me a while to realize the closing tag was the problem.
+
+JN
+8 months ago
+Great video! 
+I got  > NameError: name 'os' is not defined < during the Static Files part. Resolved by adding "import os"  somewhere at the top of the settings.py file.
+

@@ -2,8 +2,6 @@
 {% load static %}
 {% block content %}
 
-
-
      <div class="row">
 		<div class="col-lg-6">
 			<div class="box-element" id="form-wrapper">
@@ -34,7 +32,7 @@
 							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
 						</div>
 						<div class="form-field">
-							<input class="form-control" type="text" name="country" placeholder="Zip code..">
+							<input class="form-control" type="text" name="country" placeholder="Country..">
 						</div>
 					</div>
 
@@ -72,7 +70,8 @@
 		</div>
 	</div>
 
-	<script src="https://www.paypal.com/sdk/js?client-id=YOUR-CLIENT-ID&currency=USD&disable-funding=credit"></script>
+	<!-- Scripts to render button and complete transactions	-->
+	<script src="https://www.paypal.com/sdk/js?client-id=AaJ_cx_a1aiUQbMag5PqvMTyndlr1RR6qMNKQN4T6pw2OCgRR3WMf2W7yXWQ9_adt1abFIUhFOiBjAhI&currency=USD"></script>
 
 	<script>
 		var total = '{{order.get_cart_total}}'
@@ -169,7 +168,8 @@
 	    	console.log('Shipping Info:', shippingInfo)
 	    	console.log('User Info:', userFormData)
 
-	    	var url = "/process_order/"
+			//Send process results to 'backend' for database storage
+	    	var url = "/store/process_order/"
 	    	fetch(url, {
 	    		method:'POST',
 	    		headers:{
