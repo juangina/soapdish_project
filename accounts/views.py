@@ -9,8 +9,8 @@ from store.utils import cookieCart, cartData, guestOrder
 def register(request):
     if request.method == 'POST':
         #Testing the Messaging system
-        messages.error(request, 'Testing error message')
-        return redirect('register')
+        #messages.error(request, 'Testing error message')
+        #return redirect('register')
 
         # Get form values
         first_name = request.POST['first_name']

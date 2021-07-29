@@ -71,6 +71,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Needs to set to enable CSRF over an HTTPS connection
+# Be sure to restart nginx and gunicorn on server
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
