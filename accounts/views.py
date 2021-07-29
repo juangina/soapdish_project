@@ -56,10 +56,6 @@ def register(request):
         return render(request, 'accounts/register.html', context)
 
 def login(request):
-    data = cartData(request)
-    cartItems = data['cartItems']
-    order = data['order']
-    items = data['items']
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -73,20 +69,31 @@ def login(request):
             messages.error(request, 'Invalid creditials')
             return render(request, 'accounts/login.html')
     else:
+        data = cartData(request)
+        cartItems = data['cartItems']
+        order = data['order']
+        items = data['items']
         context = {
             'cartItems': cartItems
         } 
         return render(request, 'accounts/login.html', context)
 
 def dashboard(request):
-    data = cartData(request)
-    cartItems = data['cartItems']
-    order = data['order']
-    items = data['items']
-    context = {
-        'cartItems': cartItems
-    }        
-    return render(request, 'accounts/dashboard.html', context)
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+        order = data['order']
+        items = data['items']
+
+        user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
+        context = {
+            'cartItems': cartItems,
+            'contact': user_contacts
+        }        
+        return render(request, 'accounts/dashboard.html', context)
+    else:
+        messages.error(request, 'Please login to gain access to dashboard.')
+        return redirect ('login')
 
 def logout(request):   
     if request.method == 'POST':
