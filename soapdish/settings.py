@@ -70,6 +70,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Needs to set to enable CSRF over an HTTPS connection
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
