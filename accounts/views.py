@@ -7,11 +7,6 @@ from store.models import Customer
 from store.utils import cookieCart, cartData, guestOrder
 
 def register(request):
-    data = cartData(request)
-    cartItems = data['cartItems']
-    order = data['order']
-    items = data['items']
-
     if request.method == 'POST':
         #Testing the Messaging system
         messages.error(request, 'Testing error message')
@@ -51,6 +46,10 @@ def register(request):
             messages.error(request, 'Passwords do not match')
             return redirect('register')
     else:
+        data = cartData(request)
+        cartItems = data['cartItems']
+        order = data['order']
+        items = data['items']
         context = {
             'cartItems': cartItems
         }     
