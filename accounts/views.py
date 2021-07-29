@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from contacts.models import Contact
+
 from store.models import Customer
 from store.utils import cookieCart, cartData, guestOrder
 
@@ -12,6 +13,10 @@ def register(request):
     items = data['items']
 
     if request.method == 'POST':
+        #Testing the Messaging system
+        messages.error(request, 'Testing error message')
+        return redirect('register')
+
         # Get form values
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
@@ -40,9 +45,6 @@ def register(request):
                     #user.save();
                     customer = Customer.objects.create(user = user, name= first_name + ' ' + last_name, email=email)
                     customer.save();
-                    #customer.first_name = first_name
-                    #customer.last_name = last_name
-
                     messages.success(request, 'You are now registered and can log in')
                     return redirect('login')
         else:

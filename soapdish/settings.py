@@ -6,11 +6,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Application definition
 INSTALLED_APPS = [
-    'accounts.apps.AccountsConfig',
-    'bars.apps.BarsConfig',
     'contacts.apps.ContactsConfig',
-    'creators.apps.CreatorsConfig',
+    'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
+    'bars.apps.BarsConfig',
+    'creators.apps.CreatorsConfig',
     'store.apps.StoreConfig',    
     'django.contrib.admin',
     'django.contrib.auth',
