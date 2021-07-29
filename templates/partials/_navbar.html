@@ -43,16 +43,19 @@
                     <a class="nav-link" href="{% url 'bars' %}">Featured Bars</a>
                 </li>
                 <!--Store Link-->
-                <li 
-                    {% if 'store' in request.path %}
-                        class="nav-item active mr-3"
-                    {%  else %}
-                        class="nav-item mr-3"
-                    {% endif %}
-                >
-                    <a class="nav-link" href="{% url 'store' %}">Store</a>
-            </li>
+                {% if user.is_authenticated %}
+                    <li 
+                        {% if 'store' in request.path %}
+                            class="nav-item active mr-3"
+                        {%  else %}
+                            class="nav-item mr-3"
+                        {% endif %}
+                    >
+                        <a class="nav-link" href="{% url 'store' %}">Store</a>
+                    </li>
+                {% endif %}
             </ul>
+
             <!--Margin Right Nav Bar List-->
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
@@ -86,7 +89,7 @@
                             class="nav-item mr-3"
                         {% endif %}
                     >
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href=" {% url 'register' %} ">
                         <i class="fas fa-user-plus"></i> Register</a>
                     </li>
                     <!--Login Link-->
@@ -97,18 +100,20 @@
                             class="nav-item mr-3"
                         {% endif %}            
                     >
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href=" {% url 'login' %} ">
                         <i class="fas fa-sign-in-alt"></i>
                                         Login</a>
                     </li>
                 {% endif %}
             </ul>
-            <div class="form-inline my-2 my-lg-0">              
-                <a href="{% url 'cart' %}">
-                   <img  id="cart-icon" src="{% static 'img/cart.png' %}">
-               </a>
-               <p id="cart-total">{{cartItems}}</p>
-           </div>
+            {% if user.is_authenticated %}
+                <div class="form-inline my-2 my-lg-0">              
+                    <a href="{% url 'cart' %}">
+                    <img  id="cart-icon" src="{% static 'img/cart.png' %}">
+                </a>
+                <p id="cart-total">{{cartItems}}</p>
+            </div>
+           {% endif %}
         </div>
         </div>
     </nav>
