@@ -12,7 +12,10 @@ def index(request):
     items = data['items']
 
     bars = Bar.objects.order_by('-batch_code')[:3]
-    video = Video.objects.get(name='Test Video')
+    if Video.objects.filter(name='Test Video').exists():
+        video = Video.objects.get(name='Test Video')
+    else:
+        video = ""
     context = {
         'bars': bars,
         'price_choices': price_choices,
@@ -21,6 +24,7 @@ def index(request):
         'cartItems': cartItems,
         'video': video
     }
+
     return render(request, 'pages/index.html', context)
 
 def about(request):
