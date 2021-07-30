@@ -2,6 +2,7 @@ from django.shortcuts import render
 from bars.choices import price_choices, fragrance_choices, colorants_choices
 from bars.models import Bar
 from creators.models import Creator
+from .models import Video
 from store.utils import cookieCart, cartData, guestOrder
 
 def index(request):
@@ -11,12 +12,14 @@ def index(request):
     items = data['items']
 
     bars = Bar.objects.order_by('-batch_code')[:3]
+    video = Video.objects.get(name='Test Video')
     context = {
         'bars': bars,
         'price_choices': price_choices,
         'colorants_choices': colorants_choices,
         'fragrance_choices': fragrance_choices,
-        'cartItems': cartItems
+        'cartItems': cartItems,
+        'video': video
     }
     return render(request, 'pages/index.html', context)
 

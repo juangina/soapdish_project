@@ -29,10 +29,14 @@
   <!-- Introductory Video -->
   <section id="introductory-video">
     <div class="container text-center">
-      <div class="home-search p-4">
-        <div class="overlay p-4">
-          <h1 class="display-3 mb-4">Welcome Video</h1>
-          <p class="lead">Learn how to use this website.</p>  
+      <div class="home-search p-2">
+        <div class="overlay p-2">
+          <h1 class="display-4 mb-2">Welcome Video</h1>
+          <p class="lead">Learn how to use this website.</p> 
+          <div class="px-3 mb5">
+            {% video video.videoURL 'large' %}
+            <div>{{ video.topic }} </div>
+          </div>
         </div>
       </div>
     </div>

@@ -5,6 +5,10 @@ class Video(models.Model):
     name = models.CharField(max_length=100)
     topic = models.CharField(max_length=100, blank=True)
     description = models.TextField(max_length=2000, blank=True)
-    video = EmbedVideoField()  # same like models.URLField()
+    videoURL = EmbedVideoField()  # same like models.URLField()
+    added = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.name
+        return str(self.name)
+    
+    class Meta:
+        ordering = ['-added']
