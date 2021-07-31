@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %} | {{product.bar.title}} {% endblock %}
+
+{% block content%}
+
+<section id="showcase-inner" class="py-5 text-white">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1 class="display-4">{{bar.name}}</h1>
+        <p class="lead">
+          <i class="fas fa-map-marker"></i> {{bar.recipe}} </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+  <div class="container">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'index' %}">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'store' %}">Available Products</a>
+        </li>
+        <li class="breadcrumb-item active">{{product.name}}</li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}
+
+<!-- Product -->
+<section id="bar" class="py-4">
+  <div class="container">
+    <a href="javascript:history.back()" class="btn btn-light mb-4">Back To Store</a>
+    <div class="row">
+      <div class="col-md-9">
+        <!-- Home Main Image -->
+        <img src="{{ product.image.url }}" alt="" class="img-main img-fluid mb-3">
+        <!-- Thumbnails -->
+        <div class="row mb-5 thumbs">
+          {% if product.product.bar.photo_1 %}
+          <div class="col-md-2">
+            <a href="{{ product.bar.photo_1.url }}" data-lightbox="home-images">
+              <img src="{{ bar.photo_1.url }}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          {% if product.bar.photo_2 %}
+          <div class="col-md-2">
+            <a href="{{ product.bar.photo_2.url }}" data-lightbox="home-images">
+              <img src="{{ product.bar.photo_2.url }}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          {% if product.bar.photo_3 %}
+          <div class="col-md-2">
+            <a href="{{ product.bar.photo_3.url }}" data-lightbox="home-images">
+              <img src="{{ product.bar.photo_3.url }}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          {% if product.bar.photo_4 %}
+          <div class="col-md-2">
+            <a href="{{ product.bar.photo_4.url }}" data-lightbox="home-images">
+              <img src="{{ product.bar.photo_4.url }}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          {% if product.bar.photo_5 %}
+          <div class="col-md-2">
+            <a href="{{ product.bar.photo_5.url }}" data-lightbox="home-images">
+              <img src="{{ product.bar.photo_5.url }}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          {% if product.bar.photo_6 %}
+          <div class="col-md-2">
+            <a href="{{ product.bar.photo_6.url }}" data-lightbox="home-images">
+              <img src="{{ product.bar.photo_6.url }}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+        </div>
+        <!-- Fields -->
+        <div class="row mb-5 fields">
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-secondary">
+                <!--
+                <i class="fas fa-th-large"></i> Asking Price:
+                <span class="float-right">${{ product.bar.price | intcomma }}</span>
+                -->
+                <i class="fas fa-th-large"></i> Name:
+                <span class="float-right">{{ product.bar.name }}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-th-large"></i> Fragrance:
+                <span class="float-right">{{ product.bar.fragrance }}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-th-large"></i> Nutrients:
+                <span class="float-right">{{ product.bar.nutrients }}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-th-large"></i> Exfolients:
+                <span class="float-right">{{ product.bar.exfolients }}
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-th-large"></i> Recipe:
+                <span class="float-right">{{ product.bar.recipe }}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-th-large"></i> Discount:
+                <span class="float-right">{{ product.bar.discount }}%
+                </span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-th-large"></i> Bar Created:
+                <span class="float-right">{{ product.bar.created_date }}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-th-large"></i> Creator:
+                <span class="float-right">{{ product.bar.creator }}
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Description -->
+        <div class="row mb-5">
+          <div class="col-md-12">
+            {{ product.bar.description}}
+          </div>
+        </div>
+      </div>
+      <!-- Creator Description and Product Submit -->
+      <div class="col-md-3">
+        <div class="card mb-3">
+          <img class="card-img-top" src="{{ product.bar.creator.photo.url }}" alt="Bar Creator">
+          <div class="card-body">
+            <h5 class="card-name">Bar Creator</h5>
+            <h6 class="text-secondary">{{product.bar.creator}}</h6>
+          </div>
+        </div>
+        <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>  
+
+<script>
+  function goBack() {
+    window.history.back();
+  }
+</script>
+
+{% endblock %}

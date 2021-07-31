@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from bars.models import Bar
+
 
 # Create your models here.
 
@@ -11,12 +13,17 @@ class Customer(models.Model):
 	def __str__(self):
 		return self.name
 
+#set a default bar for product if assigned bar is deleted
+def get_deleted_bar():
+	return Bar.objects.get_or_create(name='delected')[0]
+#deleted_bar = Bar.objects.get_or_create(name='deleted')[0]
 
 class Product(models.Model):
-	name = models.CharField(max_length=200)
-	price = models.FloatField()
+	name = models.CharField(max_length=200, blank=True)
+	price = models.DecimalField(max_digits=5, decimal_places=2)
 	digital = models.BooleanField(default=False,null=True, blank=True)
 	image = models.ImageField(null=True, blank=True)
+	bar = models.ForeignKey(Bar, default=None, on_delete=models.SET(get_deleted_bar), blank=True)
 
 	def __str__(self):
 		return self.name

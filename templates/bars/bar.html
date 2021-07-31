@@ -27,7 +27,7 @@
           <a href="{% url 'index' %}">Home</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="{% url 'bars' %}">bars</a>
+          <a href="{% url 'bars' %}">Bars</a>
         </li>
         <li class="breadcrumb-item active">{{bar.name}}</li>
       </ol>
@@ -41,7 +41,7 @@
 <!-- Bar -->
 <section id="bar" class="py-4">
   <div class="container">
-    <a href="javascript:history.back()" class="btn btn-light mb-4">Back To bars</a>
+    <a href="javascript:history.back()" class="btn btn-light mb-4">Back To Bars</a>
     <div class="row">
       <div class="col-md-9">
         <!-- Home Main Image -->
@@ -149,6 +149,7 @@
           </div>
         </div>
       </div>
+      <!-- Creator Description and Bar Inquiry -->
       <div class="col-md-3">
         <div class="card mb-3">
           <img class="card-img-top" src="{{ bar.creator.photo.url }}" alt="Bar Creator">
