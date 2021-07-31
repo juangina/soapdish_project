@@ -88,7 +88,7 @@ def dashboard(request):
         user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
         context = {
             'cartItems': cartItems,
-            'contact': user_contacts
+            'contacts': user_contacts
         }        
         return render(request, 'accounts/dashboard.html', context)
     else:

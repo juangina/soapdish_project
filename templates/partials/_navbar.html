@@ -40,7 +40,7 @@
                         class="nav-item mr-3"
                     {% endif %}
                 >
-                    <a class="nav-link" href="{% url 'bars' %}">Featured Bars</a>
+                    <a class="nav-link" href="{% url 'bars' %}">Our Collection</a>
                 </li>
                 <!--Store Link-->
                 {% if user.is_authenticated %}
@@ -115,7 +115,7 @@
             </div>
 
             {% endif %}
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated and user.is_staff %}
             {% if user.get_username == 'juang' %}
             <div class="form-inline my-2 my-lg-0">              
                 <a href="/admin/">

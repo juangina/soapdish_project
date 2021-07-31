@@ -5,13 +5,21 @@
 
 {% block content%}
 
+<style> 
+  /* unvisited link */ #shop_link a:link {color: white;}
+  /* visited link */ #shop_link a:visited {color: white;}
+  /* mouse over link */ #shop_link a:hover {color: blue; text-decoration: underline; cursor: pointer }
+  /* selected link */ #shop_link a:active {color: blue;}
+</style>
+
 <!-- Showcase -->
 <section id="showcase-inner" class="py-5 text-white">
     <div class="container">
       <div class="row text-center">
         <div class="col-md-12">
-          <h1 class="display-4">Dashboard</h1>
-          <p class="lead">Welcome the soap dish dashboard.  Here you will find a list of all your inquiries you made.  Please shop our store for the lasted offers!</p>
+          <h1 class="display-4">{{user.first_name}}'s Dashboard </h1>
+          <p class="lead">Welcome the soap dish dashboard.  Here you will find a list of all the inquiries you made.</p>
+          <p class="lead">Please shop our <span id="shop_link"><a href="{% url 'store' %}" ><i class="fas fa-store"></i> STORE</a></span> for the latest offers!</p>
         </div>
       </div>
     </div>
@@ -32,7 +40,43 @@
 </div>
 </section>
 
+  <!-- Alerts -->
+  {% include 'partials/_alerts.html' %}
 
+  <!-- Customer Inquiries -->
+  <section id="dashboard" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2> Welcome {{user.first_name}}</h2>
+
+          {% if contacts %}
+            <p>Here are the soap bars that you have inquired about.</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Soap Bar</th>
+                  <th>Inquiry</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for contact in contacts %}
+                  <tr>
+                    <td>{{ contact.id }}</td>
+                    <td><a href="{% url 'bar' contact.bar_id %}">{{ contact.bar }}</a></td>
+                    <td>{{ contact.message}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>You have not made any inquiries.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
 
 <!-- Services -->
 <section id="services" class="py-5 bg-secondary text-white">

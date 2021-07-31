@@ -4,6 +4,12 @@
 {% block title %} | About Us {% endblock %}
 
 {% block content%}
+<style> 
+  /* unvisited link */ #blog_link a:link {color: red;}
+  /* visited link */ #blog_link a:visited {color: green;}
+  /* mouse over link */ #blog_link a:hover {color: blue; text-decoration: underline; cursor: pointer }
+  /* selected link */ #blog_link a:active {color: blue;}
+</style>
 
 <!-- Showcase -->
 <section id="showcase-inner" class="py-5 text-white">
@@ -11,8 +17,8 @@
       <div class="row text-center">
         <div class="col-md-12">
           <h1 class="display-4">About Soap Dish</h1>
-          <p class="lead">Soap Dish is a Father-Daughter collaboration to make fun and nutrional skin loving soap.</p>
-          <p class="lead">Vegetable Based Soap:  An Affordable Luxury!</p>
+          <p class="lead">Soap Dish is a Father-Daughter collaboration to make fun and nutritional skin loving soap.</p>
+          <p class="lead">Vegetable Based Soaps:  An Affordable Luxury!</p>
         </div>
       </div>
     </div>
@@ -41,7 +47,8 @@
           <h2>The Quest For The Perfect Bar of Soap</h2>
           <p class="lead">Below is where all the magic happens!</p>
           <img src="{% static 'img/about-the-lab-01.JPG' %}" alt="about the lab image">
-          <p class="mt-4">We like to call this area, "The Lab".  We carved out a space in our basement to practice the art and science of making soap.  Our creators experience with science, technology, and art helps with the soapmaking process.  The best part is testing your products.</p>
+          <p class="mt-4">We like to call this area, "The Lab".  We carved out a space in our basement to practice the art and science of making soap.  Our creator's experience with science, technology, and art helps with the soapmaking process.  The best part is testing your products.</p>
+          <p class = "lead">Follow our progress on our <span id="blog_link"><a href="http://shielded-temple-82063.herokuapp.com/" ><i class="fab fa-blogger"></i> BLOG </a></span>site as we pursue the perfect soap recipe!</p>
         </div>
         <div class="col-md-4">
           {% if mvc_creators %}
@@ -69,9 +76,9 @@
   <!-- Work -->
   <section id="work" class="bg-dark text-white text-center">
     <h2 class="display-4">We Create For You</h2>
-    <h4>Soap Dish was born to provide a simple means to collaborate on our creativity.  This collaboration of love goes into every Bar we create!</h4>
+    <h4>Soap Dish was born to provide a simple means to collaborate on our creativity.  This collaboration of love goes into every Bar we make!</h4>
     <hr>
-    <a href="#" class="btn btn-secondary text-white btn-lg">View Our Featured Soap Bars</a>
+    <a href="{% url 'bars' %}" class="btn btn-secondary text-white btn-lg">View Our Soap Bar Collection</a>
   </section>
 
   <!-- Team -->
