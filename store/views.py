@@ -9,8 +9,8 @@ def store(request):
 	data = cartData(request)
 
 	cartItems = data['cartItems']
-	order = data['order']
-	items = data['items']
+	#order = data['order']
+	#items = data['items']
 
 	products = Product.objects.all()
 	context = {'products':products, 'cartItems':cartItems}
@@ -19,8 +19,8 @@ def store(request):
 def product(request, product_id):
     data = cartData(request)
     cartItems = data['cartItems']
-    order = data['order']
-    items = data['items']
+    #order = data['order']
+    #items = data['items']
     
     #product = Product.objects.get(id=product_id)
     product = get_object_or_404(Product, pk=product_id)
@@ -55,8 +55,8 @@ def updateItem(request):
 	data = json.loads(request.body)
 	productId = data['productId']
 	action = data['action']
-	print('Action:', action)
-	print('Product:', productId)
+	#print('Action:', action)
+	#print('Product:', productId)
 
 	customer = request.user.customer
 	product = Product.objects.get(id=productId)

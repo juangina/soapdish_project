@@ -6,6 +6,7 @@
 		<div class="col-lg-6">
 			<div class="box-element" id="form-wrapper">
 				<form id="form">
+					{% csrf_token %}
 					<div id="user-info">
 						<div class="form-field">
 							<input required class="form-control" type="text" name="name" placeholder="Name..">
@@ -124,9 +125,13 @@
 		}
 
 		var form = document.getElementById('form')
+
+		//crsftoken = form.getElementByTagName("input")[0].value
+		//console.log('Newtoken:', form.getElementByTagName("input")[0].value)
+
 		form.addEventListener('submit', function(e){
 	    	e.preventDefault()
-	    	console.log('Form Submitted...')
+	    	//console.log('Form Submitted...')
 	    	document.getElementById('form-button').classList.add("hidden");
 	    	document.getElementById('payment-info').classList.remove("hidden");
 	    })
@@ -138,7 +143,7 @@
 	    */
 
 	    function submitFormData(){
-	    	console.log('Payment button clicked')
+	    	//console.log('Payment button clicked')
 
 	    	var userFormData = {
 				'name':null,
@@ -165,8 +170,8 @@
 	    		userFormData.email = form.email.value
 	    	}
 
-	    	console.log('Shipping Info:', shippingInfo)
-	    	console.log('User Info:', userFormData)
+	    	//console.log('Shipping Info:', shippingInfo)
+	    	//console.log('User Info:', userFormData)
 
 			//Send process results to 'backend' for database storage
 	    	var url = "/store/process_order/"
@@ -181,7 +186,7 @@
 	    	})
 	    	.then((response) => response.json())
 	    	.then((data) => {
-				console.log('Success:', data);
+				//console.log('Success:', data);
 				alert('Transaction completed');  
 
 				cart = {}
