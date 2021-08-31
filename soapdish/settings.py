@@ -11,7 +11,8 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'bars.apps.BarsConfig',
     'creators.apps.CreatorsConfig',
-    'store.apps.StoreConfig',    
+    'store.apps.StoreConfig',
+    'chatbot.apps.ChatbotConfig',    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,7 +80,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Be sure to restart nginx and gunicorn on server
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

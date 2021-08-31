@@ -12,38 +12,27 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <!--Margin Left Nav Bar List-->
             <ul class="navbar-nav">
-                <!--Home Link-->
-                <li 
-                    {% if '/' == request.path %}
-                        class="nav-item active mr-3"
-                    {%  else %}
-                        class="nav-item mr-3"
-                    {% endif %}
-                >
-                    <a class="nav-link" href="{% url 'index' %}">Home</a>
-                </li>
-                <!--About Link-->
-                <li 
-                    {% if 'about' in request.path %}
-                        class="nav-item active mr-3"
-                    {%  else %}
-                        class="nav-item mr-3"
-                    {% endif %}
-                >
-                    <a class="nav-link" href="{% url 'about' %}">About</a>
-                </li>
-                <!--Featured Bars Link-->
-                <li 
-                    {% if 'bars' in request.path %}
-                        class="nav-item active mr-3"
-                    {%  else %}
-                        class="nav-item mr-3"
-                    {% endif %}
-                >
-                    <a class="nav-link" href="{% url 'bars' %}">Our Collection</a>
-                </li>
-                <!--Store Link-->
                 {% if user.is_authenticated %}
+                    <!--Collection Link-->
+                    <li 
+                        {% if 'bars' in request.path %}
+                            class="nav-item active mr-3"
+                        {%  else %}
+                            class="nav-item mr-3"
+                        {% endif %}
+                    >
+                        <a class="nav-link" href="{% url 'bars' %}">Our Collection</a>
+                    </li>
+                    <!--Chatbot Link-->
+                    <li 
+                        {% if 'chatbot' in request.path %}
+                            class="nav-item active mr-3"
+                        {%  else %}
+                            class="nav-item mr-3"
+                        {% endif %}
+                    >
+                    <a class="nav-link" href="{% url 'chatbot:home' %}">Chatbot</a>
+                    </li>
                     <li 
                         {% if 'store' in request.path %}
                             class="nav-item active mr-3"
@@ -53,6 +42,37 @@
                     >
                         <a class="nav-link" href="{% url 'store' %}">Store</a>
                     </li>
+                {% else %}
+                    <!--Home Link-->
+                    <li 
+                        {% if '/' == request.path %}
+                            class="nav-item active mr-3"
+                        {%  else %}
+                            class="nav-item mr-3"
+                        {% endif %}
+                    >
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <!--About Link-->
+                    <li 
+                        {% if 'about' in request.path %}
+                            class="nav-item active mr-3"
+                        {%  else %}
+                            class="nav-item mr-3"
+                        {% endif %}
+                    >
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                    <!--Collection Link-->
+                    <li 
+                        {% if 'bars' in request.path %}
+                            class="nav-item active mr-3"
+                        {%  else %}
+                            class="nav-item mr-3"
+                        {% endif %}
+                    >
+                        <a class="nav-link" href="{% url 'bars' %}">Our Collection</a>
+                    </li>                    
                 {% endif %}
             </ul>
 
