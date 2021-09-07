@@ -12,7 +12,8 @@ INSTALLED_APPS = [
     'bars.apps.BarsConfig',
     'creators.apps.CreatorsConfig',
     'store.apps.StoreConfig',
-    'chatbot.apps.ChatbotConfig',    
+    'chatbot.apps.ChatbotConfig',
+    'chat.apps.ChatConfig',    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -21,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'embed_video',
+    'chatterbot.ext.django_chatterbot',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +121,15 @@ MESSAGE_TAGS = {
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CHATTERBOT = {
+    'name': 'Tech Support Bot',
+    'logic_adapters': [
+        'chatterbot.logic.MathematicalEvaluation',
+        'chatterbot.logic.TimeLogicAdapter',
+        'chatterbot.logic.BestMatch'
+    ]
+}
 
 # Security Settings kept in separate file
 #######################################################################

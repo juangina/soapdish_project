@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+<!-- Used to format integer number with commas -->
+{% load humanize %}
+
+{% block title %} | Welcome {% endblock %}
+
+{% block content%}
+<!-- Embed a Video into your page -->
+{% load embed_video_tags %}
+
+  <!-- Alerts -->
+  {% include 'partials/_alerts.html' %}
+
+  <!-- Creator Listings -->
+  <section id="listings" class="py-5">
+    <div class="container">
+      <h3 class="text-center mb-3">Creators</h3>
+      <!--Listing Iteration-->
+      <div class="row">
+        {% if creators %}
+          {% for creator in creators %}
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card listing-preview">
+              <img class="card-img-top" src="{{ creator.photo.url }}" alt="">
+              <div class="card-img-overlay">
+                <h2>
+                  <!--
+                  <span class="badge badge-secondary text-white">${{bar.price | intcomma}}</span>
+                  -->
+                </h2>
+              </div>
+              <div class="card-body">
+                <div class="listing-heading text-center">
+                  <h4 class="text-primary"><a href="{% url 'creator_bar_list_view' creator.name %}" class="link">{{creator.name}}</a></h4>
+                  <p>
+                    <i class="fas fa-map-marker text-secondary"></i> {{creator.description}} </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="col-md-12">
+            <p>No Creators Available</p>
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Bar Listings -->
+  <section id="listings" class="py-5">
+    <div class="container">
+      <h3 class="text-center mb-3">Our Latest Creations</h3>
+      <!--Listing Iteration-->
+      <div class="row">
+        {% if bars %}
+          {% for bar in bars %}
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card listing-preview">
+              <img class="card-img-top" src="{{ bar.photo_main.url }}" alt="">
+              <div class="card-img-overlay">
+                <h2>
+                  <!--
+                  <span class="badge badge-secondary text-white">${{bar.price | intcomma}}</span>
+                  -->
+                </h2>
+              </div>
+              <div class="card-body">
+                <div class="listing-heading text-center">
+                  <h4 class="text-primary">{{bar.name}}</h4>
+                  <p>
+                    <i class="fas fa-map-marker text-secondary"></i> {{bar.description}} </p>
+                </div>
+                <hr>
+                <div class="row py-2 text-secondary">
+                  <div class="col-12"><i class="fas fa-th-large"></i> Fragrance: {{bar.fragrance}}</div>
+                </div>
+                <div class="row py-2 text-secondary">
+                  <div class="col-12"><i class="fas fa-th-large"></i> Nutrients: {{bar.nutrients}}</div>
+                </div>
+                <div class="row py-2 text-secondary">
+                  <div class="col-12"><i class="fas fa-th-large"></i> Exfolients: {{bar.exfolients}}</div>
+                </div>
+                <hr>
+                <div class="row py-2 text-secondary">
+                  <div class="col-6">
+                    <i class="fas fa-user"></i> {{bar.creator}}</div>
+                </div>
+                <div class="row text-secondary pb-2">
+                  <div class="col-6">
+                    <i class="fas fa-clock"></i> {{bar.created_date | timesince}}</div>
+                </div>
+                <hr>
+                <a href="{% url 'bar' bar.id %}" class="btn btn-primary btn-block">More Info</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="col-md-12">
+            <p>No Listings Available</p>
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-5 bg-secondary text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-4">
+          <i class="fas fa-chalkboard-teacher fa-4x mr-4"></i>
+          <hr>
+          <h3>Basic Soapmaking Training</h3>
+          <p>Making your own soap can be a rewarding experience.  The process of making soap is simple. This can become a routine and fun activity with some basic ingredients.  The reward is the quality of the soap and the satisfaction that you know exactly what you are using to clean your body every day.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-drafting-compass fa-4x mr-4"></i>
+          <hr>
+          <h3>Website Design for Soapmakers</h3>
+          <p>Use my experience to help develop and collaborate on a personal website to display and sell your soaps to family and friends.  My services include eCommerce, eMail, and Blogging support.  Having a presence in cyperspace is one way of sharing your creativity with the world.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-microscope fa-4x mr-4"></i>
+          <hr>
+          <h3>Soapmaking Curriculum Development</h3>
+          <p>Soapmaking is a precise measurement process.  Many aspects of soapmaking can be included in your school curriculum.  The process of making soap encompasses Mathematics, Measurement, Chemistry, and Manufacturing.  Imagine your students learning these topics while producing an actual product they can use at home?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+{% endblock %}

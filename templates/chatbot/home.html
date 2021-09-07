@@ -35,20 +35,52 @@
 </section>
 
 <!-- Chatbot Interactive Dashboard -->
+<section>
+    <div class="container">
+        <div class="jumbotron mt-2">
+    
+          <h1 class="jumbotron-heading text-xs-center">SoapDish ChatBot  <span><img src="{% static 'img/soapdish_bot.png' %}" alt="Soapdish Chatbot Image" style="width:92px;height:50px;"></span></h1>
+          <p class="lead text-xs-center">
+            <span><img src="{% static 'img/soapdish_chat.jpg' %}" alt="Soapdish Chatbot Image" style="width:50px;height:50px;"></span>  This is a web app that allows you to talk to SoapBot.</p>
+          <p>Type "<strong>"Hi Soapdish"</strong> to start the chat.  Type <strong>"Exit"</strong> to end the chat.</p>
+          <hr class="my-2">
+    
+          <div class="row">
+            <div class="col-xs-6 offset-xs-3">
+    
+              <ul class="list-group chat-log js-chat-log">
+              </ul>
+    
+              <div class="input-group input-group-lg mt-1">
+                <input type="text" id = "chat-input" class="form-control js-text"/>
+                <span class="input-group-btn">
+                  <button class="btn btn-primary js-say">Submit</button>
+                </span>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+
+<!-- NLP Text Analysis Dashboard -->
 <section id="listings" class="py-5">
     <div class="container">
-        <!-- Alerts -->
-        {% include 'partials/_alerts.html' %}
         <div class="row text-center">
             <div class="col-md-12">
                 <form action="{% url 'chatbot:home' %}" method="POST">
                     {% csrf_token %}
-                    <label class="chat_text">Chatbox Text</label>
+                    <label class="chat_text">NLP (Natural Language Processing) Text Analysis Tools</label>
                     <textarea id= "chat_text" name="chat_text" class="form-control" placeholder="Copy some text in here for Chatbot to Analyze."></textarea>
                     <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
                 </form>
             </div>
         </div>
+
+        <!-- Alerts -->
+        {% include 'partials/_alerts.html' %}
+        
         <div class="row text-center">
             <div class="col-md-12">
                 <h1 style="color:#ff0000;">Basic Tokenization</h1>
@@ -127,5 +159,93 @@
     </div>
 </section>
 
-
 {% endblock %}
+
+{% block extra_scripts %} 
+
+  <!-- Script for Chatbot -->
+  <script>
+    var chatbotUrl = '{% url "chatbot:chatbot" %}';
+
+    var csrftoken = Cookies.get('csrftoken');
+
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      }
+    });
+
+    var $chatlog = $('.js-chat-log'); //<ul class="list-group chat-log js-chat-log"></ul>
+    var $input = $('.js-text'); //<input type="text" class="form-control js-text"/>
+    var $sayButton = $('.js-say'); //<button class="btn btn-primary js-say">Submit</button>
+
+  // Creates a row line of text using the html unordered list above the submit area.
+    function createRow(text) { 
+      var $row = $('<li class="list-group-item"></li>');
+      $row.text(text);
+      $chatlog.append($row);
+    }
+
+    function submitInput() {
+  // Set up a JS Object Array with the input assigned 'text' index. 
+      var inputData = {
+        'text': $input.val()
+      }
+      // Display the user's input on the web page.
+      createRow(inputData.text);
+
+  // Manually (meaning not autmatically with the form element) submit a post request to the chatterbot API.
+  // JS allows us to do some "frontend" preprocessing before sending it to "backend" postprocessing.	
+      var $submit = $.ajax({
+        type: 'POST',
+        url: chatbotUrl,
+        data: JSON.stringify(inputData),
+        contentType: 'application/json'
+      });
+
+  // Submit the http request and process a done function from the response
+      $submit.done(function(statement) {
+          createRow(statement.text);
+
+          // Clear the input field
+          $input.val('');
+
+          // Scroll to the bottom of the chat interface
+          $chatlog[0].scrollTop = $chatlog[0].scrollHeight;
+
+          //console.log(statement.chat_status);
+          if (statement.chat_status == false) {
+            const chatList = document.getElementsByClassName("list-group-item")
+            for (let i = 0; i < chatList.length; i++ ) {
+                //console.log(chatList[i])
+                chatList[i].style.color = "red"
+            }
+
+          }
+      });
+
+      $submit.fail(function() {
+        // TODO: Handle errors
+      });
+    }
+
+    $sayButton.click(function() {
+      submitInput();
+    });
+
+    $input.keydown(function(event) {
+      // Submit the input when the enter button is pressed
+      if (event.keyCode == 13) {
+        submitInput();
+      }
+    });
+  </script>
+
+{% endblock extra_scripts %}

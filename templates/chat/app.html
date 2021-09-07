@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+{% load static %}
+
+
+{% block title %} | Chat App {% endblock %}
+
+{% block content %}
+
+    <div class="container">
+      <!-- Alerts -->
+      {% include 'partials/_alerts.html' %}
+      <div class="jumbotron mt-2">
+        
+        <h1 class="jumbotron-heading text-xs-center">SoapDish ChatterBot</h1>
+        <p class="lead text-xs-center">
+          <span><img src="{% static 'img/soapdish_chat.jpg' %}" alt="Soapdish Chatbot Image" style="width:50px;height:50px;"></span>  This is a web app that allows you to talk to SoapBot.  <span><img src="{% static 'img/soapdish_bot.png' %}" alt="Soapdish Chatbot Image" style="width:92px;height:50px;"></span>
+        </p>
+        <hr class="my-2">
+        <div class="row">
+          <div class="col-xs-6 offset-xs-3">
+
+            <ul class="list-group chat-log js-chat-log">
+            </ul>
+
+            <div class="input-group input-group-lg mt-1">
+              <input type="text" class="form-control js-text" placeholder="Type 'Hi Soapdish' to begin the chat..."/>
+              <span class="input-group-btn">
+                <button class="btn btn-primary js-say">Submit</button>
+              </span>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_scripts %} 
+
+  <!-- Script for Chatterbot -->
+  <script>
+    var chatterbotUrl = '{% url "chatterbot" %}';
+    var csrftoken = Cookies.get('csrftoken');
+
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      }
+    });
+
+    var $chatlog = $('.js-chat-log'); //<ul class="list-group chat-log js-chat-log"></ul>
+    var $input = $('.js-text'); //<input type="text" class="form-control js-text" placeholder="Type something to begin the chat..."/>
+    var $sayButton = $('.js-say'); //<button class="btn btn-primary js-say">Submit</button>
+
+  // Creates a row line of text using the html unordered list above the submit area.
+    function createRow(text) { 
+      var $row = $('<li class="list-group-item"></li>');
+      $row.text(text);
+      $chatlog.append($row);
+    }
+
+    function submitInput() {
+  // Set up a JS Object Array with the input assigned 'text' index. 
+      var inputData = {
+        'text': $input.val()
+      }
+      // Display the user's input on the web page.
+      createRow(inputData.text);
+
+  // Manually (meaning not autmatically with the form element) submit a post request to the chatterbot API.
+  // JS allows us to do some "fronten" preprocessing before sending it to "backend" postprocessing.	
+      var $submit = $.ajax({
+        type: 'POST',
+        url: chatterbotUrl,
+        data: JSON.stringify(inputData),
+        contentType: 'application/json'
+      });
+
+  // Submit the http request and process a done function from the response
+      $submit.done(function(statement) {
+          createRow(statement.text);
+
+          // Clear the input field
+          $input.val('');
+
+          // Scroll to the bottom of the chat interface
+          $chatlog[0].scrollTop = $chatlog[0].scrollHeight;
+      });
+
+      $submit.fail(function() {
+        // TODO: Handle errors
+      });
+    }
+
+    $sayButton.click(function() {
+      submitInput();
+    });
+
+    $input.keydown(function(event) {
+      // Submit the input when the enter button is pressed
+      if (event.keyCode == 13) {
+        submitInput();
+      }
+    });
+  </script>
+
+{% endblock extra_scripts %}
