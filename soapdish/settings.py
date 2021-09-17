@@ -13,7 +13,7 @@ INSTALLED_APPS = [
     'creators.apps.CreatorsConfig',
     'store.apps.StoreConfig',
     'chatbot.apps.ChatbotConfig',
-    'chat.apps.ChatConfig',    
+    #'chat.apps.ChatConfig',    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'embed_video',
-    'chatterbot.ext.django_chatterbot',
+    #'chatterbot.ext.django_chatterbot',
 ]
 
 MIDDLEWARE = [
