@@ -278,7 +278,7 @@ class ChatBotApiView(View):
         #  print(type(will_help)) # debug print statement
 
         reply = reply.lower()
-        print(reply) # debug print statment
+        #print(reply) # debug print statment
 
         if reply == "hi soapdish" or reply == "hi soapdish." or reply == "hi soapdish!":
             conversation_meta, created = Conversation_Meta.objects.get_or_create(user=request.user)
@@ -321,7 +321,7 @@ class ChatBotApiView(View):
                 response = self.match_reply(reply, conversation_meta)
                 conversation_meta.conversation_dialog_set.create(dialog=response)
 
-            # response = "I am sorry, I did not understand.  Please type 'Hi Soapdish' to start the chat."
+        #    response = "I am sorry, I did not understand.  Please type 'Hi Soapdish' to start the chat."
 
         # setup response from soapdish chatbot for transfer response to client
         # format must be a python dictionary object
@@ -332,7 +332,7 @@ class ChatBotApiView(View):
             response_dict['chat_status'] = True
         except:
             response_dict['chat_status'] = False
-        print(response_dict) # debug print statement
+        #print(response_dict) # debug print statement
 
         return JsonResponse(response_dict, status=200)
 
