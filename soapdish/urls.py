@@ -10,6 +10,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('contacts/', include('contacts.urls')),
     path('store/', include('store.urls')),
-    path('chatbot', include('chatbot.urls')),
+    path('chatbot/', include('chatbot.urls')),
     #path('chat', include('chat.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
