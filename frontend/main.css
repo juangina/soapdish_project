@@ -7,7 +7,7 @@ img{
     width:100%
 }
 
-#projects--wrapper{
+#bars--wrapper{
     max-width:600px;
     margin:0 auto;
     margin-top:2em;
@@ -16,7 +16,7 @@ img{
     border-radius: 5px;
 }
 
-.project--card{
+.bar--card{
     display: grid;
     grid-template-columns:1fr 3fr;
     gap:2em;
@@ -32,7 +32,7 @@ img{
     gap:2em;
 }
 
-.project--card p{
+.bar--card p{
     color: #737373;
 }
 

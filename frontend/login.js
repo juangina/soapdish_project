@@ -15,14 +15,15 @@ form.addEventListener('submit', (e) => {
         },
         body: JSON.stringify(formData)
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log('DATA:', data.access)
-            if (data.access) {
-                localStorage.setItem('token', data.access)
-                window.location = 'file:///C:/Users/juang/webApps/08mlPythonApps/soapdish_bar/frontend/bars-list.html'
-            } else {
-                alert('Username OR password did not work')
-            }
-        })
+    .then(response => response.json())
+    .then(data => {
+        //console.log('DATA:', data.access)
+        if (data.access) {
+            localStorage.setItem('token', data.access)
+            //alert('Username AND password worked.  Access Token Saved')
+            window.location = 'file:///C:/Users/juang/webApps/08mlPythonApps/soapdish_project/frontend/bars-list.html'
+        } else {
+            alert('Username OR password did not work')
+        }
+    })
 })

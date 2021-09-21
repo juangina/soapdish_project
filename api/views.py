@@ -30,7 +30,7 @@ def getRoutes(request):
 @api_view(['GET'])
 #@permission_classes([IsAuthenticated])
 def getBars(request):
-    print('USER: ', request.user)
+    #print('USER: ', request.user)
     bars = Bar.objects.all()
     serializer = BarSerializer(bars, many=True)
     return Response(serializer.data)
@@ -46,8 +46,8 @@ def getBar(request, pk):
 @permission_classes([IsAuthenticated])
 def addBar(request):
 
-    print('USER: ', request.user)
-    print('DATA: ', request.data)
+    #print('USER: ', request.user)
+    #print('DATA: ', request.data)
 
     creator = Creator.objects.get(name=request.data['creator'])
     name = request.data['name']

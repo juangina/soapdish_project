@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'embed_video',
 
     'rest_framework',
+    'corsheaders',
 
     #'chatterbot.ext.django_chatterbot',
     #'chat.apps.ChatConfig',
@@ -70,6 +71,8 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -141,6 +144,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
