@@ -20,6 +20,10 @@ from django.views.generic import View
 from .models import Conversation_Meta, Conversation_Dialog
 from store.utils import cookieCart, cartData, guestOrder
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+@login_required
 def index(request):
     data = cartData(request)
     cartItems = data['cartItems']
@@ -186,7 +190,7 @@ class ChatBot:
 # This class does not have to handle a templete, 
 # therefore you only need for it to dispatch get/post operations,
 # hence the inheretance from View.
-class ChatBotApiView(View):
+class ChatBotApiView(LoginRequiredMixin, View):
 
     # potential negative responses
     negative_responses = ("no", "nope", "nah", "naw", "not a chance", "sorry")

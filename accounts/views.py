@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from contacts.models import Contact
+from django.contrib.auth.decorators import login_required
 
 from store.models import Customer
 from store.utils import cookieCart, cartData, guestOrder
@@ -21,11 +22,14 @@ def register(request):
         password2 = request.POST['password2']
 
         if password == password2:
-            # Check username
+            # Check if username already taken
+            # Backwards logic
             if User.objects.filter(username=username).exists():
                 messages.error(request, 'That username is taken')
                 return redirect('register')
             else:
+                # Checks if email already taken
+                # Backwards logic
                 if User.objects.filter(email=email).exists():
                     messages.error(request, 'That email is being used')
                     return redirect('register')
@@ -78,6 +82,7 @@ def login(request):
         } 
         return render(request, 'accounts/login.html', context)
 
+@login_required
 def dashboard(request):
     if request.user.is_authenticated:
         data = cartData(request)
