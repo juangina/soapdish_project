@@ -17,6 +17,7 @@ def register(request):
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         username = request.POST['username']
+        username = username.lower()
         email = request.POST['email']
         password = request.POST['password']
         password2 = request.POST['password2']
@@ -25,13 +26,13 @@ def register(request):
             # Check if username already taken
             # Backwards logic
             if User.objects.filter(username=username).exists():
-                messages.error(request, 'That username is taken')
+                messages.error(request, 'That username is taken.')
                 return redirect('register')
             else:
                 # Checks if email already taken
                 # Backwards logic
                 if User.objects.filter(email=email).exists():
-                    messages.error(request, 'That email is being used')
+                    messages.error(request, 'That email is being used.')
                     return redirect('register')
                 else:
                     # Server Side Authentication Passed
@@ -43,11 +44,15 @@ def register(request):
                     # return redirect('index')
                     #user.save();
                     customer = Customer.objects.create(user = user, name= first_name + ' ' + last_name, email=email)
-                    customer.save();
-                    messages.success(request, 'You are now registered and can log in')
-                    return redirect('login')
+                    customer.save()
+
+                    #messages.success(request, 'You are now registered and can log in.')
+                    auth.login(request, user)
+                    messages.success(request, 'You are now registered and log in.')
+
+                    return redirect('dashboard')
         else:
-            messages.error(request, 'Passwords do not match')
+            messages.error(request, 'Passwords do not match.')
             return redirect('register')
     else:
         data = cartData(request)
@@ -60,6 +65,9 @@ def register(request):
         return render(request, 'accounts/register.html', context)
 
 def login(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -100,6 +108,7 @@ def dashboard(request):
         messages.error(request, 'Please login to gain access to dashboard.')
         return redirect ('login')
 
+@login_required
 def logout(request):   
     if request.method == 'POST':
         auth.logout(request)

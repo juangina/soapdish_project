@@ -7,7 +7,7 @@ class BarsAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'name')
     list_editable = ('is_cured',)
     search_fields = ('name',)
-    list_per_page = 3
+    list_per_page = 50
 
 
 #admin.site.register(Bars, BarsAdmin)
