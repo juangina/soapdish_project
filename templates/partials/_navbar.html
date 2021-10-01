@@ -129,17 +129,16 @@
             {% if user.is_authenticated %}
                 <div class="form-inline my-2 my-lg-0">              
                     <a href="{% url 'cart' %}">
-                    <img  id="cart-icon" src="{% static 'img/cart.png' %}">
-                </a>
-                <p id="cart-total">{{cartItems}}</p>
-            </div>
-
+                        <img  id="cart-icon" src="{% static 'img/cart.png' %}"/>
+                    </a>
+                    <p id="cart-total">{{cartItems}}</p>
+                </div>
             {% endif %}
             {% if user.is_authenticated and user.is_staff %}
                 <div class="form-inline my-2 my-lg-0">              
                     <a href="/admin/">
                         <i class="fas fa-database ml-4 fa-2x"></i>
-                </a>
+                    </a>
                 </div>
             {% endif %}
         </div>

@@ -10,5 +10,4 @@ class BarsAdmin(admin.ModelAdmin):
     list_per_page = 50
 
 
-#admin.site.register(Bars, BarsAdmin)
 admin.site.register(Bar, BarsAdmin)

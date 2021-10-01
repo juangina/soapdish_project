@@ -20,33 +20,22 @@ for (i = 0; i < updateBtns.length; i++) {
 function updateUserOrder(productId, action){
 	//console.log('User is authenticated, sending data...')
 
-	var itemQty = document.getElementById('itemQty');
-	if (itemQty) {
-		var qty = itemQty.value;
-	}
-	else {
-		var qty = 0;
-	}
+		var url = '/store/update_item/'
 
-	
-	var url = '/store/update_item/'
-
-	fetch(url, {
-		method:'POST',
-		headers:{
-			'Content-Type':'application/json',
-			'X-CSRFToken':csrftoken,
-		}, 
-		body:JSON.stringify({'productId':productId, 'action':action, 'qty':qty})
-	})
-	.then((response) => {
-		return response.json();
-	})
-	.then((data) => {
-		location.reload()
-	});
-	
-	//console.log('Item Quantity: ' + qty);	
+		fetch(url, {
+			method:'POST',
+			headers:{
+				'Content-Type':'application/json',
+				'X-CSRFToken':csrftoken,
+			}, 
+			body:JSON.stringify({'productId':productId, 'action':action})
+		})
+		.then((response) => {
+		   return response.json();
+		})
+		.then((data) => {
+		    location.reload()
+		});
 }
 
 function addCookieItem(productId, action){

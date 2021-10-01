@@ -19,17 +19,17 @@
 
   	<!-- Breadcrumb -->
 	<section id="bc" class="mt-3">
-	<div class="container">
-		<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item">
-			<a href="{% url 'index' %}">
-				<i class="fas fa-home"></i> Home</a>
-			</li>
-			<li class="breadcrumb-item active">Available Products</li>
-		</ol>
-		</nav>
-	</div>
+		<div class="container">
+			<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">
+					<i class="fas fa-home"></i> Home</a>
+				</li>
+				<li class="breadcrumb-item active">Available Products</li>
+			</ol>
+			</nav>
+		</div>
 	</section>
 
 	<!-- Products -->
@@ -45,9 +45,9 @@
 						<div class="box-element product">
 							<h6><strong>{{product.name}}</strong></h6>
 							<hr>
-							<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-							<a class="btn btn-outline-success" href="{% url 'product' product.id %}">View</a>
-							<h4 style="display: inline-block; float: right"><strong>${{product.price}}</strong></h4>
+							<!-- <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button> -->
+							<a class="btn btn-outline-success" href="{% url 'product' product.id %}">View Details</a>
+							<h4 style="float: right;"><strong>${{product.price}}</strong></h4>
 						</div>
 					</div>
 					{% endfor %}

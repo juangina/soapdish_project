@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from contacts.models import Contact
 from django.contrib import messages
-# from django.core.mail import send_mail
+from django.core.mail import send_mail
 
 def contact(request):
     if request.method == 'POST':
@@ -26,14 +26,14 @@ def contact(request):
         contact = Contact(bar_id=bar_id, bar=bar, name=name, email=email, phone=phone, message=message, user_id=user_id)
         contact.save()
 
-        # Send Mail
-        # send_mail(
-        #     'Property bar Inquiry',
-        #     'There has been an inquiry for ' + bar + '. Sign into the admin panel for more information.',
-        #     'jejlifestyle@theaccidentallifestyle.net',
-        #     [realtor_email, 'ericrenee21@gmail.com'],
-        #     fail_silently=False
-        # )
+        #Send Mail
+        send_mail(
+            'Property bar Inquiry',
+            'There has been an inquiry for ' + bar + '. Sign into the admin panel for more information.',
+            'soapdish@theaccidentallifestyle.net',
+            ['ericrenee21@gmail.com'],
+            fail_silently=False
+        )
 
         messages.success(request, 'Your request has been submitted.  An associate will get back to you soon.')
 
