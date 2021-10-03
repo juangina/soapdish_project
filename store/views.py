@@ -6,6 +6,7 @@ from .models import *
 from .utils import cookieCart, cartData, guestOrder
 from django.contrib.auth.decorators import login_required
 
+#Renders product listing page
 @login_required(login_url="login")
 def store(request):
 	data = cartData(request)
@@ -18,6 +19,7 @@ def store(request):
 	context = {'products':products, 'cartItems':cartItems}
 	return render(request, 'store/store.html', context)
 
+#Renders product page
 @login_required(login_url="login")
 def product(request, product_id):
     data = cartData(request)
@@ -34,6 +36,7 @@ def product(request, product_id):
     }
     return render(request, 'store/product.html', context)
 
+#Renders cart page
 @login_required(login_url="login")
 def cart(request):
 	data = cartData(request)
@@ -45,6 +48,7 @@ def cart(request):
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
 	return render(request, 'store/cart.html', context)
 
+#Renders checkout page 
 @login_required(login_url="login")
 def checkout(request):
 	data = cartData(request)
@@ -56,6 +60,8 @@ def checkout(request):
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
 	return render(request, 'store/checkout.html', context)
 
+
+#API - Return updated cart quantity status Json data
 @login_required(login_url="login")
 def updateItem(request):
 	data = json.loads(request.body)
@@ -80,11 +86,13 @@ def updateItem(request):
 
 	orderItem.save()
 
-	if orderItem.quantity <= 0:
+	if orderItem.quantity <= 0 or action == 'delete':
 		orderItem.delete()
+		return JsonResponse('Item was deleted', safe=False)
 
-	return JsonResponse('Item was added', safe=False)
+	return JsonResponse('Item(s) was added', safe=False)
 
+#API - Returns 
 @login_required(login_url="login")
 def processOrder(request):
 	transaction_id = datetime.datetime.now().timestamp()
