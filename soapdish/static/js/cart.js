@@ -2,44 +2,62 @@
 
 var updateBtns = document.getElementsByClassName('update-cart')
 var deleteBtns = document.getElementsByClassName('delete-item')
+var updateSelection = document.getElementsByClassName('item-quantity')
 
 for (i = 0; i < updateBtns.length; i++) {
 	updateBtns[i].addEventListener('click', function(){
 		var productId = this.dataset.product
 		var action = this.dataset.action
+		var itemQty = document.getElementById('itemQty');
+		if(itemQty) {
+			var qty = itemQty.value;
+		}
+		else {
+			var qty = 1
+		}
+		console.log(productId, action, qty);
+
 		//console.log('productId:', productId, 'Action:', action)
 		//console.log('USER:', user)
 
 		if (user == 'AnonymousUser'){
-			addCookieItem(productId, action);
+			addCookieItem(productId, action, qty);
 		}else{
-			updateUserOrder(productId, action);
+			updateUserOrder(productId, action, qty);
 		}
 	})
 }
 for (i = 0; i < deleteBtns.length; i++) {
 	deleteBtns[i].addEventListener('click', function() {
 		var productId = this.dataset.product;
-		var action = this.dataset.action
+		var action = this.dataset.action;
+		var qty = '1';
+		console.log(productId, action, qty);
+
 		if (user == 'AnonymousUser'){
-			addCookieItem(productId, action);
+			addCookieItem(productId, action, qty);
 		}else{
-			updateUserOrder(productId, action);
+			updateUserOrder(productId, action, qty);
 		}		
 	})
 }
+for (i = 0; i < updateSelection.length; i++) {
+	updateSelection[i].addEventListener('change', function(e) {
+		var productId = this.dataset.product;
+		var action = this.dataset.action;
+		var qty = e.target.value;
+		console.log(productId, action, qty);
 
-function updateUserOrder(productId, action){
+		if (user == 'AnonymousUser'){
+			addCookieItem(productId, action, qty);
+		}else{
+			updateUserOrder(productId, action, qty);
+		}
+	})
+}
+
+function updateUserOrder(productId, action, qty){
 	//console.log('User is authenticated, sending data...')
-
-	var itemQty = document.getElementById('itemQty');
-	if (itemQty) {
-		var qty = itemQty.value;
-	}
-	else {
-		var qty = 0;
-	}
-
 	
 	var url = '/store/update_item/'
 
@@ -61,16 +79,8 @@ function updateUserOrder(productId, action){
 	//console.log('Item Quantity: ' + qty);	
 }
 
-function addCookieItem(productId, action){
+function addCookieItem(productId, action, qty){
 	//console.log('User is not authenticated')
-	var itemQty = document.getElementById('itemQty');
-	if (itemQty) {
-		var qty = itemQty.value;
-	}
-	else {
-		var qty = 0;
-	}
-	
 	if (action == 'add'){
 		if (cart[productId] == undefined){
 		cart[productId] = {'quantity': parseInt(qty)}

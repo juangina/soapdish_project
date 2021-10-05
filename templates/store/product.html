@@ -110,16 +110,16 @@
         <div class="row mb-2">
           <div class="col-md-12">
             <label for="itemQty">Item Quantity</label>
-            <select name="itemQty" id="itemQty">
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-              <option value="4">Four</option>
+            <!--Add Items Quantity Selector-->
+            <select name="itemQty" id="itemQty" class="form-control">
+              {% for key, value in quantity_choices.items %}
+                <option value="{{key}}"> {{value}} </option>
+              {% endfor %}
             </select>
           </div>
         </div>
 
-        <!-- Add to Cart Button -->
+        <!--Add Items Event Object-->
         <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart mb-2">Add to Cart</button>
 
         <!-- Product Attributes -->
