@@ -63,6 +63,7 @@
 					<div style="flex:2"><p>{{item.product.name}}</p></div>
 					<div style="flex:1"><p>${{item.product.price|floatformat:2}}</p></div>
 					<div style="flex:1"><p>x{{item.quantity}}</p></div>
+					<div style="flex:1"><button data-product="{{item.product.id}}" data-action="delete" type="button" class="btn btn-danger delete-item">Delete</button></div>
 				</div>
 				{% endfor %}
 				<h5>Items:   {{order.get_cart_items}}</h5>

@@ -7,7 +7,7 @@ from .utils import cookieCart, cartData, guestOrder
 from django.contrib.auth.decorators import login_required
 
 #Renders product listing page
-@login_required(login_url="login")
+#@login_required(login_url="login")
 def store(request):
 	data = cartData(request)
 
@@ -20,7 +20,7 @@ def store(request):
 	return render(request, 'store/store.html', context)
 
 #Renders product page
-@login_required(login_url="login")
+#@login_required(login_url="login")
 def product(request, product_id):
     data = cartData(request)
     cartItems = data['cartItems']
@@ -37,7 +37,7 @@ def product(request, product_id):
     return render(request, 'store/product.html', context)
 
 #Renders cart page
-@login_required(login_url="login")
+#@login_required(login_url="login")
 def cart(request):
 	data = cartData(request)
 
@@ -49,7 +49,7 @@ def cart(request):
 	return render(request, 'store/cart.html', context)
 
 #Renders checkout page 
-@login_required(login_url="login")
+#@login_required(login_url="login")
 def checkout(request):
 	data = cartData(request)
 	
@@ -62,7 +62,7 @@ def checkout(request):
 
 
 #API - Return updated cart quantity status Json data
-@login_required(login_url="login")
+#@login_required(login_url="login")
 def updateItem(request):
 	data = json.loads(request.body)
 	productId = data['productId']
@@ -81,7 +81,7 @@ def updateItem(request):
 		orderItem.quantity = (orderItem.quantity + int(qty))
 	elif action == 'add1':
 		orderItem.quantity = (orderItem.quantity + 1)
-	elif action == 'remove1':
+	elif orderItem.quantity > 1 and action == 'remove1':
 		orderItem.quantity = (orderItem.quantity - 1)
 
 	orderItem.save()
@@ -93,7 +93,7 @@ def updateItem(request):
 	return JsonResponse('Item(s) was added', safe=False)
 
 #API - Returns 
-@login_required(login_url="login")
+#@login_required(login_url="login")
 def processOrder(request):
 	transaction_id = datetime.datetime.now().timestamp()
 	data = json.loads(request.body)
