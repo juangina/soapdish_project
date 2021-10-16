@@ -14,7 +14,8 @@ urlpatterns = [
     path('store/', include('store.urls')),
     
     path('chatbot/', include('chatbot.urls')),
-    #path('chat', include('chat.urls')),
+
+    path('inventory/', include('inventory.urls')),
 
     path('api/', include('api.urls')),
     

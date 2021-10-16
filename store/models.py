@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from bars.models import Bar
 
+#set a default bar for product if assigned bar is deleted
+def get_deleted_bar():
+	return Bar.objects.get_or_create(name='delected')[0]
+
 class Customer(models.Model):
 	user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
 	name = models.CharField(max_length=200, null=True)
@@ -9,11 +13,6 @@ class Customer(models.Model):
 
 	def __str__(self):
 		return self.name
-
-#set a default bar for product if assigned bar is deleted
-def get_deleted_bar():
-	return Bar.objects.get_or_create(name='delected')[0]
-#deleted_bar = Bar.objects.get_or_create(name='deleted')[0]
 
 class Product(models.Model):
 	name = models.CharField(max_length=200, blank=True)

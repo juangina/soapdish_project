@@ -4,7 +4,6 @@ import json
 import datetime
 from .models import * 
 from .utils import cartData, guestOrder, userCartData, guestCartData, quantity_choices
-
 from django.contrib.auth.decorators import login_required
 
 # from django import template

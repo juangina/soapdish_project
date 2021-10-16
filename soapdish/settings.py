@@ -7,15 +7,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Application definition
 INSTALLED_APPS = [
-    'contacts.apps.ContactsConfig',
+    
     'accounts.apps.AccountsConfig',
-    'pages.apps.PagesConfig',
     'bars.apps.BarsConfig',
-    'creators.apps.CreatorsConfig',
-    'store.apps.StoreConfig',
-
     'chatbot.apps.ChatbotConfig',
-
+    'contacts.apps.ContactsConfig',
+    'creators.apps.CreatorsConfig',
+    'inventory.apps.InventoryConfig',
+    'pages.apps.PagesConfig',
+    'store.apps.StoreConfig',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
