@@ -27,6 +27,7 @@ def inventory(request):
 	keywords = ''
 	expenses_sum = 0
 	inventory_sum = 0
+	queryset_list = ''
 
 
     # Search for Category in category
