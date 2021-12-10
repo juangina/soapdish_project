@@ -86,7 +86,6 @@ def checkout(request):
 	}
 	return render(request, 'store/checkout.html', context)
 
-
 #API - Return updated cart quantity status Json data
 @login_required(login_url="login")
 def updateItem(request):
