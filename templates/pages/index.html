@@ -27,15 +27,17 @@
 
   {% if video %}
   <!-- Introductory Video -->
-  <section id="introductory-video">
+  <section id="introductory-video" class="py-5">
     <div class="container text-center">
       <div class="home-search p-2">
         <div class="overlay p-2">
           <h1 class="display-4 mb-2">Welcome Video</h1>
           <p class="lead">Learn how to use this website.</p> 
-          <div class="px-3 mb5">
-            {% video video.videoURL 'medium' %}
+          <div class="row">
+            <div class="col-12 mb-4">
+            {% video video.videoURL 'small' %}
             <div>{{ video.topic }} </div>
+          </div>
           </div>
         </div>
       </div>

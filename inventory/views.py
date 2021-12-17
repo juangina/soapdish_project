@@ -1,5 +1,5 @@
 from django.db.models import query
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import JsonResponse
 import json
 import datetime
@@ -19,6 +19,8 @@ category_choices = {
 #Renders product listing page
 @login_required(login_url="inventory")
 def inventory(request):
+	if not request.user.is_superuser:
+		return redirect('login')
 	data = cartData(request)
 	cartItems = data['cartItems']
 	

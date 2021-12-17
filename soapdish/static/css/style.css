@@ -101,8 +101,8 @@ img {
     padding-top: 3rem; }
     #showcase h1 {
       font-size: 40px; }
-    #showcase p {
-      display: none; }
+    /* #showcase p {
+      display: none; } */
   #top-bar {
     text-align: center; }
     #top-bar .social {

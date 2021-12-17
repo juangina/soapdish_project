@@ -7,15 +7,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Application definition
 INSTALLED_APPS = [
-    
-    'accounts.apps.AccountsConfig',
-    'bars.apps.BarsConfig',
-    'chatbot.apps.ChatbotConfig',
-    'contacts.apps.ContactsConfig',
-    'creators.apps.CreatorsConfig',
-    'inventory.apps.InventoryConfig',
     'pages.apps.PagesConfig',
+    'bars.apps.BarsConfig',   
+    'creators.apps.CreatorsConfig',    
+    'contacts.apps.ContactsConfig',
+    'accounts.apps.AccountsConfig',
     'store.apps.StoreConfig',
+    
+    'embed_video',
+
+    'inventory.apps.InventoryConfig',
+    'chatbot.apps.ChatbotConfig',
+    'rest_framework',
+    'corsheaders',
     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -24,11 +28,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-
-    'embed_video',
-
-    'rest_framework',
-    'corsheaders',
 
     #'chatterbot.ext.django_chatterbot',
     #'chat.apps.ChatConfig',
