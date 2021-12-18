@@ -5,8 +5,9 @@
 {% block title %} | Welcome {% endblock %}
 
 {% block content%}
-<!-- Embed a Video into your page -->
-{% load embed_video_tags %}
+  <!-- Embed a Video into your page -->
+  {% load embed_video_tags %}
+  
   <!-- Showcase and Search Button -->
   <section id="showcase">
     <div class="container text-center">
@@ -34,10 +35,12 @@
           <h1 class="display-4 mb-2">Welcome Video</h1>
           <p class="lead">Learn how to use this website.</p> 
           <div class="row">
-            <div class="col-12 mb-4">
-            {% video video.videoURL '100% x 100%' %}
-            <div>{{ video.topic }} </div>
-          </div>
+            <div id="videoSizeNormal" class="col-12 mb-4">
+              {% video video.videoURL '' %}
+            </div>
+            <div id="videoSizeSmall" class="col-12 mb-4">
+              {% video video.videoURL '100%x100%' %}
+            </div>
           </div>
         </div>
       </div>
