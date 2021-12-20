@@ -22,18 +22,101 @@
 
   <!-- Breadcrumb -->
 <section id="bc" class="mt-3">
-<div class="container">
-    <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-        <a href="{% url 'index' %}">
-            <i class="fas fa-home"></i> Home</a>
-        </li>
-        <li class="breadcrumb-item active">Featured Bars</li>
-    </ol>
-    </nav>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'index' %}">
+                            <i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Featured Bars</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-md-2">
+                <div class="search">
+                    <button class="btn btn-secondary btn-block btn-lg" data-toggle="modal" data-target="#searchModal" data-backdrop="true">Search</button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="breadcrumb-button-group">
+                    <a class="breadcrumb-button" href="{% url 'bars' %}">Clear Search</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+<!-- Search Modal -->
+<div class="modal fade" id="searchModal" role="dialog">
+<div class="modal-dialog modal-xl ">
+    <div class="modal-content bg-info">
+    <div class="modal-header">
+        <h5 class="modal-title" id="searchModalLabel">Search for your favorite soap</h5>
+        <button type="button" class="close" data-dismiss="modal">
+        <span>&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form action="{% url 'search' %}">
+        <!-- Form Row 1 -->
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+            <label class="sr-only">Keywords</label>
+            <input type="text" name="keywords" class="form-control" placeholder="Keyword (Rosemary, Lavender, etc)">
+            </div>
+        </div>
+        <!-- Form Row 2 -->
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+            <label class="sr-only">Name</label>
+            <input type="text" name="name" class="form-control" placeholder="Name">
+            </div>
+        </div>
+        <!-- Form Row 3 -->
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+            <label class="sr-only">Fragrance</label>
+            <select name="fragrance" class="form-control">
+                <option selected="true" disabled="disabled">Fragrance (All)</option>
+                {% for key, value in fragrance_choices.items %}
+                <option value="{{key}}">{{ value }}</option>
+                {% endfor %}
+            </select>
+            </div>
+        </div>
+
+        <!-- Form Row 4 -->
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+            <label class="sr-only">Colorant</label>
+            <select name="colorant" class="form-control">
+                <option selected="true" disabled="disabled">Colorant (All)</option>
+                {% for key, value in colorants_choices.items %}
+                <option value="{{key}}">{{ value }}</option>
+                {% endfor %}
+            </select>
+            </div>
+        </div>
+        <!-- Form Row 5 -->
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+            <select name="price" class="form-control" id="type">
+                <option selected="true" disabled="disabled">Max Price (Any)</option>
+                {% for key, value in price_choices.items %}
+                <option value="{{key}}">{{ value }}</option>
+                {% endfor %}
+            </select>
+            </div>
+        </div>
+        <button class="btn btn-secondary btn-block mt-4" type="submit">Submit</button>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
 
 <!-- Bars -->
 <section id="listings" class="py-5">

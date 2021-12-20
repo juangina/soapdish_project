@@ -17,7 +17,11 @@ def index(request):
     paged_bars = paginator.get_page(page)
 
     context = {
+        'price_choices': price_choices,
+        'colorants_choices': colorants_choices,
+        'fragrance_choices': fragrance_choices,
         'bars': paged_bars,
+        'values': request.GET,
         'cartItems': cartItems
         }
     return render(request, 'bars/bars.html', context)
@@ -71,12 +75,16 @@ def search(request):
         if price:
             queryset_list = queryset_list.filter(price__lte=price)
 
+    paginator = Paginator(queryset_list, 6)
+    page = request.GET.get('page')
+    paged_bars = paginator.get_page(page)
+
     context = {
         'price_choices': price_choices,
         'colorants_choices': colorants_choices,
         'fragrance_choices': fragrance_choices,
-        'bars': queryset_list,
+        'bars': paged_bars,
         'values': request.GET,
         'cartItems': cartItems
     }
-    return render(request, 'bars/search.html', context)
+    return render(request, 'bars/bars.html', context)

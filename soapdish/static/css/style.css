@@ -1,10 +1,54 @@
-/* Top Bar */
+/* Top Bar - title and placeholder*/
 #top-bar {
-  color: black;
-}
+  color: black; }
 
+/* Gives Social Links in top bar some spacing */
 .social a {
   margin-right: 1rem; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.showcase-button-group  a:link, a:visited{
+  background-color: white;
+  color: black;
+  border: 2px solid green;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+.showcase-button-group  a:hover, a:active{
+  background: rgba(51, 51, 51, 0.8);
+  color: white;
+  opacity: 0.5;
+}
+
+.breadcrumb-button-group  a:link, a:visited{
+  background-color: white;
+  color: black;
+  border: 2px solid green;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+.breadcrumb-button-group  a:hover, a:active{
+  background: rgba(51, 51, 51, 0.8);
+  color: white;
+  opacity: 0.5;
+}
 
 .btn-secondary {
   color: #fff !important; }
@@ -19,8 +63,6 @@ img {
   opacity: 0.9;
   text-transform: uppercase; }
 
-
-
 #showcase {
   /*background: url(../img/showcase.jpg) no-repeat top center fixed/cover;*/
   background: url(../img/showcase.jpg) no-repeat top center fixed;
@@ -28,10 +70,10 @@ img {
   position: relative;
   min-height: 650px;
   color: #fff;
-  padding-top: 6rem; 
+  padding: 3rem; 
 }
 #showcase .home-search {
-  min-height: 400px;
+  /* min-height: 400px; */
   position: relative;
   border-radius: 5px; 
 }
@@ -40,7 +82,7 @@ img {
   position: absolute;
   top: 0;
   left: 0;
-  min-height: 400px;
+  /* min-height: 300px; */
   width: 100%;
   background: rgba(51, 51, 51, 0.8); 
 }
