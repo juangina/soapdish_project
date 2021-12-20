@@ -1,3 +1,11 @@
+/* Top Bar */
+#top-bar {
+  color: black;
+}
+
+.social a {
+  margin-right: 1rem; }
+
 .btn-secondary {
   color: #fff !important; }
 
@@ -11,8 +19,7 @@ img {
   opacity: 0.9;
   text-transform: uppercase; }
 
-.social a {
-  margin-right: 0.4rem; }
+
 
 #showcase {
   /*background: url(../img/showcase.jpg) no-repeat top center fixed/cover;*/
@@ -118,7 +125,7 @@ img {
   #showcase-inner h1 {
     font-size: 40px; } }
 
-@media (max-width: 768px) {
+@media (max-width: 576px) {
   #videoSizeNormal {
     display: none;
   }

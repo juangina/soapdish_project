@@ -20,6 +20,8 @@ class Product(models.Model):
 	digital = models.BooleanField(default=False,null=True, blank=True)
 	image = models.ImageField(null=True, blank=True)
 	bar = models.ForeignKey(Bar, default=None, on_delete=models.SET(get_deleted_bar), blank=True)
+	stock = models.IntegerField(default=0, null=True, blank=True)
+	instock = models.BooleanField(default=False, null=True, blank=True)
 
 	def __str__(self):
 		return self.name

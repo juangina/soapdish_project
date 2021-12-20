@@ -28,7 +28,7 @@ def index(request):
         'colorants_choices': colorants_choices,
         'fragrance_choices': fragrance_choices,
         'cartItems': cartItems,
-        'video': video
+        # 'video': video
     }
 
     return render(request, 'pages/index.html', context)
@@ -41,10 +41,15 @@ def about(request):
 
     creators = Creator.objects.order_by('hire_date')
     mvc_creators = Creator.objects.all().filter(is_mvc=True)
+    if Video.objects.filter(name='Test Video').exists():
+        video = Video.objects.get(name='Test Video')
+    else:
+        video = ""
     context = {
         'creators': creators,
         'mvc_creators': mvc_creators,
-        'cartItems':cartItems
+        'cartItems':cartItems,
+        'video': video
     }
     return render(request, 'pages/about.html', context)
 

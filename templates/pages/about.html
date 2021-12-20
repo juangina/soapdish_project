@@ -3,6 +3,9 @@
 
 {% block title %} | About Us {% endblock %}
 
+<!-- Embed a Video into your page -->
+{% load embed_video_tags %}
+
 {% block content%}
 <style> 
   /* unvisited link */ #blog_link a:link {color: red;}
@@ -39,6 +42,28 @@
     </div>
   </section>
 
+  {% if video %}
+  <!-- Introductory Video -->
+  <section id="introductory-video" class="py-5">
+    <div class="container text-center">
+      <div class="home-search p-2">
+        <div class="overlay p-2">
+          <h1 class="display-4 mb-2">Welcome Video</h1>
+          <p class="lead">Learn how to use this website.</p> 
+          <div class="row">
+            <div id="videoSizeNormal" class="col-12 mb-4">
+              {% video video.videoURL '' %}
+            </div>
+            <div id="videoSizeSmall" class="col-12 mb-4">
+              {% video video.videoURL '100%x100%' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
   <!-- About -->
   <section id="about" class="py-4">
     <div class="container">
@@ -46,7 +71,7 @@
         <div class="col-md-8">
           <h2>The Quest For The Perfect Bar of Soap</h2>
           <p class="lead">Below is where all the magic happens!</p>
-          <img src="{% static 'img/about-the-lab-01.JPG' %}" alt="about the lab image">
+          <img src="{% static 'img/about-the-lab-02.JPG' %}" alt="about the lab image">
           <p class="mt-4">We like to call this area, "The Lab".  We carved out a space in our basement to practice the art and science of making soap.  Our creator's experience with science, technology, and art helps with the soapmaking process.  The best part is testing your products.</p>
           <p class = "lead">Follow our progress on our <span id="blog_link"><a href="http://shielded-temple-82063.herokuapp.com/" ><i class="fab fa-blogger"></i> BLOG </a></span>site as we pursue the perfect soap recipe!</p>
         </div>
@@ -73,7 +98,7 @@
     </div>
   </section>
 
-  <!-- Work -->
+  <!-- Our Work -->
   <section id="work" class="bg-dark text-white text-center">
     <h2 class="display-4">We Create For You</h2>
     <h4>Soap Dish was born to provide a simple means to collaborate on our creativity.  This collaboration of love goes into every Bar we make!</h4>
@@ -89,7 +114,7 @@
         <!-- Iterate through Creators if available -->
         {% if creators %}
           {% for creator in creators %}
-          <div class="col-md-4">
+          <div class="col-md">
             <img src=" {{ creator.photo.url }}" alt="" class="rounded-circle mb-3">
             <h4>{{creator.name}}</h4>
             <p class="text-success">
