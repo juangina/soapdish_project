@@ -11,7 +11,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <!--Margin Left Nav Bar List-->
-                <ul class="navbar-nav">
+                <ul class="navbar-nav mr-auto">
                     {% if user.is_authenticated %}
                         <!--Collection Link-->
                         <li 
@@ -34,7 +34,9 @@
                         <a class="nav-link" href="{% url 'chatbot_home' %}">Soapbot</a>
                         </li>
                         <li 
-                            {% if 'store' in request.path %}
+                            {% if 'store/cart' in request.path %}
+                                class="nav-item mr-3"
+                            {% elif 'store' in request.path %}
                                 class="nav-item active mr-3"
                             {%  else %}
                                 class="nav-item mr-3"
@@ -92,29 +94,31 @@
                         </li>    
                         <!--Logout Link cast as a Form Submission-->
                         <li class="nav-item mr-3">
-                            <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
-                                <i class="fas fa-sign-out-alt"> Logout</i>
+                            <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">
+                                <i class="fas fa-sign-out-alt"></i>
                             </a>
                             <form action="{% url 'logout' %}" method="POST" id="logout">
                                 {% csrf_token %}
                                 <input type="hidden">
                             </form>
                         </li>
-                        <li 
+
+                        <li class="nav-item mr-3">
                             {% if 'cart' in request.path %}
-                                class="nav-item active mr-3"
+                                <a class="nav-link" href="{% url 'cart' %}">
+                                    <i class="fas fa-shopping-cart mr-1" style="color:rgba(255,255,255, 1.0)"> [{{cartItems}}] </i>
+                                </a>  
                             {%  else %}
-                                class="nav-item mr-3"
+                                <a class="nav-link" href="{% url 'cart' %}">
+                                    <i class="fas fa-shopping-cart mr-1" style="color:rgba(255,255,255, 0.5)"> [{{cartItems}}] </i>
+                            </a>                                
                             {% endif %}
-                            >
-                            <a class="nav-link" href="{% url 'cart' %}">
-                                <i class="fas fa-shopping-cart mr-1" style="color:rgba(255,255,255, 0.5)">  Cart [{{cartItems}}] </i>
-                            </a>
                         </li>
+
                         {% if user.is_staff %}
                             <li class="nav-item mr-3">
                                 <a class="nav-link" href="/admin/">
-                                    <i class="fas fa-database" style="color:rgba(255,255,255, 0.5)">  Admin</i>
+                                    <i class="fas fa-database" style="color:rgba(255,255,255, 0.5)"></i>
                                 </a>
                             </li>
                         {% endif %}                                                  
