@@ -5,33 +5,34 @@
 {% block title %} | Welcome {% endblock %}
 
 {% block content%}
-  
+  <!-- Alerts -->
+  {% include 'partials/_alerts.html' %}
+
   <!-- Showcase -->
   <section id="showcase">
     <div class="container text-center">
         <div class="overlay p-4">
-          <h1 class="display-3">
+          <h3 class="display-3">
             Soap Dish
-          </h1>
+          </h3>
           <p class="lead">Vegetable Based Soap:  An Affordable Luxury!</p>  
           <p class="lead">We have a range of soap that will fit nearly everyones needs.</p>
           <p class="lead"> Share one of these lovely creations with a friend!</p>
           <div class="row">
             <div class="col showcase-button-group">
-              <a class="showcase-button" href="{% url 'bars' %}"><div class= "lead">Our Collection</div></a>
+              <a class="lead" href="{% url 'bars' %}">
+                Our Collection
+              </a>
             </div>
           </div> 
         </div>
     </div>
   </section>
 
-  <!-- Alerts -->
-  {% include 'partials/_alerts.html' %}
-
   <!-- Listings -->
-  <section id="listings" class="py-5">
+  <section id="listings">
     <div class="container">
-      <h3 class="text-center mb-3">Our Latest Creations</h3>
+      <h3 class="display-3 text-center my-3">Our Latest Creations</h3>
       <!--Listing Iteration-->
       <div class="row">
         {% if bars %}

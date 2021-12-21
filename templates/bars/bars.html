@@ -24,7 +24,7 @@
 <section id="bc" class="mt-3">
     <div class="container">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
@@ -35,15 +35,12 @@
                     </ol>
                 </nav>
             </div>
-            <div class="col-md-2">
-                <div class="search text-right">
-                    <button class="btn btn-secondary btn-block btn-lg" data-toggle="modal" data-target="#searchModal" data-backdrop="true">Search</button>
-                </div>
-            </div>
-            <div class="col-md-3 text-right">
-                <div class="breadcrumb-button-group">
-                    <a class="breadcrumb-button" href="{% url 'bars' %}">Clear Search</a>
-                </div>
+            <div class="col-md-6 breadcrumb-button">
+                <a class="float-right" href="{% url 'bars' %}">Clear Search</a>
+                
+                <button class="search btn btn-secondary btn-lg float-md-right mr-1" data-toggle="modal" data-target="#searchModal" data-backdrop="true">Search</button>
+
+
             </div>
         </div>
     </div>
