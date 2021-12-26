@@ -128,7 +128,7 @@
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card listing-preview">
                         <img class="card-img-top" src="{{ bar.photo_main.url }}" alt="picture of soap">
-                        <div class="card-body">
+                        <div class="card-body card-button">
                             <div class="listing-heading text-center">
                                 <h4 class="text-primary">{{bar.name}}</h4>
                                 <p>
@@ -153,8 +153,10 @@
                                     <i class="fas fa-clock"></i> Bar Created: {{bar.created_date | timesince}} ago.
                                 </div>
                             </div>
+                            <!-- <hr>
+                            <a href="{% url 'bar' bar.id %}" class="btn btn-primary btn-block">More Info</a> -->
                             <hr>
-                            <a href="{% url 'bar' bar.id %}" class="btn btn-primary btn-block">More Info</a>
+                            <a href="{% url 'bar' bar.id %}" >More Info</a>
                         </div>
                     </div>
                 </div>
