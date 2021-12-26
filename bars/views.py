@@ -11,19 +11,24 @@ def index(request):
     items = data['items']
 
     bars = Bar.objects.order_by('-created_date')
+    number_of_bars = Bar.objects.count()
+    range_bars = range(number_of_bars)
+    print(range_bars)
 
     paginator = Paginator(bars, 6)
     page = request.GET.get('page')
     paged_bars = paginator.get_page(page)
 
     context = {
-        'price_choices': price_choices,
-        'colorants_choices': colorants_choices,
-        'fragrance_choices': fragrance_choices,
-        'bars': paged_bars,
-        'values': request.GET,
-        'cartItems': cartItems
-        }
+            'price_choices': price_choices,
+            'colorants_choices': colorants_choices,
+            'fragrance_choices': fragrance_choices,
+            'bars': paged_bars,
+            'number_of_bars': number_of_bars,
+            'values': request.GET,
+            'cartItems': cartItems,
+            }
+
     return render(request, 'bars/bars.html', context)
 
 def bar(request, bar_id):

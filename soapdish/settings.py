@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 
+    'mathfilters',
+
     #'chatterbot.ext.django_chatterbot',
     #'chat.apps.ChatConfig',
 ]

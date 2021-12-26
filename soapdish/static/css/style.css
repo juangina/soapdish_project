@@ -1,27 +1,37 @@
-/* Top Bar */
+/* Top Bar - All Pages */
 #top-bar {
   content: "";
 }
 /* Gives Social Links in top bar some spacing */
 .social a {
-  margin-right: 1rem; }
+  margin-right: 1rem; 
+}
 
-/* Navigation Bar */
+/* Navigation Bar All Pages */
 #nav-bar {
   content: "";
 }
 /* Sets see thru affect and keeps all fonts uppercase */
 .navbar {
   opacity: 0.9;
-  text-transform: uppercase; }
+  text-transform: uppercase; 
+}
 /* Sets the site logo size */
 .logo {
-  width: 50px; }
+  width: 50px; 
+}
 
-  /* Alerts */
-  #message {
-    content: "";
-  }
+
+/* Footer - All Pages */
+#main-footer {
+  content: "Main Footer";
+  opacity: 0.9;
+}
+
+/* Alerts - Index Page */
+#message {
+  content: "Message";
+}
 
 /* Showcase - Index Page */
 /* Sets up the main visual for the home page */
@@ -43,7 +53,7 @@
   background: rgba(51, 51, 51, 0.8); 
 }
 /* Creates a nice button effect to link the Collection */
-.showcase-button-group  a:link, a:visited{
+.showcase-button-group  a:link, a:visited {
   background-color: white;
   color: black;
   border: 2px solid green;
@@ -60,17 +70,20 @@
   color: white;
   opacity: 0.5;
 }
+
 /* Listings - Index Page */
 #listings {
   content: "";
 }
-
+.btn-secondary {
+  color: #fff !important; 
+}
+  
 /* Services - Index Page */
 /* Creates a nice parallax effect for the Services Section*/
 #services {
   background-image: url(../img/building.jpg);
   background-position: top center;
-  background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -78,6 +91,7 @@
   position: relative;
   overflow: hidden; 
 }
+/* Creates a nice green overlay for the services Section */
 #services::before {
     content: '';
     position: absolute;
@@ -88,43 +102,12 @@
     background: rgba(32, 134, 107, 0.8); 
 }
 
-/* Collection_SoapBot_Store_Dashboard Pages */
-.breadcrumb-button  a:link, a:visited{
-  background-color: white;
-  color: black;
-  border: 2px solid green;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-}
-.breadcrumb-button  a:hover, a:active{
-  background: rgba(51, 51, 51, 0.8);
-  color: white;
-  opacity: 0.5;
-}
-
-.btn-secondary {
-  color: #fff !important; }
-
-img {
-  width: 100%; }
-
-  /* About Page */
-#introductory-video {
-  background-color: darkslategrey;
-  background-size: cover;
-  position: relative;
-  min-height: 650px;
-  color: #fff;
-  padding-top: 6rem;
-}
-
-
-
-
+/* Showcase - Collection_SoapBot_Store_Dashboard Pages */
 #showcase-inner {
-  /*background: url(../img/building.jpg) no-repeat top center fixed/cover;*/
-  background: url(../img/building.jpg) no-repeat top center fixed;
+  background-image: url(../img/building.jpg);
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
   position: relative;
   overflow: hidden;
@@ -139,19 +122,61 @@ img {
     width: 100%;
     background: rgba(32, 134, 107, 0.8); 
 }
-#showcase-inner.showcase-search {
-    min-height: 270px; }
 
-#work {
-  padding: 6rem 0; }
+/* Breadcrumb - Collection_SoapBot_Store_Dashboard Pages */
+.breadcrumb-button  a:link, a:visited{
+  background-color: white;
+  color: black;
+  border: 2px solid green;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+}
+.breadcrumb-button  a:hover, a:active{
+  background: rgba(51, 51, 51, 0.8);
+  color: white;
+}
 
-.listing-preview a {
-  position: relative; }
+/* Search Model - Collection Page */
+#searchModal {
+  content: "";
+}
 
+/* Bars - Collection Page */
+
+
+/* Introductory Video - About Page */
+#introductory-video {
+  background-color: darkslategrey;
+  background-size: cover;
+  position: relative;
+  min-height: 650px;
+  color: #fff;
+  padding-top: 6rem;
+}
 #videoSizeSmall {
     display: none;
 }
 
+/* Chat Log - Chatbot Page */
+/* Alternate the background color of the output rows */
+.list-group-item:nth-child(even) {
+  background-color: #bdf1ac;
+}
+.chat-log {
+  max-height:200px;
+  overflow-y:scroll;
+}
+
+
+/* Miscellaneous Styling */
+img {
+  width: 100%; 
+}
+#work {
+  padding: 6rem 0; 
+}
+/* Media Queries */
 @media (max-width: 991px) {
   #showcase {
     padding-top: 4rem; }
