@@ -132,24 +132,24 @@
                             <div class="listing-heading text-center">
                                 <h4 class="text-primary">{{bar.name}}</h4>
                                 <p>
-                                <i class="fas fa-map-marker text-secondary"></i> {{bar.description}} </p>
+                                <i class="fas fa-map-marker text-secondary-bar"></i> {{bar.description}} </p>
                             </div>
                             <hr>
-                            <div class="row py-2 text-secondary">
+                            <div class="row py-2 text-secondary-bar">
                                 <div class="col-12"><i class="fas fa-th-large"></i> Fragrance: {{bar.fragrance}}</div>
                             </div>
-                            <div class="row py-2 text-secondary">
+                            <div class="row py-2 text-secondary-bar">
                                 <div class="col-12"><i class="fas fa-th-large"></i> Nutrients: {{bar.nutrients}}</div>
                             </div>
-                            <div class="row py-2 text-secondary">
+                            <div class="row py-2 text-secondary-bar">
                                 <div class="col-12"><i class="fas fa-th-large"></i> Exfolients: {{bar.exfolients}}</div>
                             </div>
                             <hr>
-                            <div class="row py-2 text-secondary">
-                                <div class="col-6">
+                            <div class="row py-2">
+                                <div class="col-6 text-secondary-bar">
                                     <i class="fas fa-user"></i> Bar Creator: {{bar.creator}}
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 text-secondary-bar">
                                     <i class="fas fa-clock"></i> Bar Created: {{bar.created_date | timesince}} ago.
                                 </div>
                             </div>
@@ -177,36 +177,36 @@
                 <ul class="pagination">
                 <!-- Logic for First Pagination List Item -->
                 {% if bars.has_previous %}
-                    <li class="page-item">
-                    <a href="?page={{bars.previous_page_number}}" class="page-link">&laquo;</a>
+                    <li class="pagination-button">
+                    <a href="?page={{bars.previous_page_number}}" >&laquo;</a>
                     </li>
                 {% else %}
-                    <li class="page-item disabled">
-                    <a class="page-link">&laquo;</a>
+                    <li class="disabled pagination-button">
+                    <a>&laquo;</a>
                     </li>
                 {% endif %}
 
                 <!-- Logic for Pagination Numbered List Items -->
                 {% for i in bars.paginator.page_range %}
                     {% if bars.number == i %}
-                        <li class="page-item active">
-                        <a class="page-link">{{i}}</a>
+                        <li class="pagination-button">
+                        <a class="pagination-button-active">{{i}}</a>
                         </li>
                     {% else %}
-                        <li class="page-item" >
-                        <a href="?page={{i}}" class="page-link">{{i}}</a>
+                        <li class="pagination-button" >
+                        <a href="?page={{i}}">{{i}}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
 
                 <!-- Logic for Last Pagination List Item -->
                 {% if bars.has_next %}
-                    <li class="page-item">
-                    <a href="?page={{bars.next_page_number}}" class="page-link">&raquo;</a>
+                    <li class="pagination-button">
+                    <a href="?page={{bars.next_page_number}}">&raquo;</a>
                     </li>
                 {% else %}
-                    <li class="page-item disabled">
-                    <a class="page-link">&raquo;</a>
+                    <li class="disabled pagination-button">
+                    <a>&raquo;</a>
                     </li>
                 {% endif %}
                 </ul>
