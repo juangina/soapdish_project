@@ -94,7 +94,7 @@
                             Welcome {{user.first_name}} (Dashboard)</a>
                         </li>    
                         <!--Logout Link cast as a Form Submission-->
-                        <li class="nav-item mr-3">
+                        <li class="nav-item mr-3" data-toggle="tooltip" data-placement="top" title="Logout">
                             <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">
                                 <i class="fas fa-sign-out-alt"></i>
                             </a>
@@ -103,8 +103,8 @@
                                 <input type="hidden">
                             </form>
                         </li>
-
-                        <li class="nav-item mr-3">
+                        <!-- Cart Link -->
+                        <li class="nav-item mr-3" data-toggle="tooltip" data-placement="top" title="Cart">
                             {% if 'cart' in request.path %}
                                 <a class="nav-link" href="{% url 'cart' %}">
                                     <i class="fas fa-shopping-cart mr-1" style="color:rgba(255,255,255, 1.0)"> [{{cartItems}}] </i>
@@ -115,9 +115,9 @@
                             </a>                                
                             {% endif %}
                         </li>
-
                         {% if user.is_staff %}
-                            <li class="nav-item mr-3">
+                            <!-- Admin Link for Administrator User -->
+                            <li class="nav-item mr-3" data-toggle="tooltip" data-placement="top" title="Admin">
                                 <a class="nav-link" href="/admin/">
                                     <i class="fas fa-database" style="color:rgba(255,255,255, 0.5)"></i>
                                 </a>

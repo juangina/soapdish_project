@@ -4,6 +4,10 @@
 //var myObject = domObject.dataset.domdata;
 //console.log(myObject);
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 const date = new Date();
 document.querySelector('.year').innerHTML = date.getFullYear();
 
