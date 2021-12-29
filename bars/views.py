@@ -68,7 +68,7 @@ def search(request):
     if 'fragrance' in request.GET:
         fragrance = request.GET['fragrance']
         if fragrance:
-            queryset_list = queryset_list.filter(fragrance__iexact=fragrance)
+            queryset_list = queryset_list.filter(fragrance__icontains=fragrance)
     # Search for Colorant in colorant
     if 'colorant' in request.GET:
         colorant = request.GET['colorant']

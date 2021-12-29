@@ -1,15 +1,48 @@
 fragrance_choices = {
-  'Lavender Bloom':'Lavender Bloom',
-  'Pure Honey':'Pure Honey',
-  'Sweet Clover':'Sweet Clover',
-  'Lemon Honey':'Lemon Honey',
-  'Eucalyptus':'Eucalyptus',
-  'Rosemary':'Rosemary',
+  'Apple Sage': 'Apple Sage',
+  'Alpine Frost': 'Alpine Frost',
+
+  'Bermuda Sands': 'Bermuda Sands',
+
+  'Sweet Clover': 'Sweet Clover',
+  'Caffe Latte': 'Caffe Latte',
+  'Coffee Shop': 'Coffee Shop',
+  'Cactus Flower':'Cactus Flower',
+
   'Energy':'Energy',
-  'Sandlewood Vanilla':'Sandlewood Vanilla',
+  'Eucalyptus':'Eucalyptus',
+  'Eucalyptus Cotton': 'Eucalyptus Cotton',
+
+  'Frosted Fir': 'Frosted Fir',
+
+  'Pure Honey': 'Pure Honey',
+
+  'Lavender':'Lavender',
+  'Lavender Bloom':'Lavender Bloom',
+  'Lavender Black Amber': 'Lavender Black Amber',
+  'Lingonberry Spice': 'Lingonberry Spice',
   'Lemongrass':'Lemongrass',
+  'Lemon Honey':'Lemon Honey',
+
   'Magnolia Leaf and Tonka':'Magnolia Leaf and Tonka',
-  'Cactus Flowe':'Cactus Flower'
+  'Midnight Waters': 'Midnight Waters',
+
+  'Neroli Shea Blossom': 'Neroli Shea Blossom',
+
+  'Ocean Rain': 'Ocean Rain',
+  'Orange Valencia': 'Orange Valencia',
+  'Oatmeal Milk Honey': 'Oatmeal Milk Honey',
+
+  'Peppermint': 'Peppermint',
+  
+  'Rosemary':'Rosemary',
+  
+  'Sandlewood Vanilla':'Sandlewood Vanilla',
+
+  'White Thyme': 'White Thyme',
+
+  'Vanilla': 'Vanilla',
+  
   }
 
 price_choices = {

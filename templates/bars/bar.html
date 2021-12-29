@@ -95,47 +95,42 @@
         <div class="row mb-5 fields">
           <div class="col-md-6">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item text-secondary">
-                <!--
-                <i class="fas fa-th-large"></i> Asking Price:
-                <span class="float-right">${{ bar.price | intcomma }}</span>
-                -->
+              <li class="list-group-item text-secondary-bar">
                 <i class="fas fa-th-large"></i> Name:
                 <span class="float-right">{{ bar.name }}</span>
               </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Fragrance:
-                <span class="float-right">{{ bar.fragrance }}</span>
+              <li class="list-group-item text-secondary-bar">
+                <i class="fas fa-th-large"></i> Recipe:
+                <span class="float-right">{{ bar.recipe }}</span>
               </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Nutrients:
-                <span class="float-right">{{ bar.nutrients }}</span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Exfolients:
-                <span class="float-right">{{ bar.exfolients }}
+              <li class="list-group-item text-secondary-bar">
+                <i class="fas fa-th-large"></i> Discount:
+                <span class="float-right">{{ bar.discount }}%
                 </span>
+              </li>
+              <li class="list-group-item text-secondary-bar">
+                <i class="fas fa-th-large"></i> Bar Created:
+                <span class="float-right">{{ bar.created_date }}</span>
               </li>
             </ul>
           </div>
           <div class="col-md-6">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Recipe:
-                <span class="float-right">{{ bar.recipe }}</span>
+              <li class="list-group-item text-secondary-bar">
+                <i class="fas fa-th-large"></i> Fragrance:
+                <span class="float-right">{{ bar.fragrance }}</span>
               </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Discount:
-                <span class="float-right">{{ bar.discount }}%
-                </span>
+              <li class="list-group-item text-secondary-bar">
+                <i class="fas fa-th-large"></i> Colorants:
+                <span class="float-right">{{ bar.colorants }}</span>
               </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Bar Created:
-                <span class="float-right">{{ bar.created_date }}</span>
+              <li class="list-group-item text-secondary-bar">
+                <i class="fas fa-th-large"></i> Nutrients:
+                <span class="float-right">{{ bar.nutrients }}</span>
               </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Creator:
-                <span class="float-right">{{ bar.creator }}
+              <li class="list-group-item text-secondary-bar">
+                <i class="fas fa-th-large"></i> Exfolients:
+                <span class="float-right">{{ bar.exfolients }}
                 </span>
               </li>
             </ul>
