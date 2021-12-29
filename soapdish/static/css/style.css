@@ -78,6 +78,9 @@
 .btn-secondary {
   color: #fff !important; 
 }
+.listing-body {
+  height: 200px;
+}
   
 /* Services - Index Page */
 /* Creates a nice parallax effect for the Services Section*/
@@ -148,6 +151,10 @@
 } */
 .text-secondary-bar {
   color: green;
+}
+.hr-char-pnts {
+  border-top: 2px solid green;
+  width: 80%;
 }
 
 /* Search Model - Collection Page */

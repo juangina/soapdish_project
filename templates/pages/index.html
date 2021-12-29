@@ -29,6 +29,23 @@
     </div>
   </section>
 
+  <!-- Character Points -->
+  <section id="char-pnts">
+    <div class="container">
+      <div class="row">
+        <div class="col-4 p-2 lead text-center text-secondary-bar">
+          <strong>No Harsh Chemicals</strong><hr class="hr-char-pnts">
+        </div>
+        <div class="col-4 p-2 lead text-center text-secondary-bar">
+          <strong>Handmade</strong><hr class="hr-char-pnts">
+        </div>
+        <div class="col-4 p-2 lead text-center text-secondary-bar">
+          <strong>Plant Based</strong><hr class="hr-char-pnts">
+        </div>
+      </div>
+    </div>
+  </section>
+  
   <!-- Listings -->
   <section id="listings">
     <div class="container">
@@ -38,38 +55,16 @@
         {% if bars %}
           {% for bar in bars %}
           <div class="col-md-6 col-lg-4 mb-4">
-              <div class="card listing-preview">
+              <div class="card h-100">
                 <img class="card-img-top" src="{{ bar.photo_main.url }}" alt="">
                 <div class="card-body card-button">
-                  <div class="listing-heading text-center">
-                    <h4 class="text-primary">{{bar.name}}</h4>
-                    <p>
-                      <i class="fas fa-map-marker text-secondary-bar"></i> {{bar.description}} </p>
+                  <div class="listing-heading list-body text-center">
+                    <h5 class="text-primary">{{bar.name}}</h5>
                   </div>
-                  <hr>
-                  <div class="row py-2 text-secondary-bar">
-                    <div class="col-12"><i class="fas fa-th-large"></i> Fragrance: {{bar.fragrance}}</div>
-                  </div>
-                  <div class="row py-2 text-secondary-bar">
-                    <div class="col-12"><i class="fas fa-th-large"></i> Nutrients: {{bar.nutrients}}</div>
-                  </div>
-                  <div class="row py-2 text-secondary-bar">
-                    <div class="col-12"><i class="fas fa-th-large"></i> Exfolients: {{bar.exfolients}}</div>
-                  </div>
-                  <hr>
-                  <div class="row py-2">
-                    <div class="col-6 text-secondary-bar">
-                      <i class="fas fa-user"></i> Bar Creator: {{bar.creator}}</div>
-                    <div class="col-6 text-secondary-bar">
-                      <i class="fas fa-clock"></i> Bar Created: {{bar.created_date | timesince}} ago.</div>
-                  </div>
-                  <hr>
-                  <!-- <a href="{% url 'bar' bar.id %}" class="btn btn-primary btn-block">More Info</a> -->
                   <hr>
                   <a href="{% url 'bar' bar.id %}" >More Info</a>
                 </div>
               </div>
-
           </div>
           {% endfor %}
         {% else %}
