@@ -227,11 +227,12 @@
     display: none;
 }
 
+/* Bar - Bar Page */
+.list-group-item:nth-child(even) {
+  background-color: rgba(32, 134, 107, 0.5);
+}
 /* Chat Log - Chatbot Page */
 /* Alternate the background color of the output rows */
-.list-group-item:nth-child(even) {
-  background-color: #bdf1ac;
-}
 .chat-log {
   max-height:200px;
   overflow-y:scroll;

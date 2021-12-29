@@ -6,6 +6,7 @@
 
 {% block content%}
 
+<!-- Showcase -->
 <section id="showcase-inner" class="py-5 text-white">
   <div class="container">
     <div class="row text-center">
@@ -43,11 +44,12 @@
   <div class="container">
     <a href="javascript:history.back()" class="btn btn-light mb-4">Back To Bars</a>
     <div class="row">
+      <!-- Bar Photo Shoot and Bar Desciption -->
       <div class="col-md-9">
         <!-- Home Main Image -->
         <img src="{{ bar.photo_main.url }}" alt="" class="img-main img-fluid mb-3">
         <!-- Thumbnails -->
-        <div class="row mb-5 thumbs">
+        <div class="row mb-3 thumbs">
           {% if bar.photo_1 %}
           <div class="col-md-2">
             <a href="{{ bar.photo_1.url }}" data-lightbox="home-images">
@@ -91,54 +93,8 @@
           </div>
           {% endif %}
         </div>
-        <!-- Fields -->
-        <div class="row mb-5 fields">
-          <div class="col-md-6">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item text-secondary-bar">
-                <i class="fas fa-th-large"></i> Name:
-                <span class="float-right">{{ bar.name }}</span>
-              </li>
-              <li class="list-group-item text-secondary-bar">
-                <i class="fas fa-th-large"></i> Recipe:
-                <span class="float-right">{{ bar.recipe }}</span>
-              </li>
-              <li class="list-group-item text-secondary-bar">
-                <i class="fas fa-th-large"></i> Discount:
-                <span class="float-right">{{ bar.discount }}%
-                </span>
-              </li>
-              <li class="list-group-item text-secondary-bar">
-                <i class="fas fa-th-large"></i> Bar Created:
-                <span class="float-right">{{ bar.created_date }}</span>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-6">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item text-secondary-bar">
-                <i class="fas fa-th-large"></i> Fragrance:
-                <span class="float-right">{{ bar.fragrance }}</span>
-              </li>
-              <li class="list-group-item text-secondary-bar">
-                <i class="fas fa-th-large"></i> Colorants:
-                <span class="float-right">{{ bar.colorants }}</span>
-              </li>
-              <li class="list-group-item text-secondary-bar">
-                <i class="fas fa-th-large"></i> Nutrients:
-                <span class="float-right">{{ bar.nutrients }}</span>
-              </li>
-              <li class="list-group-item text-secondary-bar">
-                <i class="fas fa-th-large"></i> Exfolients:
-                <span class="float-right">{{ bar.exfolients }}
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
         <!-- Description -->
-        <div class="row mb-5">
+        <div class="row mb-3">
           <div class="col-md-12">
             {{ bar.description}}
           </div>
@@ -150,17 +106,62 @@
           <img class="card-img-top" src="{{ bar.creator.photo.url }}" alt="Bar Creator">
           <div class="card-body">
             <h5 class="card-name">Bar Creator</h5>
-            <h6 class="text-secondary">{{bar.creator}}</h6>
+            <h6 class="text-secondary-bar">{{bar.creator}}</h6>
           </div>
         </div>
         <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Make An Inquiry</button>
+      </div>
+    </div>
+    <!-- Fields -->
+    <div class="row mb-5 fields">
+      <div class="col-md-6">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Name:
+            <span class="float-right">{{ bar.name }}</span>
+          </li>
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Recipe:
+            <span class="float-right">{{ bar.recipe }}</span>
+          </li>
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Discount:
+            <span class="float-right">{{ bar.discount }}%
+            </span>
+          </li>
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Bar Created:
+            <span class="float-right">{{ bar.created_date }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Fragrance:
+            <span class="float-right">{{ bar.fragrance }}</span>
+          </li>
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Colorants:
+            <span class="float-right">{{ bar.colorants }}</span>
+          </li>
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Nutrients:
+            <span class="float-right">{{ bar.nutrients }}</span>
+          </li>
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Exfolients:
+            <span class="float-right">{{ bar.exfolients }}
+            </span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </section>  
 
 <!-- Inquiry Modal -->
-<div class="modal fade" id="inquiryModal" role="dialog">
+<div id="inquiryModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

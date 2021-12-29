@@ -42,7 +42,7 @@ fragrance_choices = {
   'White Thyme': 'White Thyme',
 
   'Vanilla': 'Vanilla',
-  
+
   }
 
 price_choices = {
@@ -59,19 +59,41 @@ price_choices = {
 }
 
 colorants_choices = {
-        'Titanium Dioxide Pigment': 'Titanium Dioxide Pigment',
-        'Green Chrome Oxide Pigment': 'Green Chrome Oxide Pigment',
-        'Sunset Orange Mica': 'Sunset Orange Mica',
-        'Lavender Mica': 'Lavender Mica',
-        'Activated Charcoal': 'Activated Charcoal',
-        'Gold Sparkle Mica': 'Gold Sparkle Mica',
-        'Cappuccino Mica': 'Cappuccino Mica',
-        'Racing Stripe Orange Mica': 'Racing Stripe Orange Mica',
-        'Kelly Green Mica': 'Kelly Green Mica',
-        'Kermit Green Mica': 'Kermit Green Mica',
-        'Raspberry Mica': 'Raspberry Mica',
-        'Yellow Mica': 'Yellow Mica',
-        'Buttercup Mica': 'Buttercup Mica',
-        'Magenta Mica': 'Magenta Mica',
-        'Natural Hemp Seed Colorant':'Natural Hemp Seed Colorant'
+    'Activated Charcoal': 'Activated Charcoal',
+    'Brown Oxide Pigment':'Brown Oxide Pigment',
+    'Buttercup Mica': 'Buttercup Mica',
+    'Cappuccino Mica': 'Cappuccino Mica',
+    'Gold Sparkle Mica': 'Gold Sparkle Mica',
+    'Green Chrome Oxide Pigment': 'Green Chrome Oxide Pigment',
+    'Kelly Green Mica': 'Kelly Green Mica',
+    'Kermit Green Mica': 'Kermit Green Mica',        
+    'Lavender Mica': 'Lavender Mica',
+    'Magenta Mica': 'Magenta Mica',
+    'Natural Hemp Seed Colorant':'Natural Hemp Seed Colorant',
+    'Pearl Mica': 'Pearl Mica',
+    'Racing Stripe Orange Mica': 'Racing Stripe Orange Mica',
+    'Red Lab Color': 'Red Lab Color',
+    'Raspberry Mica': 'Raspberry Mica',
+    'Snowflake Sparkle Mica': 'Snowflake Sparkle Mica',
+    'Sunset Orange Mica': 'Sunset Orange Mica',        'Titanium Dioxide Pigment': 'Titanium Dioxide Pigment',
+    'Yellow Mica': 'Yellow Mica',
+    'Ultramarine Blue Pigment': 'Ultramarine Blue Pigment',
+    'Yellow Oxide Pigment': 'Yellow Oxide Pigment',
+}
+
+exfolients_choices = {
+  'Activated Charcoal':'Activated Charcoal',
+  'Activated Charcoal Soap Grates': 'Activated Charcoal Soap Grates',
+  'Cambrian Blue Clay': 'Cambrian Blue Clay',
+  'Coffee Grinds':'Coffee Grinds',
+  'Colloidal Oatmeal': 'Colloidal Oatmeal',
+  'Dried Rosemary Leaves': 'Dried Rosemary Leaves',
+  'Fresh Rosemary Leaves': 'Fresh Rosemary Leaves',
+  'Herbal Tea': 'Herbal Tea',
+  'Kaolin Clay': 'Kaolin Clay',
+  'Nespresso Coffee Grinds': 'Nespresso Coffee Grinds',
+  'Oatmeal': 'Oatmeal',
+  'Steeped Tea Leaves': 'Steeped Tea Leaves',
+  'White Chocolate Soap Grates': 'White Chocolate Soap Grates',
+  'Lemongrass Yellow Soap Grates': 'Lemongrass Yellow Soap Grates',
 }

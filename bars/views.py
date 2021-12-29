@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from bars.choices import price_choices, fragrance_choices, colorants_choices
+from bars.choices import price_choices, fragrance_choices, colorants_choices, exfolients_choices
 from .models import Bar
 from store.utils import cookieCart, cartData, guestOrder
 
@@ -23,6 +23,7 @@ def index(request):
             'price_choices': price_choices,
             'colorants_choices': colorants_choices,
             'fragrance_choices': fragrance_choices,
+            'exfolients_choices': exfolients_choices,
             'bars': paged_bars,
             'number_of_bars': number_of_bars,
             'values': request.GET,
@@ -74,6 +75,11 @@ def search(request):
         colorant = request.GET['colorant']
         if colorant:
             queryset_list = queryset_list.filter(colorants__icontains=colorant)
+    # Search for Exfolient in exfolient
+    if 'exfolient' in request.GET:
+        exfolient = request.GET['exfolient']
+        if exfolient:
+            queryset_list = queryset_list.filter(exfolients__icontains=exfolient)
     # Search for Price in price
     if 'price' in request.GET:
         price = request.GET['price']
@@ -88,6 +94,7 @@ def search(request):
         'price_choices': price_choices,
         'colorants_choices': colorants_choices,
         'fragrance_choices': fragrance_choices,
+        'exfolients_choices': exfolients_choices,
         'bars': paged_bars,
         'values': request.GET,
         'cartItems': cartItems
