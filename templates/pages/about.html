@@ -114,26 +114,35 @@
     <div class="container">
       <h2 class="display-4 mb-2 text-center">Our Team</h2>
       <div class="row text-center">
-        <!-- Iterate through Creators if available -->
-        {% if creators %}
-          {% for creator in creators %}
-          <div class="col-md">
-            <img src=" {{ creator.photo.url }}" alt="" class="rounded-circle mb-3">
-            <h4>{{creator.name}}</h4>
-            <p class="text-success">
-              <i class="fas fa-award text-success mb-3"></i> Creator</p>
-            <hr>
-            <p>
-              <i class="fas fa-phone"></i> {{creator.phone}}</p>
-            <p>
-              <i class="fas fa-envelope-open"></i> {{creator.email}}</p>
-          </div>
-          {% endfor %}
-        {% else %}
-          <div class="col-md-12">
-            <p>No Creators Currently Available</p>
-          </div>
-        {% endif %}
+        <div class="card-group">
+          <!-- Iterate through Creators if available -->
+          {% if creators %}
+            {% for creator in creators %}
+            <!-- <div class="bar-creator col py-3"> -->
+              <div class="card mb-3">
+                <img class="card-img-top rounded-circle" src="{{ creator.photo.url }}" alt="Bar Creator">
+                <div class="card-body">
+                  <h4 class="card-title">{{creator.name}}</h4>
+                  <p class="card-text text-success">
+                    <i class="fas fa-award text-success mb-3"></i> Creator
+                  </p>
+                  <p>{{creator.description}}</p>
+                </div>
+                  <div class="card-footer">
+                    <p class="card-text">
+                      <i class="fas fa-envelope-open"></i> {{creator.email}}
+                    </p>
+                </div>
+              </div>
+            <!-- </div> -->
+            {% endfor %}
+          {% else %}
+            <div class="col-md-12">
+              <p>No Creators Currently Available</p>
+            </div>
+          {% endif %}
+        </div>
+
       </div>
     </div>
   </section>

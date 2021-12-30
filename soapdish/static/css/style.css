@@ -394,6 +394,9 @@ img {
     font-weight: 300;
     line-height: 1.2;
   }
+  .bar-creator {
+    background-color: rgba(32, 134, 107, 0.5);;
+  }
 }
 
 
