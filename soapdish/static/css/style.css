@@ -14,7 +14,8 @@
 /* Sets see thru affect and keeps all fonts uppercase */
 .navbar {
   opacity: 0.9;
-  text-transform: uppercase; 
+  text-transform: uppercase;
+  background-color: #064a00; 
 }
 /* Sets the site logo size */
 .logo {
@@ -25,6 +26,7 @@
 /* Footer - All Pages */
 #main-footer {
   content: "Main Footer";
+  background-color: #064a00;
   opacity: 0.9;
 }
 
@@ -147,10 +149,10 @@
   color: white;
 }
 /* .text-secondary i {
-  color: green;
+  color: #064a00;
 } */
 .text-secondary-bar {
-  color: green;
+  color: #064a00;
 }
 .hr-char-pnts {
   border-top: 2px solid green;
@@ -223,7 +225,7 @@
 
 /* Introductory Video - About Page */
 #introductory-video {
-  background-color: darkslategrey;
+  background-color: #064a00;
   background-size: cover;
   position: relative;
   min-height: 650px;
@@ -232,6 +234,14 @@
 }
 #videoSizeSmall {
     display: none;
+}
+/* Work - About Page */
+#work {
+  background-color: #064a00;
+  background-size: cover;
+  position: relative;
+  color: #fff;
+  padding: 2rem;
 }
 
 /* Bar - Bar Page */
@@ -322,9 +332,7 @@
 img {
   width: 100%; 
 }
-#work {
-  padding: 6rem 0; 
-}
+
 /* Media Queries */
 @media (max-width: 991px) {
   #showcase {
@@ -334,34 +342,58 @@ img {
   .hide-md-down {
     display: none; } }
 
+
 @media (max-width: 768px) {
   #showcase {
     padding-top: 3rem; }
     #showcase h1 {
-      font-size: 40px; }
+      font-size: 40px; 
+    }
     /* #showcase p {
       display: none; } */
   #top-bar {
-    text-align: center; }
+    text-align: center; 
+    }
     #top-bar .social {
-      text-align: center !important; } }
+      text-align: center !important; 
+    } 
+    #showcase {
+      background-image: url(../img/showcase_bars_small.jpg);
+    }
+}
+
 
 @media (max-width: 576px) {
   #showcase h1 {
-    font-size: 30px; }
+    font-size: 30px; 
+  }
   #showcase-inner h1 {
-    font-size: 40px; } }
-
-@media (max-width: 576px) {
+    font-size: 40px; 
+  }
   #videoSizeNormal {
     display: none;
   }
   #videoSizeSmall {
     display: block;
   }
-}
-@media (max-width: 768px) {
-#showcase {
-    background-image: url(../img/showcase_bars_small.jpg);
+  #introductory-video {
+    min-height:auto;
+  }
+  .lead {
+    font-size: 0.75rem;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .display-3 {
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+  }
+  .display-4 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1.2;
   }
 }
+
+

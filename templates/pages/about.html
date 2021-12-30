@@ -19,7 +19,7 @@
     <div class="container">
       <div class="row text-center">
         <div class="col-md-12">
-          <h1 class="display-4">About Soap Dish</h1>
+          <h1 class="display-4 mb-2">About Soap Dish</h1>
           <p class="lead">Soap Dish is a Father-Daughter collaboration to make fun and nutritional skin loving soap.</p>
           <p><strong>Vegetable Based Soaps:  An Affordable Luxury!</strong></p>
         </div>
@@ -68,8 +68,8 @@
   <section id="about" class="py-4">
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
-          <h2>The Quest For The Perfect Bar of Soap</h2>
+        <div class="col-md-12 text-center">
+          <h2 class="display-4 mb-2">The Quest For The Perfect Bar of Soap</h2>
           <p class="lead">Below is where all the magic happens!</p>
           <img src="{% static 'img/about-the-lab-02.JPG' %}" alt="about the lab image">
           <p class="mt-4">We like to call this area, "The Lab".  We carved out a space in our basement to practice the art and science of making soap.  Our creator's experience with science, technology, and art helps with the soapmaking process.  The best part is testing your products.</p>
@@ -99,17 +99,20 @@
   </section>
 
   <!-- Our Work -->
-  <section id="work" class="bg-dark text-white text-center">
+  <section id="work" class="text-white text-center">
     <h2 class="display-4">We Create For You</h2>
     <h4>Soap Dish was born to provide a simple means to collaborate on our creativity.  This collaboration of love goes into every Bar we make!</h4>
-    <hr>
-    <a href="{% url 'bars' %}" class="btn btn-secondary text-white btn-lg">View Our Soap Bar Collection</a>
+    <div class="col showcase-button-group">
+      <a class="lead" href="{% url 'bars' %}">
+        View Our Soap Bar Collection
+      </a>
+    </div>
   </section>
 
   <!-- Team -->
   <section id="team" class="py-5">
     <div class="container">
-      <h2 class="text-center">Our Team</h2>
+      <h2 class="display-4 mb-2 text-center">Our Team</h2>
       <div class="row text-center">
         <!-- Iterate through Creators if available -->
         {% if creators %}
