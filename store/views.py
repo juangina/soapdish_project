@@ -99,9 +99,11 @@ def updateItem(request):
 	customer = request.user.customer
 	product = Product.objects.get(id=productId)
 	order, created = Order.objects.get_or_create(customer=customer, complete=False)
+	#print(order)
 
 	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 	#print(data)
+	#print(orderItem)
 	if action == 'add':
 		orderItem.quantity = (orderItem.quantity + int(qty))
 	elif action == 'add1':

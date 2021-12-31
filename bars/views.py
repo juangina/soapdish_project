@@ -86,6 +86,7 @@ def search(request):
         if price:
             queryset_list = queryset_list.filter(price__lte=price)
 
+    number_of_bars = queryset_list.count()
     paginator = Paginator(queryset_list, 6)
     page = request.GET.get('page')
     paged_bars = paginator.get_page(page)
@@ -96,6 +97,7 @@ def search(request):
         'fragrance_choices': fragrance_choices,
         'exfolients_choices': exfolients_choices,
         'bars': paged_bars,
+        'number_of_bars': number_of_bars,
         'values': request.GET,
         'cartItems': cartItems
     }

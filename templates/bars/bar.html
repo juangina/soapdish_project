@@ -42,12 +42,16 @@
 <!-- Bar -->
 <section id="bar" class="py-4">
   <div class="container">
-    <a href="javascript:history.back()" class="btn btn-light mb-4">Back To Bars</a>
+    <div class="my-4 back-button-group">
+      <a href="javascript:history.back()">Back To Bars</a>
+    </div>
     <div class="row">
       <!-- Bar Photo Shoot and Bar Desciption -->
-      <div class="col-md-9">
+      <div class="col-md-9 py-3">
         <!-- Home Main Image -->
-        <img src="{{ bar.photo_main.url }}" alt="" class="img-main img-fluid mb-3">
+        <div class="bar-image-large">
+          <img src="{{ bar.photo_main.url }}" alt="" class="img-main img-fluid mb-3">
+        </div>
         <!-- Thumbnails -->
         <div class="row mb-3 thumbs">
           {% if bar.photo_1 %}
@@ -109,7 +113,7 @@
             <h6 class="text-secondary-bar">{{bar.creator}}</h6>
           </div>
         </div>
-        <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Make An Inquiry</button>
+        <button class="inquiry-button-group" data-toggle="modal" data-target="#inquiryModal">Make An Inquiry</button>
       </div>
     </div>
     <!-- Fields -->

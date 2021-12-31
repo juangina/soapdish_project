@@ -46,33 +46,34 @@
   
   <!-- Alerts -->
   {% include 'partials/_alerts.html' %}
+
   <!-- Listings -->
   <section id="listings">
     <div class="container">
-      <h3 class="display-3 text-center my-3">Our Latest Creations</h3>
+      <h3 class="display-3 text-center mb-3">Our Latest Creations</h3>
       <!--Listing Iteration-->
       <div class="row">
         {% if bars %}
           {% for bar in bars %}
-          <div class="col-md-6 col-lg-4 mb-4">
-              <div class="card h-100">
-                <img class="card-img-top" src="{{ bar.photo_main.url }}" alt="">
-                <div class="card-body card-button">
-                  <div class="listing-heading list-body text-center">
-                    <h5 class="text-primary">{{bar.name}}</h5>
+            <div class="col-md-6 col-lg-4 mb-2 d-flex align-items-stretch">
+                <div class="card">
+                  <img class="card-img-top" src="{{ bar.photo_main.url }}" alt="">
+                  <div class="card-body d-flex flex-column">
+                    <div class="listing-heading list-body text-center mt-auto">
+                      <h5 class="text-primary">{{bar.name}}</h5>
+                    </div>
+                    <p class="card-button-group">
+                      <a href="{% url 'bar' bar.id %}" >More Info</a>
+                    </p>
                   </div>
-                  <hr>
-                  <a href="{% url 'bar' bar.id %}" >More Info</a>
                 </div>
-              </div>
-          </div>
+            </div>
           {% endfor %}
         {% else %}
           <div class="col-md-12">
             <p>No Listings Available</p>
           </div>
         {% endif %}
-
       </div>
     </div>
   </section>

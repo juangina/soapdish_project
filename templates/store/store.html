@@ -11,7 +11,7 @@
 			<h1 class="display-4">Shop Our Collection</h1>
 			<p class="lead">Our soap uses all natural ingredients including , Olive Oil, Coconut Oil, Cocoa butter, Shea Butter, and Hemp Seed Oil.</p>
 			<p class="lead">Special Requests are Encouraged.  Please consult the Membership page for more details.</p>
-			<p class="lead">Vegetable Based Soaps:  An Affordable Luxury!</p>
+			<p><strong>Vegetable Based Soaps:  An Affordable Luxury!</strong></p>
 			</div>
 		</div>
 		</div>
@@ -41,24 +41,25 @@
 			<!--Product Iteration-->
 			<div class="row">
 			{% if products %}
-				<div class="row">
+				<!-- <div class="row"> -->
 					{% for product in products %}
-					<div class="col-lg-4">
-						<img class="" src="{{product.imageURL}}">
-						
-						<div class="box-element product">
-							<h6><strong>{{product.name}}</strong></h6>
-							<hr>
-							
-							<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-
-							<a class="btn btn-outline-success" href="{% url 'product' product.id %}">View Details</a>
-							
-							<h5 style="float: right;"><strong>${{product.price}}</strong></h5>
+					<div class="col-lg-4 h-100">
+						<a style="text-decoration: none;" href="{% url 'product' product.id %}">
+							<div class="box-element product text-center">
+								<img class="" src="{{product.imageURL}}">
+								<h5>
+									<strong>{{product.name}}</strong>
+								</h5>
+								<!-- <p>{{product.bar.description}}</p> -->
+								<h6><strong>${{product.price}}</strong></h6>
+							</div>
+						</a>
+						<div class="text-center p-2 mt-2">
+							<button class="update-cart update-cart-button" data-product="{{product.id}}" data-action="add" >Add to Cart</button>
 						</div>
 					</div>
 					{% endfor %}
-				</div>
+				<!-- </div> -->
 			{% else %}
 				<div class="col-md-12">
 					<p>We are sorry.  There are no Soapdish products available at this time.</p>
