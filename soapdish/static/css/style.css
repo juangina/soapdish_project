@@ -445,6 +445,9 @@ img {
   .bar-creator {
     background-color: rgba(32, 134, 107, 0.5);;
   }
+  .qty-available {
+    text-align: left !important;
+  }
 }
 
 

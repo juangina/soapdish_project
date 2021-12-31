@@ -107,7 +107,7 @@
           <div class="col-md-3">
             <h5>${{ product.price}}</h5>
           </div>
-          <div class="col-md-9 text-right">
+          <div class="qty-available col-md-9 text-right">
             <h5>Qty. Available: {{product.stock}}</h5> 
           </div>
         </div>
@@ -115,7 +115,7 @@
         <!-- Product Select Quantity -->
         <div class="row mb-2">
           <div class="col-md-12">
-            <label for="itemQty">Item Quantity</label>
+            <label for="itemQty">Select Item Quantity</label>
             <!--Add Items Quantity Selector-->
             <select name="itemQty" id="itemQty" class="form-control">
               {% for key, value in quantity_choices.items %}
