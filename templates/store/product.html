@@ -27,10 +27,13 @@
 {% include 'partials/_alerts.html' %}
 
 <!-- Product -->
-<section id="bar" class="py-4">
+<section id="bar" class="pb-4">
   <div class="container">
-    <a href="javascript:history.back()" class="btn btn-light mb-4">Back To Store</a>
+    <div class="my-4 back-button-group">
+      <a href="javascript:history.back()" >Back To Store</a>
+    </div>
     <div class="row">
+      <!-- Bar Photo Shoot -->
       <div class="col-md-7">
         <!-- Product Main Image -->
         <img src="{{ product.image.url }}" alt="" class="img-main img-fluid mb-3">
@@ -83,7 +86,7 @@
 
       </div>
       <!-- Product Submit -->
-      <div class="col-md-5">
+      <div class="product-submit col-md-5">
 
         <!-- Product Name -->
         <div class="row mb-2">
@@ -99,17 +102,17 @@
           </div>
         </div>
 
-        <!-- Product Price -->
+        <!-- Product Price and Quantity Available-->
         <div class="row mb-2">
           <div class="col-md-3">
-            <h4>${{ product.price}}</h4>
+            <h5>${{ product.price}}</h5>
           </div>
           <div class="col-md-9 text-right">
-            <h4>Quantity Available: {{product.stock}}</h4> 
+            <h5>Qty. Available: {{product.stock}}</h5> 
           </div>
         </div>
 
-        <!-- Product Quantity -->
+        <!-- Product Select Quantity -->
         <div class="row mb-2">
           <div class="col-md-12">
             <label for="itemQty">Item Quantity</label>
@@ -123,56 +126,58 @@
         </div>
 
         <!--Add Items Event Object-->
-        <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart mb-2">Add to Cart</button>
-
-        <!-- Product Attributes -->
-        <div class="row mb-5 fields">
-          <div class="col-md-12">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item text-secondary">
-                <!--
-                <i class="fas fa-th-large"></i> Asking Price:
-                <span class="float-right">${{ product.bar.price | intcomma }}</span>
-                -->
-                <i class="fas fa-th-large"></i> Name:
-                <span class="float-right">{{ product.bar.name }}</span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Fragrance:
-                <span class="float-right">{{ product.bar.fragrance }}</span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Nutrients:
-                <span class="float-right">{{ product.bar.nutrients }}</span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Exfolients:
-                <span class="float-right">{{ product.bar.exfolients }}
-                </span>
-              </li>
-
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Recipe:
-                <span class="float-right">{{ product.bar.recipe }}</span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Discount:
-                <span class="float-right">{{ product.bar.discount }}%
-                </span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Bar Created:
-                <span class="float-right">{{ product.bar.created_date }}</span>
-              </li>
-              <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Creator:
-                <span class="float-right">{{ product.bar.creator }}
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
+        <button data-product="{{product.id}}" data-action="add" class="update-cart update-cart-button mb-2">Add to Cart</button>
+      </div>
+    </div>  
+    <!-- Product Attributes -->
+    <div class="row mb-5 fields">
+      <div class="col-12">
+        <h2 class="display-4 mb-2 text-center">
+          Soap Characteristics
+        </h2>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Name:
+            <span class="float-right">{{ product.bar.name }}</span>
+          </li>
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Recipe:
+            <span class="float-right">{{ product.bar.recipe }}</span>
+          </li>
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Discount:
+            <span class="float-right">{{ product.bar.discount }}%</span>
+          </li>
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Bar Created:
+            <span class="float-right">{{ product.bar.created_date }}
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Fragrance:
+            <span class="float-right">{{ product.bar.fragrance }}</span>
+          </li>
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Colorants:
+            <span class="float-right">{{ product.bar.colorants }}
+            </span>
+          </li>
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Nutrients:
+            <span class="float-right">{{ product.bar.nutrients }}</span>
+          </li>
+          <li class="list-group-item text-secondary-bar">
+            <i class="fas fa-th-large"></i> Exfolients:
+            <span class="float-right">{{ product.bar.exfolients }}
+            </span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
