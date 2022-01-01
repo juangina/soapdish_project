@@ -46,6 +46,7 @@ class Bar(models.Model):
     photo_5 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     photo_6 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     is_cured = models.BooleanField(default=True)
+    for_sale = models.BooleanField(default=True)
     created_date = models.DateTimeField(default=datetime.now, blank=True)
     def __str__(self):
         return self.name

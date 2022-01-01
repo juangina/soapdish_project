@@ -10,8 +10,8 @@ def index(request):
     order = data['order']
     items = data['items']
 
-    bars = Bar.objects.order_by('-created_date')
-    number_of_bars = Bar.objects.count()
+    bars = Bar.objects.order_by('-created_date').filter(for_sale=True)
+    number_of_bars = bars.count()
     range_bars = range(number_of_bars)
     print(range_bars)
 
@@ -53,7 +53,7 @@ def search(request):
     order = data['order']
     items = data['items']
 
-    queryset_list = Bar.objects.order_by('-created_date')
+    queryset_list = Bar.objects.order_by('-created_date').filter(for_sale=True)
 
     # Search for Keywords in recipe
     if 'keywords' in request.GET:
