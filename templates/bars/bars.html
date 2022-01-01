@@ -137,11 +137,11 @@
         <div class="row">
         {% if bars %}
             {% for bar in bars %}
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card listing-preview">
+                <div class="col-6 col-md-4 mb-4 d-flex align-items-stretch">
+                    <div class="card">
                         <img class="card-img-top" src="{{ bar.photo_main.url }}" alt="picture of soap">
-                        <div class="card-body card-button-group">
-                            <div class="listing-heading text-center">
+                        <div class="card-body card-button-group d-flex flex-column">
+                            <div class="listing-heading text-center mt-auto">
                                 <h5 class="text-primary">{{bar.name}}</h5>
                             </div>
                             <hr>

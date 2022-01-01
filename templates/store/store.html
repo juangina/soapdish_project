@@ -43,7 +43,7 @@
 			{% if products %}
 				<!-- <div class="row"> -->
 					{% for product in products %}
-					<div class="col-lg-4 h-100">
+					<div class="col-6 col-md-4 px-2 h-100">
 						<a style="text-decoration: none;" href="{% url 'product' product.id %}">
 							<div class="box-element product text-center">
 								<img class="" src="{{product.imageURL}}">

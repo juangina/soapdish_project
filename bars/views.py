@@ -15,7 +15,7 @@ def index(request):
     range_bars = range(number_of_bars)
     print(range_bars)
 
-    paginator = Paginator(bars, 6)
+    paginator = Paginator(bars, 12)
     page = request.GET.get('page')
     paged_bars = paginator.get_page(page)
 
