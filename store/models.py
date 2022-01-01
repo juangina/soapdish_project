@@ -33,6 +33,15 @@ class Product(models.Model):
 		except:
 			url = ''
 		return url
+	
+	def updateStock(self, quantity):
+		self.stock -= quantity
+		if(self.stock) >= 0:
+			self.instock == True
+		else:
+			self.instock == False
+		self.save() 
+		return self.stock
 
 class Order(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)

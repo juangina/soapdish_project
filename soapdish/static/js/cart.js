@@ -3,6 +3,8 @@
 var updateBtns = document.getElementsByClassName('update-cart')
 var deleteBtns = document.getElementsByClassName('delete-item')
 var updateSelection = document.getElementsByClassName('item-quantity')
+var itemQty = document.getElementById('itemQty')
+
 
 for (i = 0; i < updateBtns.length; i++) {
 	updateBtns[i].addEventListener('click', function(){
@@ -27,6 +29,18 @@ for (i = 0; i < updateBtns.length; i++) {
 		}
 	})
 }
+
+for (i = 0; i < updateBtns.length; i++) {
+	var productQty = updateBtns[i].dataset.qty
+	//console.log(productQty);
+	if(productQty <= 0) {
+		updateBtns[i].disabled = true;
+		itemQty.disabled = true;
+		updateBtns[i].innerHTML = "Out of Stock!";
+	}
+	//console.log(updateBtns[i]);
+}
+
 for (i = 0; i < deleteBtns.length; i++) {
 	deleteBtns[i].addEventListener('click', function() {
 		var productId = this.dataset.product;

@@ -23,7 +23,7 @@
 			<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
-				<a href="{% url 'index' %}">
+					<a href="{% url 'index' %}">
 					<i class="fas fa-home"></i> Home</a>
 				</li>
 				<li class="breadcrumb-item active">Available Products</li>
@@ -36,7 +36,7 @@
 	{% include 'partials/_alerts.html' %}	
 
 	<!-- Products -->
-	<section id="listings" class="py-5">
+	<section id="listings" class="mt-3">
 		<div class="container">
 			<!--Product Iteration-->
 			<div class="row">
@@ -55,7 +55,7 @@
 							</div>
 						</a>
 						<div class="text-center p-2 mt-2">
-							<button class="update-cart update-cart-button" data-product="{{product.id}}" data-action="add" >Add to Cart</button>
+							<button class="update-cart update-cart-button" data-product="{{product.id}}" data-action="add" data-qty={{product.stock}} >Add to Cart</button>
 						</div>
 					</div>
 					{% endfor %}

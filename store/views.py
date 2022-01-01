@@ -20,7 +20,8 @@ def store(request):
 
 	cartItems = data['cartItems']
 
-	products = Product.objects.all()
+	products = Product.objects.order_by('name')
+	
 	context = {
 		'products':products, 
 		'cartItems':cartItems,
@@ -30,18 +31,25 @@ def store(request):
 #Renders product page
 @login_required(login_url="login")
 def product(request, product_id):
-    data = cartData(request)
-    cartItems = data['cartItems']
+	data = cartData(request)
+	cartItems = data['cartItems']
     
     #product = Product.objects.get(id=product_id)
-    product = get_object_or_404(Product, pk=product_id)
+	product = get_object_or_404(Product, pk=product_id)
+	
+	quantity_choices_available = {}
+	for key, value in quantity_choices.items():
+		quantity_choices_available[key]=value
+		if str(product.stock) == key:
+			break
+	print(quantity_choices_available)
 
-    context = {
+	context = {
         'product': product,
         'cartItems': cartItems,
-		'quantity_choices': quantity_choices        
+		'quantity_choices': quantity_choices_available,        
     }
-    return render(request, 'store/product.html', context)
+	return render(request, 'store/product.html', context)
 
 #Renders cart page
 @login_required(login_url="login")
@@ -106,16 +114,25 @@ def updateItem(request):
 	#print(orderItem)
 	if action == 'add':
 		orderItem.quantity = (orderItem.quantity + int(qty))
+		product.updateStock(int(qty))
+		print(product.stock, product.instock)
 	elif action == 'add1':
 		orderItem.quantity = (orderItem.quantity + 1)
+		product.updateStock(1)
+		print(product.stock, product.instock)
 	elif action == 'remove1' and orderItem.quantity > 1:
 		orderItem.quantity = (orderItem.quantity - 1)
+		product.updateStock(-1)
+		print(product.stock, product.instock)
 	elif action == 'set':
 		orderItem.quantity = int(qty)
-
+		product.updateStock(int(qty))
+		print(product.stock, product.instock)
 	orderItem.save()
 
 	if action == 'delete' or orderItem.quantity <= 0:
+		product.updateStock(-orderItem.quantity)
+		print(product.stock, product.instock)
 		orderItem.delete()
 		return JsonResponse('Item was deleted', safe=False)
 
