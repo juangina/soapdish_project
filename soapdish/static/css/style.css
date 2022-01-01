@@ -401,12 +401,15 @@ img {
 
 @media (max-width: 768px) {
   #showcase {
-    padding-top: 3rem; }
-    #showcase h1 {
-      font-size: 40px; 
+    padding: 0.5rem; 
+  }
+  #showcase h1 {
+    font-size: 40px; 
+  }
+  #showcase .container {
+      padding-right: 0px;
+      padding-left: 0px;  
     }
-    /* #showcase p {
-      display: none; } */
   #top-bar {
     text-align: center; 
     }
