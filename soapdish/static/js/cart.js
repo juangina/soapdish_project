@@ -35,7 +35,9 @@ for (i = 0; i < updateBtns.length; i++) {
 	//console.log(productQty);
 	if(productQty <= 0) {
 		updateBtns[i].disabled = true;
-		itemQty.disabled = true;
+		if(itemQty) {
+			itemQty.disabled = true;
+		}
 		updateBtns[i].innerHTML = "Out of Stock!";
 	}
 	//console.log(updateBtns[i]);
