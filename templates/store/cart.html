@@ -103,20 +103,20 @@
 		<div class="container">
 			{% for item in items %}
 				<div class="row d-flex align-items-stretch py-2 my-3 border-bottom">
-					<a class="hyper-link col-sm-6" href="{% url 'product' item.product.id %}">
-						<div class="row d-flex align-items-center">
-							<div class="col-8 pr-0 cart-product-name-group">
-								<img class="img-fluid img-thumbnail" src="{{item.product.imageURL}}">
-							</div>
-							<div class="col-4 cart-product-name-group">
-									<p>{{item.product.name}}</p>
-							</div>
+					<a class="col-sm-5 d-flex flex-column order-1" href="{% url 'product' item.product.id %}">
+						<div class="pr-0">
+							<img class="img-fluid img-thumbnail" src="{{item.product.imageURL}}">
+						</div>
+						<div class="text-center">
+							<p class="lead"><strong>
+								{{item.product.name}}
+							</strong></p>
 						</div>
 					</a>
-					<div class="col-sm-2 d-flex flex-column justify-content-end text-center">
-						<p>
+					<div class="col-sm-3 d-flex flex-sm-column order-2 justify-content-center align-items-center text-center">
+						<p><strong>
 							Update Quantity
-						</p>
+						</strong></p>
 						<!-- <div class="quantity"> -->
 							<!-- <p>
 								{{item.quantity}}
@@ -127,7 +127,7 @@
 							<img data-product="{{item.product.id}}" data-action="remove1" class="chg-quantity update-cart" src="{% static  'img/arrow-down.png' %}"> -->
 						<!-- </div> -->
 						<!--Set Items Event Object--><!--Add Items Quantity Selector-->
-						<select data-product="{{item.product.id}}" data-action="set" name="itemQty" id="itemQty" class="form-control item-quantity">
+						<select data-product="{{item.product.id}}" data-action="set" name="itemQty" id="itemQty" class="form-control item-quantity text-center mb-3">
 							{% for key, value in quantity_choices.items %}
 								<option value="{{key}}" 
 									{% ifequal item.quantity|stringformat:'s' key %}
@@ -136,26 +136,50 @@
 								</option>
 							{% endfor %}
 						</select>
-						<div><button data-product="{{item.product.id}}" data-action="delete" type="button" class="delete-item delete-cart-button-group">Delete</button></div>
+						<button data-product="{{item.product.id}}" data-action="delete" type="button" class="delete-item delete-cart-button-group">Delete
+						</button>
 					</div>
-					<div class="col-sm-2 d-flex flex-column justify-content-end text-center">
-						<p>
+					<div class="col-sm-2 d-flex flex-sm-column order-3 justify-content-center text-center">
+						<p><strong>
 							Item Price
-						</p>
+						</strong></p>
 						<p>
 							${{item.product.price|floatformat:2}}
 						</p>
 					</div>
-					<div class="col-sm-2 d-flex flex-column justify-content-end text-center">
-						<p>
+					<div class="col-sm-2 d-flex flex-sm-column order-4 justify-content-center text-center">
+						<p><strong>
 							Item Subtotal
-						</p>
+						</strong></p>
 						<p>
 							${{item.get_total|floatformat:2}}
 						</p>
 					</div>
 				</div>
 			{% endfor %}
+		</div>
+	</section>
+
+	<section id="cart-summary-bottom">
+		<div class="container">
+			<div class="row d-flex align-items-center py-2 my-3">
+				<div class="col-sm-4 order-1 cart-button-group">
+						<a  href="{% url 'store' %}">Continue Shopping</a>
+				</div>
+				<div class="col-sm-3 order-2 text-center">
+					<h5>
+						Cart Items: <strong>{{order.get_cart_items}}</strong>
+					</h5>
+				</div>
+				<div class="col-sm-3 order-3 text-center">
+					<h5>
+						Subtotal:<strong> ${{order.get_cart_total|floatformat:2}}</strong>
+					</h5>
+				</div>
+				<div class="col-sm-2 order-4 cart-button-group">
+						<a href="{% url 'checkout' %}">Checkout</a>
+				</div>
+			</div>
 		</div>
 	</section>
 {% endblock content %}

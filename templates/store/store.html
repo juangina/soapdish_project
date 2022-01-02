@@ -39,18 +39,17 @@
 	<section id="listings" class="mt-3">
 		<div class="container">
 			<!--Product Iteration-->
-			<div class="row">
+			<div class="row d-flex align-items-stretch">
 			{% if products %}
 				<!-- <div class="row"> -->
 					{% for product in products %}
-					<div class="col-6 col-md-4 px-2 h-100">
-						<a style="text-decoration: none;" href="{% url 'product' product.id %}">
-							<div class="box-element product text-center">
+					<div class="col-6 col-md-4 px-2 d-flex flex-column justify-content-between">
+						<a class="border box-element product flex-fill" style="text-decoration: none;" href="{% url 'product' product.id %}">
+							<div class="text-center">
 								<img class="" src="{{product.imageURL}}">
 								<h5>
 									<strong>{{product.name}}</strong>
 								</h5>
-								<!-- <p>{{product.bar.description}}</p> -->
 								<h6><strong>${{product.price}}</strong></h6>
 							</div>
 						</a>
