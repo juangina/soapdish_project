@@ -1,115 +1,154 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
+{% block title %} | Cart {% endblock %}
 {% block content %}
-	<section id="cart-summary">
-		<div class="container">
-			<div class="row d-flex align-items-center py-2 my-3">
-				<div class="col-sm-4 order-1 cart-button-group">
-						<a  href="{% url 'store' %}">Continue Shopping</a>
-				</div>
-				<div class="col-sm-3 order-2 text-center">
-					<h5>
-						Cart Items: <strong>{{order.get_cart_items}}</strong>
-					</h5>
-				</div>
-				<div class="col-sm-3 order-3 text-center">
-					<h5>
-						Subtotal:<strong> ${{order.get_cart_total|floatformat:2}}</strong>
-					</h5>
-				</div>
-				<div id="checkOut" class="col-sm-2 order-4 cart-button-group">
-						<a href="{% url 'checkout' %}">Checkout</a>
-				</div>
+
+<!-- Cart Summary Top -->
+<section id="cart-summary">
+	<div class="container">
+		<div class="row d-flex align-items-center py-2 my-3">
+			<div class="col-sm-4 order-1 cart-button-group">
+					<a  href="{% url 'store' %}">Back to Store</a>
+			</div>
+			<div class="col-sm-3 order-2 text-center">
+				<h5>
+					Cart Items: <strong>{{order.get_cart_items}}</strong>
+				</h5>
+			</div>
+			<div class="col-sm-3 order-3 text-center">
+				<h5>
+					Subtotal:<strong> ${{order.get_cart_total|floatformat:2}}</strong>
+				</h5>
+			</div>
+			<div id="checkOut" class="col-sm-2 order-4 cart-button-group">
+					<a href="{% url 'checkout' %}">Go to Checkout</a>
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
 
-	<section id="cart-items">
-		<div class="container">
-			{% for item in items %}
-				<div class="row d-flex align-items-stretch py-2 my-3 border-bottom">
-					<a class="col-sm-5 d-flex flex-column order-1" href="{% url 'product' item.product.id %}">
-						<div class="pr-0">
-							<img class="img-fluid img-thumbnail" src="{{item.product.imageURL}}">
-						</div>
-						<div class="text-center">
-							<p class="lead"><strong>
-								{{item.product.name}}
-							</strong></p>
-						</div>
-					</a>
-					<div class="col-sm-3 d-flex flex-sm-column order-2 justify-content-center align-items-center text-center">
-						<p><strong>
-							Update Quantity ({{item.quantity}})
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}
+
+<!-- Cart List -->
+<section id="cart-items">
+	<div class="container">
+		{% for item in items %}
+			<div class="row d-flex align-items-stretch py-2 my-3 border-bottom">
+				<a class="col-sm-5 d-flex flex-column order-1" href="{% url 'product' item.product.id %}">
+					<div class="pr-0">
+						<img class="img-fluid img-thumbnail" src="{{item.product.imageURL}}">
+					</div>
+					<div class="text-center">
+						<p class="lead"><strong>
+							{{item.product.name}}
 						</strong></p>
-						<!--Set Items Event Object--><!--Add Items Quantity Selector-->
-						<select data-product="{{item.product.id}}" data-action="set" name="itemQty" id="itemQty" class="form-control item-quantity text-center mb-3">
-							{% for key1, value1 in quantity_choices_items.items %}
-								{% for key2, value2 in value1.items %}
-									{% ifequal item.product.id|stringformat:'s' key1 %}
-										<option value="{{key2}}"
-										{% ifequal item.quantity|stringformat:'s' key2 %}
-												selected
-											{% endifequal %}
-										>
-											{{value2}} 
-										</option>
-									{% endifequal %}
-								{% endfor %}
+					</div>
+				</a>
+				<div class="col-sm-3 d-flex flex-sm-column order-2 justify-content-center align-items-center text-center">
+					<p><strong>
+						Update Quantity ({{item.quantity}})
+					</strong></p>
+					<!--Set Items Event Object--><!--Add Items Quantity Selector-->
+					<select data-product="{{item.product.id}}" data-action="set" name="itemQty" id="itemQty" class="form-control item-quantity text-center mb-3">
+						{% for key1, value1 in quantity_choices_items.items %}
+							{% for key2, value2 in value1.items %}
+								{% ifequal item.product.id|stringformat:'s' key1 %}
+									<option value="{{key2}}"
+									{% ifequal item.quantity|stringformat:'s' key2 %}
+											selected
+										{% endifequal %}
+									>
+										{{value2}} 
+									</option>
+								{% endifequal %}
 							{% endfor %}
-						</select>
-						<button data-product="{{item.product.id}}" data-action="delete" type="button" class="delete-item delete-cart-button-group">Delete
-						</button>
-					</div>
-					<div class="col-sm-2 d-flex flex-sm-column order-3 justify-content-center text-center">
-						<p><strong>
-							Item Price
-						</strong></p>
-						<p>
-							${{item.product.price|floatformat:2}}
-						</p>
-					</div>
-					<div class="col-sm-2 d-flex flex-sm-column order-4 justify-content-center text-center">
-						<p><strong>
-							Item Subtotal
-						</strong></p>
-						<p>
-							${{item.get_total|floatformat:2}}
-						</p>
-					</div>
-				</div>
-				<div style="display:none;">
-					{% for key1, value1 in quantity_choices_items.items %}
-						{% for key2, value2 in value1.items %}
-							{{key1}} {{value1}} {{key2}}: {{value2}} <br>
 						{% endfor %}
-					{% endfor %}
+					</select>
+					<button data-product="{{item.product.id}}" data-action="delete" type="button" class="delete-item delete-cart-button-group" data-toggle="modal" data-target="#cart-option-Modal-cart">Delete
+					</button>
 				</div>
-
-			{% endfor %}
-		</div>
-	</section>
-
-	<section id="cart-summary-bottom">
-		<div class="container">
-			<div class="row d-flex align-items-center py-2 my-3">
-				<div class="col-sm-4 order-1 cart-button-group">
-						<a  href="{% url 'store' %}">Continue Shopping</a>
+				<div class="col-sm-2 d-flex flex-sm-column order-3 justify-content-center text-center">
+					<p><strong>
+						Item Price
+					</strong></p>
+					<p>
+						${{item.product.price|floatformat:2}}
+					</p>
 				</div>
-				<div class="col-sm-3 order-2 text-center">
-					<h5>
-						Cart Items: <strong>{{order.get_cart_items}}</strong>
-					</h5>
-				</div>
-				<div class="col-sm-3 order-3 text-center">
-					<h5>
-						Subtotal:<strong> ${{order.get_cart_total|floatformat:2}}</strong>
-					</h5>
-				</div>
-				<div class="col-sm-2 order-4 cart-button-group">
-						<a href="{% url 'checkout' %}">Checkout</a>
+				<div class="col-sm-2 d-flex flex-sm-column order-4 justify-content-center text-center">
+					<p><strong>
+						Item Subtotal
+					</strong></p>
+					<p>
+						${{item.get_total|floatformat:2}}
+					</p>
 				</div>
 			</div>
+			<div style="display:none;">
+				{% for key1, value1 in quantity_choices_items.items %}
+					{% for key2, value2 in value1.items %}
+						{{key1}} {{value1}} {{key2}}: {{value2}} <br>
+					{% endfor %}
+				{% endfor %}
+			</div>
+
+		{% endfor %}
+	</div>
+</section>
+
+<!-- Cart Summary Bottom -->
+<section id="cart-summary-bottom">
+	<div class="container">
+		<div class="row d-flex align-items-center py-2 my-3">
+			<div class="col-sm-4 order-1 cart-button-group">
+					<a  href="{% url 'store' %}">Back to Store</a>
+			</div>
+			<div class="col-sm-3 order-2 text-center">
+				<h5>
+					Cart Items: <strong>{{order.get_cart_items}}</strong>
+				</h5>
+			</div>
+			<div class="col-sm-3 order-3 text-center">
+				<h5>
+					Subtotal:<strong> ${{order.get_cart_total|floatformat:2}}</strong>
+				</h5>
+			</div>
+			<div class="col-sm-2 order-4 cart-button-group">
+					<a href="{% url 'checkout' %}">Go to Checkout</a>
+			</div>
 		</div>
-	</section>
+	</div>
+</section>
+
+<!-- Cart Option Modal -->
+<div id="cart-option-Modal-cart" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-name" id="inquiryModalLabel">
+					What do you want to do next?
+				</h5>
+				<button class="dismissModal" type="button" class="close" data-dismiss="modal">
+					<span>&times;</span>
+				</button>
+			</div>
+			<div class="modal-body d-flex justify-content-between">
+				<div class="my-4 back-button-group">
+					<a href="{% url 'store' %}" >Back to Store</a>
+				</div>
+				<div class="my-4 back-button-group">
+					<a href="javascript:location.reload()" >Stay in Cart</a>
+				</div>
+				<div class="my-4 back-button-group">
+					<a href="{% url 'checkout' %}" >Go to Checkout</a>
+				</div>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+</div>
+
 {% endblock content %}

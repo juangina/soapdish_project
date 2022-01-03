@@ -1,78 +1,109 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load humanize %}
+{% block title %} | Products {% endblock %}
 {% block content %}
 
-	<!-- Showcase -->
-	<section id="showcase-inner" class="py-5 text-white">
-		<div class="container">
-		<div class="row text-center">
-			<div class="col-md-12">
-			<h1 class="display-4">Shop Our Collection</h1>
-			<p class="lead">Our soap uses all natural ingredients including , Olive Oil, Coconut Oil, Cocoa butter, Shea Butter, and Hemp Seed Oil.</p>
-			<p class="lead">Special Requests are Encouraged.  Please consult the Membership page for more details.</p>
-			<p><strong>Vegetable Based Soaps:  An Affordable Luxury!</strong></p>
-			</div>
+<!-- Showcase -->
+<section id="showcase-inner" class="py-5 text-white">
+	<div class="container">
+	<div class="row text-center">
+		<div class="col-md-12">
+		<h1 class="display-4">Shop Our Collection</h1>
+		<p class="lead">Our soap uses all natural ingredients including , Olive Oil, Coconut Oil, Cocoa butter, Shea Butter, and Hemp Seed Oil.</p>
+		<p class="lead">Special Requests are Encouraged.  Please consult the Membership page for more details.</p>
+		<p><strong>Vegetable Based Soaps:  An Affordable Luxury!</strong></p>
 		</div>
-		</div>
-	</section>
+	</div>
+	</div>
+</section>
 
-  	<!-- Breadcrumb -->
-	<section id="bc" class="mt-3">
-		<div class="container">
-			<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item">
-					<a href="{% url 'index' %}">
-					<i class="fas fa-home"></i> Home</a>
-				</li>
-				<li class="breadcrumb-item active">Available Products</li>
-			</ol>
-			</nav>
-		</div>
-	</section>
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+	<div class="container">
+		<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">
+				<i class="fas fa-home"></i> Home</a>
+			</li>
+			<li class="breadcrumb-item active">Available Products</li>
+		</ol>
+		</nav>
+	</div>
+</section>
 
-	<!-- Alerts -->
-	{% include 'partials/_alerts.html' %}	
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}	
 
-	<!-- Products -->
-	<section id="listings" class="mt-3">
-		<div class="container">
-			<!--Product Iteration-->
-			<div class="row d-flex align-items-stretch">
-			{% if products %}
-				<!-- <div class="row"> -->
-					{% for product in products %}
-					<div class="col-6 col-md-4 px-2 d-flex flex-column justify-content-between">
-						<a class="border box-element product flex-fill" style="text-decoration: none;" href="{% url 'product' product.id %}">
-							<div class="text-center">
-								<img class="" src="{{product.imageURL}}">
-								<h5>
-									<strong>{{product.name}}</strong>
-								</h5>
-								<h6><strong>${{product.price}}</strong></h6>
-							</div>
-						</a>
-						<div class="text-center p-2 mt-2">
-							<button class="update-cart update-cart-button" data-product="{{product.id}}" data-action="add" data-qty= {{product.quantity_available}}	>Add to Cart</button>
+<!-- Products -->
+<section id="listings" class="mt-3">
+	<div class="container">
+		<!--Product Iteration-->
+		<div class="row d-flex align-items-stretch">
+		{% if products %}
+			<!-- <div class="row"> -->
+				{% for product in products %}
+				<div class="col-6 col-md-4 px-2 d-flex flex-column justify-content-between">
+					<a class="border box-element product flex-fill" style="text-decoration: none;" href="{% url 'product' product.id %}">
+						<div class="text-center">
+							<img class="" src="{{product.imageURL}}">
+							<h5>
+								<strong>{{product.name}}</strong>
+							</h5>
+							<h6><strong>${{product.price}}</strong></h6>
 						</div>
-						<div style="display:none;">
-							{{product.quantity_available}}
-						</div>
+					</a>
+					<div class="text-center p-2 mt-2">
+						<button class="update-cart update-cart-button" data-product="{{product.id}}" data-action="add" data-qty= {{product.quantity_available}} data-toggle="modal" data-target="#cart-option-Modal-store">Add to Cart</button>
 					</div>
-					{% endfor %}
-				<!-- </div> -->
-			{% else %}
-				<div class="col-md-12">
-					<p>We are sorry.  There are no Soapdish products available at this time.</p>
+					<div style="display:none;">
+						{{product.quantity_available}}
+					</div>
 				</div>
-			{% endif %}
+				{% endfor %}
+			<!-- </div> -->
+		{% else %}
+			<div class="col-md-12">
+				<p>We are sorry.  There are no Soapdish products available at this time.</p>
+			</div>
+		{% endif %}
+		</div>
+	</div>
+</section>
+
+<!-- Cart Option Modal -->
+<div id="cart-option-Modal-store" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class= "modal-header">
+				<h5 class="modal-name" id="inquiryModalLabel">
+					What do you want to do next?
+				</h5>
+				<button class="dismissModal" type="button" class="close" data-dismiss="modal">
+					<span>&times;</span>
+				</button>
+			</div>
+			<div class="modal-body d-flex justify-content-between">
+				<div class="my-1 back-button-group">
+					<a href="javascript:location.reload()" >Continue Shopping</a>
+				</div>
+				<div class="my-1 back-button-group">
+					<a href="{% url 'cart' %}" >Go to Cart</a>
+				</div>
+				<div class="my-1 back-button-group">
+					<a href="{% url 'checkout' %}" >Go to Checkout</a>
+				</div>
+			</div>
+			<div class="modal-footer">
 			</div>
 		</div>
-	</section>
+	</div>
+</div>
 
-	<!-- 
-		Learning how to pass view(python) data to through the DOM to javascript 
-		<div id='domData' data-domdata="{{products}}"></div>
-	-->
+<!-- 
+	Learning how to pass view(python) data to through the DOM to javascript 
+	<div id='domData' data-domdata="{{products}}"></div>
+-->
+
 {% endblock content %}

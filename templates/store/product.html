@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
-
 {% block title %} | {{product.name}} {% endblock %}
-
 {% block content%}
 
 <!-- Breadcrumb -->
@@ -127,7 +125,7 @@
         </div>
 
         <!--Add Items Event Object-->
-        <button data-product="{{product.id}}" data-action="add" data-qty="{{qty_available}}" class="update-cart update-cart-button mb-2">Add to Cart</button>
+        <button id="updateCart" class="update-cart update-cart-button mb-2" data-product="{{product.id}}" data-action="add" data-qty="{{qty_available}}" data-toggle="modal" data-target="#cart-option-Modal-product">Add to Cart</button>
       </div>
     </div>  
     <!-- Product Attributes -->
@@ -184,7 +182,37 @@
   </div>
 </section>  
 
-<section id="design">
+<!-- Cart Option Modal -->
+<div id="cart-option-Modal-product" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-name" id="inquiryModalLabel">
+          What do you want to do next?
+        </h5>
+        <button class="dismissModal" type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body d-flex justify-content-between">
+        <div class="my-4 back-button-group">
+          <a href="{% url 'store' %}" >Back to Store</a>
+        </div>
+        <div class="my-4 back-button-group">
+          <a href="javascript:location.reload()" >Continue Soap Review</a>
+        </div>
+        <div class="my-4 back-button-group">
+          <a href="{% url 'cart' %}" >Go to Cart</a>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div> 
+
+<!-- Design Section for Testing -->
+<section id="design" style="display:none;">
   <div class="container">
     <div class="row d-inline-flex">
       <div class="col-sm">
