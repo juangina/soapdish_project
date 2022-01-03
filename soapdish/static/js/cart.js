@@ -152,12 +152,12 @@ $(document).ready(function(){
 	//console.log(typeof(cartItemQty),cartItemQty)
 
 	if(cartItemQty === ' [0] ') {
-	if(checkout) {
-		checkout.style.visibility = 'hidden';
-	}
-	if(cartSummaryBottom) {
-		cartSummaryBottom.style.visibility = 'hidden';
-	}
+		if(checkout) {
+			checkout.style.visibility = 'hidden';
+		}
+		if(cartSummaryBottom) {
+			cartSummaryBottom.style.visibility = 'hidden';
+		}
 	}
 
 });
