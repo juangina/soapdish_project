@@ -28,20 +28,20 @@ def store(request):
 
 	quantity_choice_available = {}
 	for product in products:
-		print(product)
+		#print(product)
 		product_items = product.orderitem_set.all().filter(order=order)
-		print(product_items)
+		#print(product_items)
 		if(product_items):
 			for product_item in product_items:
-				print(product_item.product.id, product_item.quantity)
+				#print(product_item.product.id, product_item.quantity)
 				quantity_choice_available[product_item.product.id]=product.stock - product_item.quantity
 				product.quantity_available = product.stock - product_item.quantity
 		else:
-			print(product.id, type(product.id), 0)
+			#print(product.id, type(product.id), 0)
 			quantity_choice_available[product.id]=product.stock
 			product.quantity_available = product.stock
-	print(quantity_choice_available)
-	print(quantity_choice_available[15])
+	#print(quantity_choice_available)
+	#print(quantity_choice_available[15])
 
 	context = {
 		'products':products, 
@@ -57,14 +57,14 @@ def product(request, product_id):
 	cartItems = data['cartItems']
 	order = data['order']
 	items = data['items']
-	print(data)
-	print(cartItems, order, items)
+	#print(data)
+	#print(cartItems, order, items)
 
 	product_item_count = 0
 	for item in items:
 		if item.product.id == product_id:
 			product_item_count =+ item.quantity
-	print(product_item_count)
+	#print(product_item_count)
 
 	product = get_object_or_404(Product, pk=product_id)
 	
@@ -116,6 +116,7 @@ def cart(request):
 			if str(product.stock) == key2:
 				break
 		#print(quantity_choices_items)
+	items = items.order_by('product')
 
 	context = {
 		'items':items, 
