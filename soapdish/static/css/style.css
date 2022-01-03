@@ -311,6 +311,7 @@
   text-align: center;
   text-decoration: none;
   margin:5px;
+  display: inline-block;
 }
 .cart-button-group  a:hover {
   background: rgba(51, 51, 51, 0.8);
@@ -571,7 +572,7 @@ img {
   #cart-items .order-2 p {
     margin-bottom: 0px !important;
     text-align:left !important;
-    width: 100px;
+    width: 120px;
   }
   #cart-items .order-2 select {
     margin-bottom: 0px !important;
@@ -583,7 +584,7 @@ img {
   #cart-items .order-3 p {
     margin-bottom: 0px !important;
     text-align:left !important;
-    width: 100px;
+    width: 120px;
   }
   #cart-items .order-4 {
     justify-content: start !important;
@@ -593,7 +594,7 @@ img {
     margin-bottom: 0px !important;
     text-align:left !important;
     align-self: flex-end;
-    width: 100px;
+    width: 120px;
   }
   #cart-summary-bottom .order-1 {
     order: 1;
