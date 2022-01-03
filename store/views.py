@@ -68,19 +68,20 @@ def product(request, product_id):
 
 	product = get_object_or_404(Product, pk=product_id)
 	
+	qty_available = product.stock-product_item_count
 	quantity_choices_available = {}
 	for key, value in quantity_choices.items():
 		quantity_choices_available[key]=value
 		#print(quantity_choices_available)
-		if str(product.stock) == key:
+		if str(qty_available) == key:
 			break
 
-	qty_available = product.stock-product_item_count
+	
 
 	context = {
         'product': product,
         'cartItems': cartItems,
-		'quantity_choices': quantity_choices_available,
+		'quantity_choices_available': quantity_choices_available,
 		'qty_available': qty_available        
     }
 	return render(request, 'store/product.html', context)

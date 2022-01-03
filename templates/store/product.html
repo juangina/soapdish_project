@@ -119,7 +119,7 @@
             <label for="itemQty">Select Item Quantity</label>
             <!--Add Items Quantity Selector-->
             <select name="itemQty" id="itemQty" class="form-control">
-              {% for key, value in quantity_choices.items %}
+              {% for key, value in quantity_choices_available.items %}
                 <option value="{{key}}"> {{value}} </option>
               {% endfor %}
             </select>
