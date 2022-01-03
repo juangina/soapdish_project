@@ -109,7 +109,7 @@
             <h5>${{ product.price}}</h5>
           </div>
           <div class="qty-available col-md-9 text-right">
-            <h5>Qty. Available: {{product.stock}}</h5> 
+            <h5>Qty. Available: {{qty_available}}</h5> 
           </div>
         </div>
 
@@ -127,7 +127,7 @@
         </div>
 
         <!--Add Items Event Object-->
-        <button data-product="{{product.id}}" data-action="add" data-qty="{{product.stock}}" class="update-cart update-cart-button mb-2">Add to Cart</button>
+        <button data-product="{{product.id}}" data-action="add" data-qty="{{qty_available}}" class="update-cart update-cart-button mb-2">Add to Cart</button>
       </div>
     </div>  
     <!-- Product Attributes -->
@@ -183,6 +183,22 @@
     </div>
   </div>
 </section>  
+
+<section id="design">
+  <div class="container">
+    <div class="row d-inline-flex">
+      <div class="col-sm">
+        One of three columns
+      </div>
+      <div class="col-sm">
+        Two of three columns
+      </div>
+      <div class="col-sm">
+        Three of three columns
+      </div>
+    </div>
+  </div>
+</section>
 
 <script>
   function goBack() {

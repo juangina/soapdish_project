@@ -17,14 +17,36 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url="login")
 def store(request):
 	data = cartData(request)
-
 	cartItems = data['cartItems']
+	order = data['order']
+	items = data['items']
+	#print(data)
+	#print(cartItems, order, items)
 
-	products = Product.objects.order_by('name')
 	
+	products = Product.objects.order_by('name')
+
+	quantity_choice_available = {}
+	for product in products:
+		print(product)
+		product_items = product.orderitem_set.all().filter(order=order)
+		print(product_items)
+		if(product_items):
+			for product_item in product_items:
+				print(product_item.product.id, product_item.quantity)
+				quantity_choice_available[product_item.product.id]=product.stock - product_item.quantity
+				product.quantity_available = product.stock - product_item.quantity
+		else:
+			print(product.id, type(product.id), 0)
+			quantity_choice_available[product.id]=product.stock
+			product.quantity_available = product.stock
+	print(quantity_choice_available)
+	print(quantity_choice_available[15])
+
 	context = {
 		'products':products, 
 		'cartItems':cartItems,
+		'quantity_choice_available': quantity_choice_available,
 	}
 	return render(request, 'store/store.html', context)
 
@@ -33,21 +55,33 @@ def store(request):
 def product(request, product_id):
 	data = cartData(request)
 	cartItems = data['cartItems']
-    
-    #product = Product.objects.get(id=product_id)
+	order = data['order']
+	items = data['items']
+	print(data)
+	print(cartItems, order, items)
+
+	product_item_count = 0
+	for item in items:
+		if item.product.id == product_id:
+			product_item_count =+ item.quantity
+	print(product_item_count)
+
 	product = get_object_or_404(Product, pk=product_id)
 	
 	quantity_choices_available = {}
 	for key, value in quantity_choices.items():
 		quantity_choices_available[key]=value
+		#print(quantity_choices_available)
 		if str(product.stock) == key:
 			break
-	print(quantity_choices_available)
+
+	qty_available = product.stock-product_item_count
 
 	context = {
         'product': product,
         'cartItems': cartItems,
-		'quantity_choices': quantity_choices_available,        
+		'quantity_choices': quantity_choices_available,
+		'qty_available': qty_available        
     }
 	return render(request, 'store/product.html', context)
 
@@ -64,12 +98,31 @@ def cart(request):
 	cartItems = data['cartItems']
 	order = data['order']
 	items = data['items']
+	#print(items)
+
+	quantity_choices_items = {}
+	quantity_choices_available = {}
+	for item in items:
+		#print(item.id, item.product)
+		quantity_choices_items[str(item.product.id)]=quantity_choices_available
+	# print(quantity_choices_items)
+
+	for key1, value1 in quantity_choices_items.items():
+		product = get_object_or_404(Product, pk=key1)
+		#print(product, product.stock, value1)
+		for key2, value2 in quantity_choices.items():
+			# print(key1, value1, key2, value2, product.stock)
+			quantity_choices_items[key1] = dict(quantity_choices_items[key1],**{key2:value2})
+			if str(product.stock) == key2:
+				break
+		#print(quantity_choices_items)
 
 	context = {
 		'items':items, 
 		'order':order, 
 		'cartItems':cartItems,
-		'quantity_choices': quantity_choices       
+		'quantity_choices': quantity_choices,
+		'quantity_choices_items': quantity_choices_items,       
 	}
 	return render(request, 'store/cart.html', context)
 
@@ -114,25 +167,25 @@ def updateItem(request):
 	#print(orderItem)
 	if action == 'add':
 		orderItem.quantity = (orderItem.quantity + int(qty))
-		product.updateStock(int(qty))
-		print(product.stock, product.instock)
+		#product.updateStock(int(qty))
+		#print(product.stock, product.instock)
 	elif action == 'add1':
 		orderItem.quantity = (orderItem.quantity + 1)
-		product.updateStock(1)
-		print(product.stock, product.instock)
+		#product.updateStock(1)
+		#print(product.stock, product.instock)
 	elif action == 'remove1' and orderItem.quantity > 1:
 		orderItem.quantity = (orderItem.quantity - 1)
-		product.updateStock(-1)
-		print(product.stock, product.instock)
+		#product.updateStock(-1)
+		#print(product.stock, product.instock)
 	elif action == 'set':
 		orderItem.quantity = int(qty)
-		product.updateStock(int(qty))
-		print(product.stock, product.instock)
+		#product.updateStock(int(qty))
+		#print(product.stock, product.instock)
 	orderItem.save()
 
 	if action == 'delete' or orderItem.quantity <= 0:
-		product.updateStock(-orderItem.quantity)
-		print(product.stock, product.instock)
+		#product.updateStock(-orderItem.quantity)
+		#print(product.stock, product.instock)
 		orderItem.delete()
 		return JsonResponse('Item was deleted', safe=False)
 

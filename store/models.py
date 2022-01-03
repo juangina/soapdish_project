@@ -15,6 +15,9 @@ class Customer(models.Model):
 		return self.name
 
 class Product(models.Model):
+
+	quantity_available = 0
+
 	name = models.CharField(max_length=200, blank=True)
 	price = models.DecimalField(max_digits=5, decimal_places=2)
 	digital = models.BooleanField(default=False,null=True, blank=True)
