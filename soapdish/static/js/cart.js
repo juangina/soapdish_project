@@ -7,7 +7,7 @@ $(document).ready(function(){
 	var itemQty = document.getElementById('itemQty')
 	var cartItem = document.getElementById('cartItem')
 	var checkout = document.getElementById('checkOut')
-	var cartSummaryBottom = document.getElementById('cart-summary-bottom')
+	var cartSummaryBottom = document.getElementById('cart-summary-cart-bottom')
 	var dismissModal = document.getElementsByClassName('dismissModal')
 
 	for (i = 0; i < updateBtns.length; i++) {
