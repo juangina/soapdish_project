@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from bars.models import Bar
+from decimal import Decimal
 
 #set a default bar for product if assigned bar is deleted
 def get_deleted_bar():
@@ -74,7 +75,13 @@ class Order(models.Model):
 	def get_cart_items(self):
 		orderitems = self.orderitem_set.all()
 		total = sum([item.quantity for item in orderitems])
-		return total 
+		return total
+
+	@property
+	def get_checkout_total(self):
+		orderitems = self.orderitem_set.all()
+		total = sum([item.get_total for item in orderitems])
+		return total + Decimal(5) 
 
 class OrderItem(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)

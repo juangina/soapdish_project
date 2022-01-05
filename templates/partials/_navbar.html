@@ -55,27 +55,7 @@
                         >
                             <a class="nav-link" href="{% url 'store' %}">Store</a>
                         </li>
-                        <!--Chatbot Link-->
-                            <!-- <li 
-                                    {% if 'chatbot' in request.path %}
-                                        class="nav-item active mr-3"
-                                    {%  else %}
-                                        class="nav-item mr-3"
-                                    {% endif %}
-                                >
-                                    <a class="nav-link" href="{% url 'chatbot_home' %}">Soapbot</a>
-                            </li> -->
                     {% else %}
-                        <!--Home Link-->
-                            <!-- <li 
-                                {% if '/' == request.path %}
-                                    class="nav-item active mr-3"
-                                {%  else %}
-                                    class="nav-item mr-3"
-                                {% endif %}
-                                >
-                                <a class="nav-link" href="{% url 'index' %}">Home</a>
-                            </li> -->
                         <!--About Link-->
                         <li 
                             {% if 'about' in request.path %}

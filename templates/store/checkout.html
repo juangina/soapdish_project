@@ -23,72 +23,99 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-7 px-2 order-1">
+				<!-- User Information  -->
 				<div class="box-element">
-					<p id="user-information">
-						Step One: Verify and Complete User Information
-					</p>
+					<div class='d-flex justify-content-between'>
+						<p>
+							Step One: 
+						</p>
+						<p id="user-information">
+							Verify and Complete User Information
+						</p>
+					</div>
 					<hr>
 					<form action="" id="user-form">
 						{% csrf_token %}
 						<fieldset id="user-information-fieldset">
 							<div class="form-field">
 								<!-- <label for="user">Name:</label> -->
-								<input required class="form-control" type="text" name="name" placeholder="Name.." id="user">
+								<input required class="form-control" type="text" name="name" placeholder="User Name.." id="user" value="{{order.customer.user}}">
 							</div>
 							<div class="form-field">
 								<!-- <label for="usremail">Email:</label> -->
-								<input required class="form-control" type="email" name="email" placeholder="Email.." id="useremail">
+								<input required class="form-control" type="email" name="email" placeholder="Email.." id="useremail" value="{{order.customer.email}}">
 							</div>
 							<input id="user-form-button" class="btn btn-success btn-block" type="submit" value="Continue to Billing">
 						</fieldset>
 					</form>
 				</div>
+				<!-- Billing Information -->
 				<div class="box-element">
-				<p id="billing-information">
-					Billing Information
-				</p><hr>
+					<div class='d-flex justify-content-between'>
+						<p>
+							Step One: 
+						</p>
+						<p id="billing-information">
+							Billing Information
+						</p>
+					</div>
+					<hr>
 					<form action="" id="billing-form">
 						{% csrf_token %}
 						<fieldset id="billing-information-fieldset" disabled>
 							<div class="form-field">
-								<input class="form-control" type="text" name="address" placeholder="Address..">
+								<input class="form-control" type="text" name="address" placeholder="Address.." value="{{address.address}}">
 							</div>
 							<div class="form-field">
-								<input class="form-control" type="text" name="city" placeholder="City..">
+								<input class="form-control" type="text" name="city" placeholder="City.." value="{{address.city}}">
 							</div>
 							<div class="form-field">
-								<input class="form-control" type="text" name="state" placeholder="State..">
+								<input class="form-control" type="text" name="state" placeholder="State.." value="{{address.state}}">
 							</div>
 							<div class="form-field">
-								<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+								<input class="form-control" type="text" name="zipcode" placeholder="Zip code.." value="{{address.zipcode}}">
 							</div>
 							<div class="form-field">
-								<input class="form-control" type="text" name="country" placeholder="Country..">
+								<input class="form-control" type="text" name="country" placeholder="Country.." value="USA">
 							</div>
 							<input id="billing-form-button" class="btn btn-success btn-block hidden" type="submit" value="Continue to Shipping">
 						</fieldset>
 					</form>
 				</div>
+				<!-- Shipping Information -->
 				<div class="box-element">
-					<p id="shipping-information">
-						Shipping Information
-					</p><hr>
+					<div class='d-flex justify-content-between'>
+						<p>
+							Step Three: 
+						</p>
+						<p id="shipping-information">
+							Shipping Information
+						</p>
+					</div>
+					<hr>
 					<form action="" id="shipping-form">
 						{% csrf_token %}
 						<fieldset id="shipping-information-fieldset" disabled>
 							<div class="form-check">
 								<label class="form-check-label">
-								  <input type="radio" class="form-check-input" name="flatrate">USPS Flat Rate Shipping - $7.50
+								  <input type="radio" class="form-check-input" name="flatrate" value="flatrate" checked>USPS Flat Rate Shipping - $5.00
 								</label>
 							</div>
 							<input id="shipping-form-button" class="btn btn-success btn-block hidden" type="submit" value="Continue to Payment">
 						</fieldset>
 					</form>
 				</div>
+				<!-- Purchase Options - Paypal Buttons -->
 				<div class="box-element">
-					<p id="purchase-information">
-						Purchase Options
-					</p><hr>
+					<div class='d-flex justify-content-between'>
+						<p>
+							Step Four: 
+						</p>
+						<p id="purchase-information">
+							Purchase Options
+						</p>
+					</div>
+					<hr>
 					<div id="purchase-form">
 						<div id="paypal-button-container">
 							<!-- Paypal Button Option codes will be inserted here from the Paypal API -->
@@ -128,8 +155,17 @@
 					</div>
 				</div>
 				{% endfor %}
-				<h5 class="order-summary-item">Total Order Items:  {{order.get_cart_items}}</h5>
-				<h5 class="order-summary-item">Order Total:   ${{order.get_cart_total|floatformat:2}}</h5>
+				<h5 class="order-summary-item">
+					Total Order Items:  {{order.get_cart_items}}</h5>
+				<h5 class="order-summary-item">
+					Order SubTotal:   ${{order.get_cart_total|floatformat:2}}
+				</h5>
+				<h5 id="shipping" class="order-summary-item">
+					Shipping (USPS Flat Rate): $5.00
+				</h5>
+				<h5 class="order-summary-item">
+					Order Total:   ${{order.get_checkout_total|floatformat:2}}
+				</h5>	
 			</div>
 		</div>
 	</div>
@@ -257,12 +293,14 @@
 
 
 <!-- Scripts to render button and complete transactions	-->
+<!-- Paypal Sandbox -->
 <!-- <script src="https://www.paypal.com/sdk/js?client-id=AaJ_cx_a1aiUQbMag5PqvMTyndlr1RR6qMNKQN4T6pw2OCgRR3WMf2W7yXWQ9_adt1abFIUhFOiBjAhI&currency=USD"></script> -->
 
+<!-- Paypal Live -->
 <script src="https://www.paypal.com/sdk/js?client-id=Aa4Ac2aUJcAHvPJ367g8nMT2t6mmPBK5dHxDkBhw7SaP2ntBEEr7DkUZrA4tEsj-q3nQc1FK5QhNSbcy&currency=USD"></script>
 
 <script>
-	var total = '{{order.get_cart_total}}'
+	var total = '{{order.get_checkout_total}}'
 	// Render the PayPal button into #paypal-button-container
 	paypal.Buttons(
 		{
@@ -272,30 +310,20 @@
 				shape:  'rect',
 			},
 
-		///////////// onInit is called when the button first renders
-					onInit: function(data, actions) {
+			// onInit is called when the button first renders
+			onInit: function(data, actions) {
 
-						// Disable the buttons
-						console.log("Disable Paypal Buttons...")
-						actions.disable();
-		
-					//////////////// Listen for changes to the checkbox
-						document.querySelector('#shipping-form-button')
-						.addEventListener('click', function(e) {
-							console.log("Enable Paypal Buttons...")
-							actions.enable();
-						});
-					},
-		///////////// onClick is called when the button is clicked
-					//onClick: function() {
-				
-						// Show a validation error if the checkbox is not checked
-						//if (!document.querySelector('#check').checked) {
-						//document.querySelector('#error').classList.remove//('hidden');
-						//}
-					//},
-		///////////////////////////////////////////////////////////
+				///////////////// Disable the buttons
+				console.log("Disable Paypal Buttons...")
+				actions.disable();
 
+				//////////////// Listen for user to press shipping
+				document.querySelector('#shipping-form-button')
+				.addEventListener('click', function(e) {
+					console.log("Enable Paypal Buttons...")
+					actions.enable();
+				});
+			},
 
 			//Callback to Set up the transaction
 			createOrder: function(data, actions) {
@@ -311,6 +339,8 @@
 			//Callback to Finalize the transaction
 			onApprove: function(data, actions) {
 				return actions.order.capture().then(function(details) {
+					console.log(details)
+
 					// Show a success message to the buyer
 					submitFormData()
 				});
@@ -331,13 +361,6 @@
 	//crsftoken = form.getElementByTagName("input")[0].value
 	//console.log('Newtoken:', form.getElementByTagName("input")[0].value)
 
-	//form.addEventListener('submit', function(e){
-			//e.preventDefault()
-			//console.log('Form Submitted...')
-			//document.getElementById('form-button').classList.add("hidden");
-			//document.getElementById('payment-info').classList.remove("hidden");
-		//}
-	//)
 	userForm.addEventListener('submit', function(e){
 			e.preventDefault()
 			console.log('User Form Submitted...')
@@ -353,7 +376,7 @@
 			console.log('Billing Form Submitted...')
 			document.getElementById('billing-information').innerHTML = "Done:  Billing Information"
 			document.getElementById('billing-form-button').classList.add("hidden");
-			document.getElementById('shipping-information').innerHTML = "Step Three:   Verify and Complete Shipping Address"
+			document.getElementById('shipping-information').innerHTML = "Verify and Complete Shipping Method"
 			document.getElementById("shipping-information-fieldset").disabled = false;
 			document.getElementById('shipping-form-button').classList.remove("hidden");
 		}
@@ -363,16 +386,9 @@
 			console.log('Shipping Form Submitted...')
 			document.getElementById('shipping-information').innerHTML = "Done:  Shipping Information"
 			document.getElementById('shipping-form-button').classList.add("hidden");
-			document.getElementById('purchase-information').innerHTML = "Step Four:  Complete Your Payment"
+			document.getElementById('purchase-information').innerHTML = "Review and Complete Your Payment!"
 		}
 	)
-	//purchaseForm.addEventListener('submit', function(e){
-		//e.preventDefault()
-			//console.log('Purchase Form Submitted...')
-			//document.getElementById('form-button').classList.add("hidden");
-			//document.getElementById('payment-form').classList.remove("hidden");
-		//}
-	//)
 
 	/* 
 	document.getElementById('make-payment').addEventListener('click', function(e){
@@ -382,31 +398,28 @@
 
 	function submitFormData(){
 		//console.log('Payment button clicked')
-
+		//Create a JS type Form for submitting to Soapdish Store API
 		var userFormData = {
 			'name':null,
 			'email':null,
 			'total':total,
 		}
 
-		var shippingInfo = {
+		var billingInfo = {
 			'address':null,
 			'city':null,
 			'state':null,
 			'zipcode':null,
 		}
 
-		if (shipping != 'False'){
-			shippingInfo.address = form.address.value
-			shippingInfo.city = form.city.value
-			shippingInfo.state = form.state.value
-			shippingInfo.zipcode = form.zipcode.value
-		}
 
-		if (user == 'AnonymousUser'){
-			userFormData.name = form.name.value
-			userFormData.email = form.email.value
-		}
+		userFormData.name = userForm.name.value
+		userFormData.email = userForm.email.value
+
+		billingInfo.address = billingForm.address.value
+		billingInfo.city = billingForm.city.value
+		billingInfo.state = billingForm.state.value
+		billingInfo.zipcode = billingForm.zipcode.value
 
 		//console.log('Shipping Info:', shippingInfo)
 		//console.log('User Info:', userFormData)
@@ -419,7 +432,7 @@
 				'Content-Type':'applicaiton/json',
 				'X-CSRFToken':csrftoken,
 			}, 
-			body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo}),
+			body:JSON.stringify({'form':userFormData, 'billing':billingInfo}),
 			
 		})
 		.then((response) => response.json())

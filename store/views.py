@@ -142,10 +142,26 @@ def checkout(request):
 	order = data['order']
 	items = data['items']
 
+	addresses = order.customer.shippingaddress_set.all()
+	#print(addresses)
+	#print(order)
+	#print(order.id)
+	previous_address = {}
+	for address in addresses:
+		if(address):
+			previous_address['address'] = address.address
+			previous_address['city'] = address.city
+			previous_address['state'] = address.state
+			previous_address['zipcode'] = address.zipcode
+			break	
+
+	#print(previous_address)
+
 	context = {
 		'items':items, 
 		'order':order, 
-		'cartItems':cartItems 
+		'cartItems':cartItems,
+		'address':previous_address, 
 	}
 	return render(request, 'store/checkout.html', context)
 
@@ -216,10 +232,10 @@ def processOrder(request):
 		ShippingAddress.objects.create(
 		customer=customer,
 		order=order,
-		address=data['shipping']['address'],
-		city=data['shipping']['city'],
-		state=data['shipping']['state'],
-		zipcode=data['shipping']['zipcode'],
+		address=data['billing']['address'],
+		city=data['billing']['city'],
+		state=data['billing']['state'],
+		zipcode=data['billing']['zipcode'],
 		)
 
 	return JsonResponse('Payment submitted..', safe=False)

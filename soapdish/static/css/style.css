@@ -392,6 +392,14 @@
 }
 
 /* Shipping Information - Checkout Page*/
+#checkout .box-element p {
+  font-weight: bold;
+}
+
+#checkout .box-element {
+  background-color: rgba(32, 134, 107, 0.5);
+  margin-bottom: 1rem;
+}
 
 /* Order Summary - Checkout Page */
 #checkout .col-sm-2, .col-sm-4 {
@@ -420,24 +428,6 @@
   background: rgba(51, 51, 51, 0.8);
   color: white;
 }
-#user-information {
-  font-weight: bold;
-}
-#billing-information {
-  font-weight: bold;
-}
-#shipping-information {
-  font-weight: bold;
-}
-#purchase-information {
-  font-weight: bold;
-}
-#checkout .box-element {
-  background-color: rgba(32, 134, 107, 0.5);
-  margin-bottom: 1rem;
-}
-
-
 
 /* Miscellaneous Styling */
 img {
