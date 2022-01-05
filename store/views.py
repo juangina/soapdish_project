@@ -224,7 +224,7 @@ def processOrder(request):
 	total = float(data['form']['total'])
 	order.transaction_id = transaction_id
 
-	if total == order.get_cart_total:
+	if total == order.get_checkout_total:
 		order.complete = True
 	order.save()
 
