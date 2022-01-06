@@ -293,11 +293,16 @@
 
 
 <!-- Scripts to render button and complete transactions	-->
-<!-- Paypal Sandbox -->
+
+<!-- Paypal Sandbox - SoapDish_Django_PP - buz_life@gmail.com -->
 <!-- <script src="https://www.paypal.com/sdk/js?client-id=AaJ_cx_a1aiUQbMag5PqvMTyndlr1RR6qMNKQN4T6pw2OCgRR3WMf2W7yXWQ9_adt1abFIUhFOiBjAhI&currency=USD"></script> -->
 
-<!-- Paypal Live -->
-<script src="https://www.paypal.com/sdk/js?client-id=Aa4Ac2aUJcAHvPJ367g8nMT2t6mmPBK5dHxDkBhw7SaP2ntBEEr7DkUZrA4tEsj-q3nQc1FK5QhNSbcy&currency=USD"></script>
+
+<!-- Paypal Sandbox Default Application - sb-x3ywc6935433@business.example.com -->
+<script src="https://www.paypal.com/sdk/js?client-id=AaFzzHsrbKWwcM756lwHf7tPjiB28QuYxYw1NT6pPPiYqqfWmeIkVlT3PBEIgLJFoQXo5QwX77DgQc-j&currency=USD"></script>
+
+<!-- Paypal Live - SoapDish_Django_PP - jejlifestyle@shop.theaccidentallifestyle.net -->
+<!-- <script src="https://www.paypal.com/sdk/js?client-id=Aa4Ac2aUJcAHvPJ367g8nMT2t6mmPBK5dHxDkBhw7SaP2ntBEEr7DkUZrA4tEsj-q3nQc1FK5QhNSbcy&currency=USD"></script> -->
 
 <script>
 	var total = '{{order.get_checkout_total}}'
@@ -314,13 +319,13 @@
 			onInit: function(data, actions) {
 
 				///////////////// Disable the buttons
-				console.log("Disable Paypal Buttons...")
+				//console.log("Disable Paypal Buttons...")
 				actions.disable();
 
 				//////////////// Listen for user to press shipping
 				document.querySelector('#shipping-form-button')
 				.addEventListener('click', function(e) {
-					console.log("Enable Paypal Buttons...")
+					//console.log("Enable Paypal Buttons...")
 					actions.enable();
 				});
 			},

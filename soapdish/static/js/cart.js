@@ -72,7 +72,7 @@ $(document).ready(function(){
 			if(itemQty) {
 				itemQty.disabled = true;
 			}
-			updateBtns[i].innerHTML = "Out of Stock!";
+			updateBtns[i].innerHTML = "Sold Out!";
 		}
 		//console.log(updateBtns[i]);
 		}
@@ -85,7 +85,7 @@ $(document).ready(function(){
 
 	function updateUserOrder(productId, action, qty, update){
 		//console.log('User is authenticated, sending data...')
-
+		//Soapdish API for updating cart for registered customers
 		var url = '/store/update_item/'
 
 		fetch(url, {

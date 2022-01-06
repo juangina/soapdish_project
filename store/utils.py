@@ -45,7 +45,13 @@ def cookieCart(request):
 def cartData(request):
 	if request.user.is_authenticated:
 		customer = request.user.customer
+
+		
+		#Create a new order if the customer's previous orders have all been completed.
 		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+		#This is how I can track if an order was not processed in the correct way.
+
+
 		items = order.orderitem_set.all()
 		cartItems = order.get_cart_items
 	else:
