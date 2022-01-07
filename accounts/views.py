@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from contacts.models import Contact
 from django.contrib.auth.decorators import login_required
 
-from store.models import Customer
+from store.models import Customer, Order, OrderItem, ShippingAddress, Product
 from store.utils import cookieCart, cartData, guestOrder
 
 def register(request):
@@ -104,6 +104,42 @@ def dashboard(request):
             'contacts': user_contacts
         }        
         return render(request, 'accounts/dashboard.html', context)
+    else:
+        messages.error(request, 'Please login to gain access to dashboard.')
+        return redirect ('login')
+
+@login_required
+def customer_orders(request):
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+        order = data['order']
+        items = data['items']
+        customer = Customer.objects.get(pk=request.user.id)
+        customer_orders = customer.order_set.all().order_by('-date_ordered').filter(complete=True)
+        context = {
+            'cartItems': cartItems,
+            'customer_orders': customer_orders
+        }        
+        return render(request, 'accounts/orders.html', context)
+    else:
+        messages.error(request, 'Please login to gain access to dashboard.')
+        return redirect ('login')
+
+@login_required
+def customer_order(request, order_id):
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+        order = data['order']
+        items = data['items']
+        order = Order.objects.get(pk=order_id)
+        order_items = order.orderitem_set.all().order_by('-product')
+        context = {
+            'cartItems': cartItems,
+            'order_items': order_items
+        }        
+        return render(request, 'accounts/customer_order.html', context)
     else:
         messages.error(request, 'Please login to gain access to dashboard.')
         return redirect ('login')

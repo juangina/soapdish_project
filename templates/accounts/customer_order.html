@@ -30,10 +30,17 @@
     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-        <a href="{% url 'index' %}">
-            <i class="fas fa-home"></i> Home</a>
+          <a href="{% url 'index' %}">
+            <i class="fas fa-home"></i> Home
+          </a>
         </li>
-        <li class="breadcrumb-item active">Messages</li>
+        <li class="breadcrumb-item active">
+          <a href="{% url 'customer_orders' %}">
+            Orders
+          </a>
+        </li>
+        <li class="breadcrumb-item">Your Order</li>
+
     </ol>
     </nav>
 </div>
@@ -49,10 +56,10 @@
         <div id='account-menu-block' class="col-4">
           <ul class="nav flex-column nav-pills">
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'dashboard' %}">Messages</a>
+              <a class="nav-link" href="{% url 'dashboard' %}">Messages</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'customer_orders' %}">Orders</a>
+              <a class="nav-link active" href="{% url 'customer_orders' %}">Orders</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact Info</a>
@@ -61,29 +68,28 @@
         </div>
         <div id='account-data-block' class="col-md-8">
           <h2> Welcome {{user.first_name}}</h2>
-
-          {% if contacts %}
-            <p>Here are the soap bars that you have inquired about.</p>
+          {% if order_items %}
+            <p>Order Details.</p>
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Soap Bar</th>
-                  <th>Inquiry</th>
+                  <th scope="col">Order Id</th>
+                  <th scope="col">Product</th>
+                  <th>Quantity</th>
                 </tr>
               </thead>
               <tbody>
-                {% for contact in contacts %}
+                {% for item in order_items %}
                   <tr>
-                    <td>{{ contact.id }}</td>
-                    <td><a href="{% url 'bar' contact.bar_id %}">{{ contact.bar }}</a></td>
-                    <td>{{ contact.message}}</td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.product }}</td>
+                    <td>{{ item.quantity}}</td>
                   </tr>
                 {% endfor %}
               </tbody>
             </table>
           {% else %}
-            <p>You have not made any inquiries.</p>
+            <p>Items has not been added to this Order Yet.</p>
           {% endif %}
         </div>
       </div>

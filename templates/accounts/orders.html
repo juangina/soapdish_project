@@ -33,7 +33,7 @@
         <a href="{% url 'index' %}">
             <i class="fas fa-home"></i> Home</a>
         </li>
-        <li class="breadcrumb-item active">Messages</li>
+        <li class="breadcrumb-item active">Orders</li>
     </ol>
     </nav>
 </div>
@@ -49,10 +49,10 @@
         <div id='account-menu-block' class="col-4">
           <ul class="nav flex-column nav-pills">
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'dashboard' %}">Messages</a>
+              <a class="nav-link" href="{% url 'dashboard' %}">Messages</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'customer_orders' %}">Orders</a>
+              <a class="nav-link active" href="{% url 'customer_orders' %}">Orders</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contact Info</a>
@@ -61,29 +61,28 @@
         </div>
         <div id='account-data-block' class="col-md-8">
           <h2> Welcome {{user.first_name}}</h2>
-
-          {% if contacts %}
-            <p>Here are the soap bars that you have inquired about.</p>
+          {% if customer_orders %}
+            <p>Here are the orders that you have completed.</p>
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Soap Bar</th>
-                  <th>Inquiry</th>
+                  <th scope="col">Transaction ID</th>
+                  <th scope="col">Date Orders</th>
+                  <th>Order Completed</th>
                 </tr>
               </thead>
               <tbody>
-                {% for contact in contacts %}
+                {% for order in customer_orders %}
                   <tr>
-                    <td>{{ contact.id }}</td>
-                    <td><a href="{% url 'bar' contact.bar_id %}">{{ contact.bar }}</a></td>
-                    <td>{{ contact.message}}</td>
+                    <td><a href="{% url 'customer_order' order.id %}">{{ order.transaction_id }}</a></td>
+                    <td>{{ order.date_ordered }}</td>
+                    <td>{{ order.complete}}</td>
                   </tr>
                 {% endfor %}
               </tbody>
             </table>
           {% else %}
-            <p>You have not made any inquiries.</p>
+            <p>You have not made any orders.</p>
           {% endif %}
         </div>
       </div>
