@@ -115,7 +115,7 @@ def customer_orders(request):
         cartItems = data['cartItems']
         order = data['order']
         items = data['items']
-        customer = Customer.objects.get(pk=request.user.id)
+        customer = Customer.objects.get(id=request.user.id)
         customer_orders = customer.order_set.all().order_by('-date_ordered').filter(complete=True)
         context = {
             'cartItems': cartItems,
