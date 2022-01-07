@@ -1,4 +1,5 @@
 import json
+import requests
 from .models import *
 
 def cookieCart(request):
@@ -138,6 +139,19 @@ def guestCartData(request):
 			pass
 			
 	return {'cartItems':cartItems ,'order':order, 'items':items}
+
+def getAccessToken(request):
+	url = "https://api-m.sandbox.paypal.com/v1/oauth2/token"
+	headers = {
+				'Authorization': 'Basic QWFGenpIc3JiS1d3Y003NTZsd0hmN3RQamlCMjhRdVl4WXcxTlQ2cFBQaVlxcWZXbWVJa1ZsVDNQQkVJZ0xKRm9RWG81UXdYNzdEZ1FjLWo6RUJyczVwSWREOEh1TkdZRU5mWWd5TzZqY2FkUEFqVU04WjZnZGZvYm1Vek9XUGM3QU1NanBFXzJkV3VKSjB2anhIUWdMdEs4Snd5Mm1tUEY=',
+
+				'Content-Type': 'application/x-www-form-urlencoded'
+				}
+	payload='grant_type=client_credentials'
+	response = requests.request("POST", url, headers = headers, data = payload)
+	response_json = response.json()
+	accessToken = response_json['access_token']
+	return accessToken
 
 quantity_choices = {
   '1':'One',

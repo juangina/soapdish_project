@@ -1,0 +1,240 @@
+
+{% extends 'base.html' %}
+<!-- Used to format integer number with commas -->
+{% load humanize %}
+
+{% block title %} | Welcome {% endblock %}
+
+{% block content%}
+
+    <div class="section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 mt-2">
+                    <!-- Set up a container element for the button -->
+                    <div id="title">My PayPal Access Token:</div>
+                    <div>{{accessToken}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 mt-2">
+                    <!-- Set up a container element for the button -->
+                    <div id="paypal-button-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <div class="row">
+				<div class="col-3 px-2 d-flex justify-content-between">
+					<div class="text-center p-2 mt-2">
+						<button id="create-order-button" class="update-cart-button">
+                            Create Order
+                        </button>
+					</div>
+				</div>
+                <div class="col-3 px-2 d-flex justify-content-between">
+					<div class="text-center p-2 mt-2">
+						<button id="view-order-button" class="update-cart-button">
+                            View Order
+                        </button>
+					</div>
+				</div>
+				<div class="col-3 px-2 d-flex justify-content-between">
+					<div class="text-center p-2 mt-2">
+						<button id="approve-order-button" class="update-cart-button">
+                            Approve Order
+                        </button>
+					</div>
+				</div>
+				<div class="col-3 px-2 d-flex justify-content-between">
+					<div class="text-center p-2 mt-2">
+						<button id="capture-order-button" class="update-cart-button">
+                            Capture Order
+                        </button>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="box-element col-12">
+                    <p>Click Each Button in Order to Get Started</p>
+                    <p id = "jsonResponse_id" >Order Id Responses Will Go Here.</p>
+                    <p id = "jsonResponse_link" >HREF Responses Will Go Here.</p>
+                    <p>
+                        <input type="text" id="input_jsonResponse_id" name="input_jsonResponse">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Paypal Sandbox Default Application - sb-x3ywc6935433@business.example.com -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AaFzzHsrbKWwcM756lwHf7tPjiB28QuYxYw1NT6pPPiYqqfWmeIkVlT3PBEIgLJFoQXo5QwX77DgQc-j&currency=USD"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+            //Object to Style the paypal button experience
+			style: {
+				color:  'blue',
+				shape:  'rect',
+			},
+
+
+            // onInit is called when the button first renders
+            onInit: function(data, actions)  {
+                // Disable the buttons
+                //actions.disable();
+            },
+
+            // onClick is called when the button is clicked
+            onClick: function()  {
+                //alert('Paypal Button Temporarily Disabled');
+            },
+
+            // Call your server to set up the transaction
+            createOrder: function(data, actions) {
+                return fetch('http://127.0.0.1:8000/api/order/create', {
+                    method: 'get'
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    console.log(orderData);
+                    return orderData.id;
+                });
+            },
+
+            // Call your server to finalize the transaction
+            onApprove: function(data, actions) {
+                return fetch('http://127.0.0.1:8000/api/order/' + data.orderID + '/capture', {
+                    method: 'get'
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    //console.log(orderData);
+                    // Three cases to handle:
+                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                    //   (2) Other non-recoverable errors -> Show a failure message
+                    //   (3) Successful transaction -> Show confirmation or thank you
+
+                    // This example reads a v2/checkout/orders capture response, propagated from the server
+                    // You could use a different API or structure for your 'orderData'
+                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                        return actions.restart(); // Recoverable state, per:
+                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
+                    }
+
+                    if (errorDetail) {
+                        var msg = 'Sorry, your transaction could not be processed.';
+                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                        return alert(msg); // Show a failure message (try to avoid alerts in production environments)
+                    }
+
+                    // Successful capture! For demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+
+        }).render('#paypal-button-container');
+    </script>
+
+    <script>
+        let createOrder = document.getElementById('create-order-button');
+        let viewOrder = document.getElementById('view-order-button');
+        let approveOrder = document.getElementById('approve-order-button');
+        let captureOrder = document.getElementById('capture-order-button');
+        let jsonResponse_id = document.getElementById('jsonResponse_id');
+        ;
+        let jsonResponse_link = document.getElementById('jsonResponse_link');        
+
+
+        createOrder.addEventListener('click', (e) => {
+            e.preventDefault()
+            fetch('http://127.0.0.1:8000/api/order/create', {
+                method: 'GET'
+            }).then(function(res) {
+                return res.json();
+            }).then(function(orderData) {
+                console.log(orderData);
+                jsonResponse_id.innerHTML = orderData.id;
+                jsonResponse_link.innerHTML = orderData.links[1].href;
+            });
+            //alert('Create Order Button Clicked')
+        })
+
+        viewOrder.addEventListener('click', (e) => {
+            e.preventDefault()
+            order_id = jsonResponse_id.innerHTML
+            fetch('http://127.0.0.1:8000/api/order/'+order_id+'/view', {
+                method: 'GET'
+            }).then(function(res) {
+                return res.json();
+            }).then(function(orderData) {
+                console.log(orderData);
+                if(orderData.status == 'CREATED') {
+                    jsonResponse_id.innerHTML = orderData.id;
+                    jsonResponse_link.innerHTML = orderData.links[1].href;
+                }
+                else if (orderData.status == 'APPROVED') {
+                    jsonResponse_id.innerHTML = orderData.id;
+                    jsonResponse_link.innerHTML = orderData.links[2].href;
+                }
+                else if (orderData.status == 'COMPLETED') {
+                    jsonResponse_id.innerHTML = orderData.id;
+                    jsonResponse_link.innerHTML = orderData.links[0].href;
+                }
+            });
+            //alert('Create Order Button Clicked')
+        })
+
+        approveOrder.addEventListener('click', (e) => {
+            e.preventDefault()
+            approve_link = jsonResponse_link.innerHTML;
+            orderId = jsonResponse_id.innerHTML;
+
+            window.open(approve_link, "_blank");
+            //alert('Approve Order Button Clicked')
+        })
+
+        captureOrder.addEventListener('click', (e) => {
+            e.preventDefault()
+            order_id = jsonResponse_id.innerHTML
+            fetch('http://127.0.0.1:8000/api/order/'+order_id+'/capture', {
+                method: 'GET'
+            }).then(function(res) {
+                return res.json();
+            }).then(function(orderData) {
+                console.log(orderData);
+                jsonResponse_id.innerHTML = orderData.id;
+                jsonResponse_link.innerHTML = orderData.links[0].href;
+            });
+            //alert('Capture Order Button Clicked')
+        })
+
+    </script>
+{% endblock %}
+    

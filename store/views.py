@@ -3,7 +3,7 @@ from django.http import JsonResponse
 import json
 import datetime
 from .models import * 
-from .utils import cartData, guestOrder, userCartData, guestCartData, quantity_choices
+from .utils import cartData, guestOrder, userCartData, guestCartData, getAccessToken, quantity_choices
 from django.contrib.auth.decorators import login_required
 
 # from django import template
@@ -239,3 +239,15 @@ def processOrder(request):
 		)
 
 	return JsonResponse('Payment submitted..', safe=False)
+
+#Renders paypal api checkout page 
+@login_required(login_url='login')
+def apiCheckout(request):
+	accessToken = getAccessToken(request)
+	context = {
+		'payPalAPI': "Paypal Server Side Integration",
+		'accessToken': accessToken,
+	}
+	return render(request, 'store/api_checkout.html', context)
+
+

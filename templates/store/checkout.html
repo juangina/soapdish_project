@@ -138,17 +138,17 @@
 							</p>
 						</a>
 					</div>
-					<div class="col-2 px-2 text-center">
+					<div class="col-3 px-2 text-center">
 						<p>
 							x{{item.quantity}}
 						</p>
 					</div>
-					<div class="col-2 px-2 text-center">
+					<div class="col-2 px-3 text-center">
 						<p>
 							${{item.product.price|floatformat:2}}
 						</p>
 					</div>
-					<div class="col-2 px-2 text-center">
+					<div class="col-2 px-2 text-center" style="display:none">
 						<button data-product="{{item.product.id}}" data-action="delete" type="button" class="delete-checkout-button-group delete-item" data-toggle="modal" data-target="#checkout-option-Modal-summary">
 							Delete
 						</button>
@@ -332,22 +332,33 @@
 
 			//Callback to Set up the transaction
 			createOrder: function(data, actions) {
+			//////////////////////////////////////
 				return actions.order.create({
+				/////////////////////////////	
 					purchase_units: [{
+					//////////////////
 						amount: {
+						/////////
 							value:parseFloat(total).toFixed(2)
+						/////////
 						}
+					//////////////////
 					}]
+				////////////////////////////
 				});
+			//////////////////////////////////////
 			},
 
 			//Callback to Finalize the transaction
 			onApprove: function(data, actions) {
-				return actions.order.capture().then(function(details) {
-					console.log(details)
+				return actions.order.capture().then(function(orderData) {
+					console.log('Capture Result', orderData, JSON.stringify(orderData, null,2));
+					var transaction = orderData.purchase_units[0].payments.captures[0];
+					console.log('Transaction ' + transaction.status + ': ' + transaction.id)
 
-					// Show a success message to the buyer
+					// Send data from paypal to Soapdish backend server
 					submitFormData()
+					//actions.redirect('thank_you.html')
 				});
 			}
 		}
@@ -355,16 +366,12 @@
 </script>
 
 <script type="text/javascript">
-	//var form = document.getElementById('form')
 	var userForm = document.getElementById('user-form')
 	var billingForm = document.getElementById('billing-form')
 	var shippingForm = document.getElementById('shipping-form')
 	var purchaseForm = document.getElementById('purchase-form')
 
 	var shipping = '{{order.shipping}}'
-
-	//crsftoken = form.getElementByTagName("input")[0].value
-	//console.log('Newtoken:', form.getElementByTagName("input")[0].value)
 
 	userForm.addEventListener('submit', function(e){
 			e.preventDefault()
@@ -394,12 +401,6 @@
 			document.getElementById('purchase-information').innerHTML = "Review and Complete Your Payment!"
 		}
 	)
-
-	/* 
-	document.getElementById('make-payment').addEventListener('click', function(e){
-		submitFormData()
-	})
-	*/
 
 	function submitFormData(){
 		//console.log('Payment button clicked')
