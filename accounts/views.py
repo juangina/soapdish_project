@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from contacts.models import Contact
@@ -115,7 +115,7 @@ def customer_orders(request):
         cartItems = data['cartItems']
         order = data['order']
         items = data['items']
-        customer = Customer.objects.get(id=request.user.id)
+        customer = get_object_or_404(Customer, id=request.user.id)
         customer_orders = customer.order_set.all().order_by('-date_ordered').filter(complete=True)
         context = {
             'cartItems': cartItems,
