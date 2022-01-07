@@ -729,6 +729,9 @@ img {
   }
   .cart-collapse {
     display:block;
+  }
+  #account-menu-block ul {
+    flex-direction: row !important;
   } 
 }
 
