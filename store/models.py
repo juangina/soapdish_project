@@ -50,8 +50,11 @@ class Product(models.Model):
 class Order(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
-	complete = models.BooleanField(default=False)
 	transaction_id = models.CharField(max_length=100, null=True)
+	shipping_cost = models.DecimalField(max_digits=5, decimal_places=2, default=7.50)
+	total_cost = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+	complete = models.BooleanField(default=False)
+
 
 	def __str__(self):
 		return str(self.id)
@@ -81,7 +84,7 @@ class Order(models.Model):
 	def get_checkout_total(self):
 		orderitems = self.orderitem_set.all()
 		total = sum([item.get_total for item in orderitems])
-		return total + Decimal(5) 
+		return total + self.shipping_cost 
 
 class OrderItem(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)

@@ -730,9 +730,23 @@ img {
   .cart-collapse {
     display:block;
   }
-  #account-menu-block ul {
+  #account-menu-block .nav {
+    display: flex !important;
     flex-direction: row !important;
+    justify-content: space-around;
+    width:fit-content;
+    margin:auto
   } 
+  #account-menu-block li {
+    width:auto;
+    padding: 4px;
+  }
+  #account-menu-block .nav-link {
+    padding: 0px;
+  }
+  #account-data-block h4 {
+    font-size: 1rem;
+  }
 }
 
 

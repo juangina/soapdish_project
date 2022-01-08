@@ -22,6 +22,7 @@ from datetime import datetime
 import requests
 import json
 
+@login_required
 def getAccessToken(request):
 	url = "https://api-m.sandbox.paypal.com/v1/oauth2/token"
 	headers = {
@@ -111,7 +112,12 @@ def getToken(request):
 #Paypal API server integration with Paypal JS SDK 
 @login_required(login_url='login')
 def createOrder(request):
-	
+	if request.user.is_authenticated:
+		customer = request.user.customer
+		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+
+	total = order.get_checkout_total
+
 	accessToken = getAccessToken(request)
 	url = "https://api-m.sandbox.paypal.com/v2/checkout/orders"
 	payload = json.dumps({
@@ -120,7 +126,7 @@ def createOrder(request):
 		{
 		"amount": {
 			"currency_code": "USD",
-			"value": "10.00"
+			"value": total,
 			}
 		}
 	]

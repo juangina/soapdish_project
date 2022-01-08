@@ -19,9 +19,9 @@ class ProductAdmin(admin.ModelAdmin):
     list_per_page = 50
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'customer', 'date_ordered','complete', 'transaction_id',)
+    list_display = ('id', 'customer', 'date_ordered','complete', 'transaction_id','shipping_cost', 'total_cost')
     list_display_links = ('id', 'customer', 'transaction_id',)
-    list_editable = ('complete',)
+    list_editable = ('complete','shipping_cost', 'total_cost')
     search_fields = ('customer',)
     list_per_page = 50
 

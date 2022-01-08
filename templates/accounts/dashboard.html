@@ -39,56 +39,58 @@
 </div>
 </section>
 
-  <!-- Alerts -->
-  {% include 'partials/_alerts.html' %}
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}
 
-  <!-- Customer Inquiries -->
-  <section id="dashboard" class="py-4">
-    <div class="container">
-      <div class="row">
-        <div id='account-menu-block' class="col-sm-4">
-          <ul class="nav flex-column nav-pills">
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'dashboard' %}">Messages</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'customer_orders' %}">Orders</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact Info</a>
-            </li>
-          </ul>
+<!-- Customer Inquiries -->
+<section id="dashboard" class="py-4">
+  <div class="container">
+    <div class="row">
+      <div id='account-menu-block' class="col-sm-3">
+        <ul class="nav flex-column nav-pills">
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'dashboard' %}">Messages</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'orders' %}">Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contactinfo' %}">Contact Info</a>
+          </li>
+        </ul>
+      </div>
+      <div id='account-data-block' class="col-sm-9">
+        {% if contacts %}
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+              <h4><i class="fas fa-user-plus"></i> Here Are Your Inquiries.</h4>
+          </div>
         </div>
-        <div id='account-data-block' class="col-sm-8">
-          <h2> Welcome {{user.first_name}}</h2>
-
-          {% if contacts %}
-            <p>Here are the soap bars that you have inquired about.</p>
-            <table class="table">
-              <thead>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Soap Bar</th>
+                <th>Inquiry</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for contact in contacts %}
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Soap Bar</th>
-                  <th>Inquiry</th>
+                  <td>{{ contact.id }}</td>
+                  <td><a href="{% url 'bar' contact.bar_id %}">{{ contact.bar }}</a></td>
+                  <td>{{ contact.message}}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {% for contact in contacts %}
-                  <tr>
-                    <td>{{ contact.id }}</td>
-                    <td><a href="{% url 'bar' contact.bar_id %}">{{ contact.bar }}</a></td>
-                    <td>{{ contact.message}}</td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          {% else %}
-            <p>You have not made any inquiries.</p>
-          {% endif %}
-        </div>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p>You have not made any inquiries.</p>
+        {% endif %}
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
 <!-- Services -->
 <section id="services" class="py-5 bg-secondary text-white">

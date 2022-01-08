@@ -154,7 +154,6 @@ def checkout(request):
 			previous_address['state'] = address.state
 			previous_address['zipcode'] = address.zipcode
 			break	
-
 	#print(previous_address)
 
 	context = {
@@ -226,6 +225,7 @@ def processOrder(request):
 
 	if total == order.get_checkout_total:
 		order.complete = True
+		order.total_price = order.get_checkout_total
 	order.save()
 
 	if order.shipping == True:

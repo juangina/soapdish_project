@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
+from requests import check_compatibility
 from contacts.models import Contact
 from django.contrib.auth.decorators import login_required
 
@@ -109,7 +110,7 @@ def dashboard(request):
         return redirect ('login')
 
 @login_required
-def customer_orders(request):
+def orders(request):
     if request.user.is_authenticated:
         data = cartData(request)
         cartItems = data['cartItems']
@@ -127,7 +128,7 @@ def customer_orders(request):
         return redirect ('login')
 
 @login_required
-def customer_order(request, order_id):
+def order(request, order_id):
     if request.user.is_authenticated:
         data = cartData(request)
         cartItems = data['cartItems']
@@ -139,7 +140,7 @@ def customer_order(request, order_id):
             'cartItems': cartItems,
             'order_items': order_items
         }        
-        return render(request, 'accounts/customer_order.html', context)
+        return render(request, 'accounts/order.html', context)
     else:
         messages.error(request, 'Please login to gain access to dashboard.')
         return redirect ('login')
@@ -153,5 +154,54 @@ def logout(request):
     else:
         return redirect('index')
 
-
+@login_required
+def contactinfo(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            # Get email form values
+            email = request.POST['email']
+            email2 = request.POST['email2']
+            if email == email2:
+                # Get remaining form values
+                name = request.POST['name']
+                user = request.POST['user']
+                user = user.lower()
+                address = request.POST['address']
+                city = request.POST['city']
+                state = request.POST['state']
+                zipcode = request.POST['zipcode']
+                customer = Customer.objects.get(user = user)
+                customer.name = name
+                customer.user = user
+                customer.email = email                
+                customer.save()
+                return redirect ('contactinfo')
+            else:
+                messages.error(request, 'Emails did not match.  Could not update information.  Please try again.')
+                return redirect ('contactinfo')
+        else:
+            data = cartData(request)
+            cartItems = data['cartItems']
+            order = data['order']
+            items = data['items']
+            customer = get_object_or_404(Customer, user=request.user)
+            addresses = customer.shippingaddress_set.all()
+            previous_address = {}
+            for address in addresses:
+                if(address):
+                    previous_address['address'] = address.address
+                    previous_address['city'] = address.city
+                    previous_address['state'] = address.state
+                    previous_address['zipcode'] = address.zipcode
+                    break	       
+            context = {
+                'customer': customer,
+                'address': previous_address,
+                'cartItems': cartItems,
+            }        
+            return render(request, 'accounts/contactinfo.html', context)
+    
+    else:
+        messages.error(request, 'Please login to gain access to dashboard.')
+        return redirect ('login')
 
