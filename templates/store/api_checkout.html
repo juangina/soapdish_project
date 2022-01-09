@@ -1,7 +1,7 @@
-
 {% extends 'base.html' %}
 <!-- Used to format integer number with commas -->
 {% load humanize %}
+{% load static %}
 
 {% block title %} | Welcome {% endblock %}
 
@@ -33,6 +33,7 @@
     <div class="section">
         <div class="container">
             <div class="row">
+                <!-- Create Order -->
 				<div class="col-3 px-2 d-flex justify-content-between">
 					<div class="text-center p-2 mt-2">
 						<button id="create-order-button" class="update-cart-button">
@@ -40,13 +41,23 @@
                         </button>
 					</div>
 				</div>
-                <div class="col-3 px-2 d-flex justify-content-between">
+                <!-- View Order -->
+                <div class="col-3 px-2 d-flex flex-column justify-content-between">
 					<div class="text-center p-2 mt-2">
 						<button id="view-order-button" class="update-cart-button">
                             View Order
                         </button>
 					</div>
+                    <div class="text-center p-2 mt-2">
+                        <form id="view_order_form">
+                            <div class="form-group">
+                              <label for="create_order_id">View Order ID:</label>
+                              <input type="text" class="form-control"  id="create_order_id" name="order_id">
+                            </div>
+                        </form>
+                    </div>
 				</div>
+                <!-- Approve Order -->
 				<div class="col-3 px-2 d-flex justify-content-between">
 					<div class="text-center p-2 mt-2">
 						<button id="approve-order-button" class="update-cart-button">
@@ -54,6 +65,7 @@
                         </button>
 					</div>
 				</div>
+                <!-- Capture Order -->
 				<div class="col-3 px-2 d-flex justify-content-between">
 					<div class="text-center p-2 mt-2">
 						<button id="capture-order-button" class="update-cart-button">
@@ -84,6 +96,7 @@
     <!-- Paypal Sandbox Default Application - sb-x3ywc6935433@business.example.com -->
     <script src="https://www.paypal.com/sdk/js?client-id=AaFzzHsrbKWwcM756lwHf7tPjiB28QuYxYw1NT6pPPiYqqfWmeIkVlT3PBEIgLJFoQXo5QwX77DgQc-j&currency=USD"></script>
 
+    <!-- PayPal Button Original Integration -->
     <script>
         // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
@@ -92,7 +105,6 @@
 				color:  'blue',
 				shape:  'rect',
 			},
-
 
             // onInit is called when the button first renders
             onInit: function(data, actions)  {
@@ -161,7 +173,8 @@
 
         }).render('#paypal-button-container');
     </script>
-
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <!-- PayPal Button Simulated Test Integration -->
     <script>
         let createOrder = document.getElementById('create-order-button');
         let viewOrder = document.getElementById('view-order-button');
@@ -182,34 +195,44 @@
                 console.log(orderData);
                 jsonResponse_id.innerHTML = orderData.id;
                 jsonResponse_link.innerHTML = orderData.links[1].href;
+                document.getElementById("create_order_id").value = orderData.id;
             });
             //alert('Create Order Button Clicked')
         })
 
-        viewOrder.addEventListener('click', (e) => {
-            e.preventDefault()
-            order_id = jsonResponse_id.innerHTML
-            fetch('http://127.0.0.1:8000/api/order/'+order_id+'/view', {
-                method: 'GET'
-            }).then(function(res) {
-                return res.json();
-            }).then(function(orderData) {
-                console.log(orderData);
-                if(orderData.status == 'CREATED') {
-                    jsonResponse_id.innerHTML = orderData.id;
-                    jsonResponse_link.innerHTML = orderData.links[1].href;
-                }
-                else if (orderData.status == 'APPROVED') {
-                    jsonResponse_id.innerHTML = orderData.id;
-                    jsonResponse_link.innerHTML = orderData.links[2].href;
-                }
-                else if (orderData.status == 'COMPLETED') {
-                    jsonResponse_id.innerHTML = orderData.id;
-                    jsonResponse_link.innerHTML = orderData.links[0].href;
+        $('#view-order-button').on('click', function(e) {
+            //Call the POST
+            e.preventDefault();
+            var order_id = $('#create_order_id').val();
+            console.log(order_id);
+        
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/order/view',
+                type: "POST",
+                data: {
+                    csrfmiddlewaretoken : csrftoken,
+                    order_id : order_id
+                },
+                success : function(orderData) {
+                    console.log(orderData);
+                    if(orderData.status == 'CREATED') {
+                        jsonResponse_id.innerHTML = orderData.id;
+                        jsonResponse_link.innerHTML = orderData.links[1].href;
+                    }
+                    else if (orderData.status == 'APPROVED') {
+                        jsonResponse_id.innerHTML = orderData.id;
+                        jsonResponse_link.innerHTML = orderData.links[2].href;
+                    }
+                    else if (orderData.status == 'COMPLETED') {
+                        jsonResponse_id.innerHTML = orderData.id;
+                        jsonResponse_link.innerHTML = orderData.links[0].href;
+                    }
+                },
+                error : function(xhr,errmsg,err){
+                    console.log(xhr.status+": "+xhr.responseText)
                 }
             });
-            //alert('Create Order Button Clicked')
-        })
+        });
 
         approveOrder.addEventListener('click', (e) => {
             e.preventDefault()
@@ -236,5 +259,6 @@
         })
 
     </script>
+
 {% endblock %}
     

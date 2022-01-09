@@ -243,10 +243,15 @@ def processOrder(request):
 #Renders paypal api checkout page 
 @login_required(login_url='login')
 def apiCheckout(request):
+	data = cartData(request)
+	cartItems = data['cartItems']
+	order = data['order']
+	items = data['items']
 	accessToken = getAccessToken(request)
 	context = {
 		'payPalAPI': "Paypal Server Side Integration",
 		'accessToken': accessToken,
+		'cartItems':cartItems
 	}
 	return render(request, 'store/api_checkout.html', context)
 

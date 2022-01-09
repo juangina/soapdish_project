@@ -19,7 +19,8 @@ urlpatterns = [
 
     #Paypal Server Side Integration Endpoints
 	path('order/token', views.getToken, name="get_token"),
-	path('order/<order_id>/view', views.viewOrder, name="view_order"),
+	#path('order/<order_id>/view', views.viewOrder, name="view_order"),
+    path('order/view', views.viewOrder, name="view_order"),
 	path('order/<approve_link>/<order_id>/approve', views.approveOrder, name="approve_order"),
 
 	path('order/create', views.createOrder, name="create_order"),

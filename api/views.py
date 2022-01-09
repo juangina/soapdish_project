@@ -22,20 +22,6 @@ from datetime import datetime
 import requests
 import json
 
-@login_required
-def getAccessToken(request):
-	url = "https://api-m.sandbox.paypal.com/v1/oauth2/token"
-	headers = {
-				'Authorization': 'Basic QWFGenpIc3JiS1d3Y003NTZsd0hmN3RQamlCMjhRdVl4WXcxTlQ2cFBQaVlxcWZXbWVJa1ZsVDNQQkVJZ0xKRm9RWG81UXdYNzdEZ1FjLWo6RUJyczVwSWREOEh1TkdZRU5mWWd5TzZqY2FkUEFqVU04WjZnZGZvYm1Vek9XUGM3QU1NanBFXzJkV3VKSjB2anhIUWdMdEs4Snd5Mm1tUEY=',
-
-				'Content-Type': 'application/x-www-form-urlencoded'
-				}
-	payload='grant_type=client_credentials'
-	response = requests.request("POST", url, headers = headers, data = payload)
-	response_json = response.json()
-	accessToken = response_json['access_token']
-	return accessToken
-
 @api_view(['GET'])
 def getRoutes(request):
 
@@ -89,7 +75,26 @@ def addBar(request):
     serializer = BarSerializer(bar, many=False)
     return Response(serializer.data)
 
-#Paypal API server test views
+
+
+
+#Paypal API server integration with Paypal JS SDK
+#Access Token from Paypal
+@login_required
+def getAccessToken(request):
+	url = "https://api-m.sandbox.paypal.com/v1/oauth2/token"
+	headers = {
+				'Authorization': 'Basic QWFGenpIc3JiS1d3Y003NTZsd0hmN3RQamlCMjhRdVl4WXcxTlQ2cFBQaVlxcWZXbWVJa1ZsVDNQQkVJZ0xKRm9RWG81UXdYNzdEZ1FjLWo6RUJyczVwSWREOEh1TkdZRU5mWWd5TzZqY2FkUEFqVU04WjZnZGZvYm1Vek9XUGM3QU1NanBFXzJkV3VKSjB2anhIUWdMdEs4Snd5Mm1tUEY=',
+
+				'Content-Type': 'application/x-www-form-urlencoded'
+				}
+	payload='grant_type=client_credentials'
+	response = requests.request("POST", url, headers = headers, data = payload)
+	response_json = response.json()
+	accessToken = response_json['access_token']
+	return accessToken
+
+#Access Token from Paypal
 @login_required(login_url='login')
 def getToken(request):
 	url = "https://api-m.sandbox.paypal.com/v1/oauth2/token"
@@ -109,7 +114,7 @@ def getToken(request):
 
 	return JsonResponse("Paypal Token Recieved...", safe=False)
 
-#Paypal API server integration with Paypal JS SDK 
+#Create Order Endpoint - Set up Transaction
 @login_required(login_url='login')
 def createOrder(request):
 	if request.user.is_authenticated:
@@ -126,7 +131,7 @@ def createOrder(request):
 		{
 		"amount": {
 			"currency_code": "USD",
-			"value": total,
+			"value": str(total),
 			}
 		}
 	]
@@ -142,11 +147,16 @@ def createOrder(request):
 	
 	return JsonResponse(response_json, safe=False)
 
+#View Order Endpoint - View Order Status
 @login_required(login_url='login')
-def viewOrder(request, order_id):
+#def viewOrder(request, order_id):
+def viewOrder(request):
+	#print(request.POST)
+	order_id = request.POST.get('order_id')
+	
 	accessToken = getAccessToken(request)
-	#order_id = '8M659927918803629'
-	url = "https://api.sandbox.paypal.com/v2/checkout/orders/" + order_id
+
+	url = "https://api.sandbox.paypal.com/v2/checkout/orders/" + str(order_id)
 	payload={}
 	headers = {
 	'Content-Type': 'application/json',
@@ -159,7 +169,9 @@ def viewOrder(request, order_id):
 	#print(response_json)
 	
 	return JsonResponse(response_json, safe=False)
+	#return JsonResponse(str(order_id), safe=False)
 
+#Approve Order Endpoint - Approve Payment
 @login_required(login_url='login')
 def approveOrder(request, order_id):
 	url = "https://www.sandbox.paypal.com/checkoutnow?token=" + order_id
@@ -176,6 +188,7 @@ def approveOrder(request, order_id):
 
 	return JsonResponse(response_json, safe=False)
 
+#Capture Order - Complete Payment
 @login_required(login_url='login')
 def captureOrder(request,order_id):
 	accessToken = getAccessToken(request)
