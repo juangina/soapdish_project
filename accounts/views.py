@@ -164,15 +164,12 @@ def contactinfo(request):
             if email == email2:
                 # Get remaining form values
                 name = request.POST['name']
-                user = request.POST['user']
-                user = user.lower()
-                address = request.POST['address']
-                city = request.POST['city']
-                state = request.POST['state']
-                zipcode = request.POST['zipcode']
-                customer = Customer.objects.get(user = user)
+                #address = request.POST['address']
+                #city = request.POST['city']
+                #state = request.POST['state']
+                #zipcode = request.POST['zipcode']
+                customer = Customer.objects.get(user = request.user)
                 customer.name = name
-                customer.user = user
                 customer.email = email                
                 customer.save()
                 return redirect ('contactinfo')

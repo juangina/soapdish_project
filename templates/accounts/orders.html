@@ -46,6 +46,48 @@
 <section id="dashboard" class="py-4">
   <div class="container">
     <div class="row">
+      <div class="col-sm-3">
+
+      </div>
+      <div class="col-sm-9 orderhistory">
+        <h1>
+          Order History
+        </h1>
+        <hr>
+        <ul class="list-group">
+          {% if customer_orders %}
+            {% for order in customer_orders %}
+              <li class="list-group-item">
+                <div class="order-history-header mb-2">
+                  <div class="button-links float-right">
+                    <a href="{% url 'order' order.id %}">Order Details</a>
+                  </div>
+                  <div class="order-date">
+                    <span class="label"><strong class="mr-2">Date Ordered:</strong></span>
+                    <span class="value">{{order.date_ordered}}</span>
+                  </div>
+                  <div class="order-status">
+                    <span class="label"><strong class="mr-2">Order Completed:</strong></span>
+                    <span class="value">{{order.complete}}</span>
+                  </div>
+                  <div class="order-number">
+                    <span class="label"><strong class="mr-2">Order Id:</strong></span>
+                    <span class="value">{{order.transaction_id}}</span>                    
+                  </div>
+                </div>
+                <div class= "order-history-items">
+
+                </div>
+              </li>
+            {% endfor %}
+          {% else %}
+
+          {% endif %}
+        </ul>
+
+      </div>
+    </div>
+    <div class="row">
       <div id='account-menu-block' class="col-sm-3">
         <ul class="nav flex-column nav-pills">
           <li class="nav-item">
@@ -70,7 +112,7 @@
             <thead>
               <tr>
                 <th scope="col">Transaction ID</th>
-                <th scope="col">Date Orders</th>
+                <th scope="col">Date Ordered</th>
                 <th>Completed</th>
                 <th>Total</th>
               </tr>

@@ -32,9 +32,9 @@
 
     <div class="section">
         <div class="container">
-            <div class="row">
+            <div class="row d-flex justify-content-between">
                 <!-- Create Order -->
-				<div class="col-3 px-2 d-flex justify-content-between">
+				<div class="col-3 px-2">
 					<div class="text-center p-2 mt-2">
 						<button id="create-order-button" class="update-cart-button">
                             Create Order
@@ -58,7 +58,7 @@
                     </div>
 				</div>
                 <!-- Approve Order -->
-				<div class="col-3 px-2 d-flex justify-content-between">
+				<div class="col-3 px-2">
 					<div class="text-center p-2 mt-2">
 						<button id="approve-order-button" class="update-cart-button">
                             Approve Order
@@ -66,7 +66,7 @@
 					</div>
 				</div>
                 <!-- Capture Order -->
-				<div class="col-3 px-2 d-flex justify-content-between">
+				<div class="col-3 px-2">
 					<div class="text-center p-2 mt-2">
 						<button id="capture-order-button" class="update-cart-button">
                             Capture Order
@@ -173,7 +173,9 @@
 
         }).render('#paypal-button-container');
     </script>
+    
     <script src="{% static 'js/jquery.js' %}"></script>
+
     <!-- PayPal Button Simulated Test Integration -->
     <script>
         let createOrder = document.getElementById('create-order-button');
@@ -204,7 +206,7 @@
             //Call the POST
             e.preventDefault();
             var order_id = $('#create_order_id').val();
-            console.log(order_id);
+            //console.log(order_id);
         
             $.ajax({
                 url: 'http://127.0.0.1:8000/api/order/view',
