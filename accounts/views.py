@@ -6,6 +6,7 @@ from contacts.models import Contact
 from django.contrib.auth.decorators import login_required
 
 from store.models import Customer, Order, OrderItem, ShippingAddress, Product
+from accounts.models import PrimaryAddress
 from store.utils import cookieCart, cartData, guestOrder
 
 def register(request):
@@ -112,17 +113,47 @@ def dashboard(request):
 @login_required
 def orders(request):
     if request.user.is_authenticated:
-        data = cartData(request)
-        cartItems = data['cartItems']
-        order = data['order']
-        items = data['items']
-        customer = get_object_or_404(Customer, user=request.user)
-        customer_orders = customer.order_set.all().order_by('-date_ordered').filter(complete=True)
-        context = {
-            'cartItems': cartItems,
-            'customer_orders': customer_orders
-        }        
-        return render(request, 'accounts/orders.html', context)
+        if request.method == 'POST':
+            address = request.POST['address']
+            city = request.POST['city']
+            state = request.POST['state']
+            zipcode = request.POST['zipcode']
+            customer = get_object_or_404(Customer, user=request.user)
+            PrimaryAddress.objects.create(
+            customer=customer,
+            address=address,
+            city=city,
+            state=state,
+            zipcode=zipcode,
+            most_recent=True,
+            )
+            messages.success(request, 'Your address has been added.')            
+            return redirect ('orders')
+        else:
+            data = cartData(request)
+            cartItems = data['cartItems']
+            order = data['order']
+            items = data['items']
+            customer = get_object_or_404(Customer, user=request.user)
+            customer_orders = customer.order_set.all().order_by('-date_ordered').filter(complete=True)
+
+            customer = get_object_or_404(Customer, user=request.user)
+            addresses = customer.shippingaddress_set.all()
+            previous_address = {}
+            for address in addresses:
+                if(address):
+                    previous_address['address'] = address.address
+                    previous_address['city'] = address.city
+                    previous_address['state'] = address.state
+                    previous_address['zipcode'] = address.zipcode
+                    break
+
+            context = {
+                'cartItems': cartItems,
+                'customer_orders': customer_orders,
+                'recent_address': previous_address
+            }        
+            return render(request, 'accounts/orders.html', context)
     else:
         messages.error(request, 'Please login to gain access to dashboard.')
         return redirect ('login')

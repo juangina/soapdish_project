@@ -46,10 +46,32 @@
 <section id="dashboard" class="py-4">
   <div class="container">
     <div class="row">
-      <div class="col-sm-3">
-
+      <div id='account-menu-block' class="col-sm-3">
+        <ul class="nav flex-column nav-pills">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">Messages</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'orders' %}">Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contactinfo' %}">Contact Info</a>
+          </li>
+        </ul>
+        <div class="box-element mt-3">
+          <div class="recent-address p-2 mt-2">
+            <h5>Shipping Address</h5>
+            <p>{{recent_address.address}}</p>
+            <p>{{recent_address.city}}, {{recent_address.state}}</p>
+            <p>{{recent_address.zipcode}}</p>
+          </div>
+          <div>
+            <button type="button" class="edit-address edit-address-button-group" data-toggle="modal" data-target="#dashboard-address-edit">Edit Address
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="col-sm-9 orderhistory">
+      <div id='account-data-block' class="col-sm-9 orderhistory">
         <h1>
           Order History
         </h1>
@@ -64,7 +86,7 @@
                   </div>
                   <div class="order-date">
                     <span class="label"><strong class="mr-2">Date Ordered:</strong></span>
-                    <span class="value">{{order.date_ordered}}</span>
+                    <span class="value">{{order.date_ordered|date:"DATE_FORMAT"}}</span>
                   </div>
                   <div class="order-status">
                     <span class="label"><strong class="mr-2">Order Completed:</strong></span>
@@ -76,7 +98,30 @@
                   </div>
                 </div>
                 <div class= "order-history-items">
+                  <table class="order-history-table table">
+                    <tbody>
+                      <tr>
+                        <th class="order-shipped-to">Shipped to: </th>
+                        <th class="order-items">Items: </th>
+                        <th class="order-total-price">Order Total: </th>
+                      </tr>
+                        <td><span class="value">{{order.customer}}</span></td>
+                        <td class="order-items">
+                          <ul class="list-group list-group-flush">
+                            {% for item in order.get_items%}
+                              <li class="order-list">
+                                {{item.product}}
+                              </li>
+                            {% endfor %}
+                          </ul>
 
+                        </td>
+                        <td><span class="value">$ {{order.get_checkout_total}}</span></td>
+                      <tr>
+
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </li>
             {% endfor %}
@@ -87,53 +132,46 @@
 
       </div>
     </div>
-    <div class="row">
-      <div id='account-menu-block' class="col-sm-3">
-        <ul class="nav flex-column nav-pills">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'dashboard' %}">Messages</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'orders' %}">Orders</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'contactinfo' %}">Contact Info</a>
-          </li>
-        </ul>
-      </div>
-      <div id='account-data-block' class="col-sm-9">
-        {% if customer_orders %}
-          <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h4><i class="fas fa-user-plus"></i> Here Are Your Orders.</h4>
-            </div>
-          </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Transaction ID</th>
-                <th scope="col">Date Ordered</th>
-                <th>Completed</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for order in customer_orders %}
-                <tr>
-                  <td><a href="{% url 'order' order.id %}">{{ order.transaction_id }}</a></td>
-                  <td>{{ order.date_ordered }}</td>
-                  <td>{{ order.complete}}</td>
-                  <td>{{order.total_cost}}</td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        {% else %}
-          <p>You have not made any orders.</p>
-        {% endif %}
-      </div>
-    </div>
   </div>
+</section>
+
+<!-- Edit Address Modal -->
+<section id="dashboard-address-edit" class="modal fade" role="dialog">
+  <!-- <div class="modal fade"> -->
+      <div class="modal-dialog modal-xl ">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="searchModalLabel">Edit Your Shipping Address</h5>
+                  <button type="button" class="close" data-dismiss="modal">
+                  <span>&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                <form action="{% url 'orders' %}" method="POST" id="edit-billing-form">
+                  {% csrf_token %}
+                  <fieldset id="edit-billing-information-fieldset">
+                    <div class="form-field">
+                      <input class="form-control" type="text" name="address" placeholder="Address.." value="{{recent_address.address}}">
+                    </div>
+                    <div class="form-field">
+                      <input class="form-control" type="text" name="city" placeholder="City.." value="{{recent_address.city}}">
+                    </div>
+                    <div class="form-field">
+                      <input class="form-control" type="text" name="state" placeholder="State.." value="{{recent_address.state}}">
+                    </div>
+                    <div class="form-field">
+                      <input class="form-control" type="text" name="zipcode" placeholder="Zip code.." value="{{recent_address.zipcode}}">
+                    </div>
+                    <div class="form-field">
+                      <input class="form-control" type="text" name="country" placeholder="Country.." value="USA">
+                    </div>
+                    <input id="address-form-button" class="btn btn-success btn-block mt-2" type="submit" value="Submit">
+                  </fieldset>
+                </form>
+              </div>
+          </div>
+      </div>
+  <!-- </div> -->
 </section>
 
 <!-- Services -->
