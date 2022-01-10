@@ -2,7 +2,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 from django.contrib.auth.models import User
-from .models import Customer
+from .models import Customer, Order
 
 from django.core.mail import send_mail
 from django.conf import settings
@@ -25,7 +25,7 @@ def createCustomer(sender, instance, created, **kwargs):
         send_mail(
             subject,
             message,
-            "soapdish@theaccidentallifestyle.net",
+            "jejlifestyle@shop.theaccidentallifestyle.net",
             ["ericrenee21@gmail.com"],
             fail_silently=False,
         )
@@ -49,7 +49,32 @@ def createCustomer(sender, instance, created, **kwargs):
 #     except:
 #         pass
 
+@receiver(post_save, sender=Order)
+def createOrder(sender, instance, created, **kwargs):
+	#print(sender, instance,created)
+	if created == True:
+		print("Order Created")
+
+@receiver(post_save, sender=Order)
+def updateOrder(sender, instance, created, **kwargs):
+	#print(sender, instance,created)
+	order = instance
+	completed = order.complete
+	if created == False and completed == False:
+		print("Order Updated")
+
+@receiver(post_save, sender=Order)
+def completeOrder(sender, instance, created, **kwargs):
+	#print(sender, instance,created)
+	order = instance
+	completed = order.complete
+	if created == False and completed == True:
+		print("Order Completed")
 
 # post_save.connect(createCustomer, sender=Customer)
 # post_save.connect(updateCustomer, sender=Customer)
 # post_delete.connect(deleteCustomer, sender=Customer)
+
+#post_save.connect(createOrder, sender=Order)
+#post_save.connect(updateOrder, sender=Order)
+#post_save.connect(completeOrder, sender=Order)

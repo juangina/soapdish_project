@@ -24,7 +24,7 @@
 		<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item">
-				<a href="{% url 'index' %}">
+				<a href="{% url 'index' %}?next=/store">
 				<i class="fas fa-home"></i> Home</a>
 			</li>
 			<li class="breadcrumb-item active">Available Products</li>
@@ -45,7 +45,7 @@
 			<!-- <div class="row"> -->
 				{% for product in products %}
 				<div class="col-6 col-md-4 px-2 d-flex flex-column justify-content-between">
-					<a class="border box-element product flex-fill" style="text-decoration: none;" href="{% url 'product' product.id %}">
+					<a class="border box-element product flex-fill" style="text-decoration: none;" href="{% url 'product' product.id %}?next=/store">
 						<div class="text-center">
 							<img class="" src="{{product.imageURL}}">
 							<h5>

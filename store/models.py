@@ -5,6 +5,9 @@ from django.db.models.deletion import CASCADE
 from bars.models import Bar
 from decimal import Decimal
 
+# from django.db.models.signals import post_save
+# from django.dispatch import receiver
+
 #set a default bar for product if assigned bar is deleted
 def get_deleted_bar():
 	return Bar.objects.get_or_create(name='delected')[0]
@@ -116,3 +119,28 @@ class ShippingAddress(models.Model):
 	def __str__(self):
 		return self.address
 
+# @receiver(post_save, sender=Order)
+# def createOrder(sender, instance, created, **kwargs):
+# 	print(sender, instance,created)
+# 	if created == True:
+# 		print("Order Created")
+
+# @receiver(post_save, sender=Order)
+# def updateOrder(sender, instance, created, **kwargs):
+# 	print(sender, instance,created)
+# 	order = instance
+# 	completed = order.complete
+# 	if created == False and completed == False:
+# 		print("Order Updated")
+
+# @receiver(post_save, sender=Order)
+# def completeOrder(sender, instance, created, **kwargs):
+# 	print(sender, instance,created)
+# 	order = instance
+# 	completed = order.complete
+# 	if created == False and completed == True:
+# 		print("Order Completed")
+
+#post_save.connect(createOrder, sender=Order)
+#post_save.connect(updateOrder, sender=Order)
+#post_save.connect(completeOrder, sender=Order

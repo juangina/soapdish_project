@@ -25,10 +25,10 @@
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="{% url 'index' %}">Home</a>
+          <a href="{% url 'index' %}?next=/bar">Home</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="{% url 'bars' %}">Bars</a>
+          <a href="{% url 'bars' %}?next=/bar">Bars</a>
         </li>
         <li class="breadcrumb-item active">{{bar.name}}</li>
       </ol>
@@ -43,7 +43,7 @@
 <section id="bar" class="pb-4">
   <div class="container">
     <div class="my-4 back-button-group">
-      <a href="javascript:history.back()">Back To Bars</a>
+      <a href="javascript:history.back()"><< Back </a>
     </div>
     <div class="row">
       <!-- Bar Photo Shoot and Bar Desciption -->

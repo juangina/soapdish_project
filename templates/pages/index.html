@@ -18,7 +18,7 @@
           <p class="lead"> Share one of these lovely creations with a friend!</p>
           <div class="row">
             <div class="col showcase-button-group">
-              <a class="lead" href="{% url 'bars' %}">
+              <a class="lead" href="{% url 'bars' %}?/next=/index">
                 View Our Soap Bar Collection
               </a>
             </div>
@@ -63,7 +63,7 @@
                       <h5 class="text-primary">{{bar.name}}</h5>
                     </div>
                     <p class="card-button-group">
-                      <a href="{% url 'bar' bar.id %}" >More Info</a>
+                      <a href="{% url 'bar' bar.id %}?/next=/index" >More Info</a>
                     </p>
                   </div>
                 </div>

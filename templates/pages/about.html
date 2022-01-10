@@ -33,7 +33,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="{% url 'index' %}">
+            <a href="{% url 'index' %}?/next=/about">
               <i class="fas fa-home"></i> Home</a>
           </li>
           <li class="breadcrumb-item active"> About</li>
@@ -73,27 +73,8 @@
           <p class="lead">Below is where all the magic happens!</p>
           <img src="{% static 'img/about-the-lab-02.JPG' %}" alt="about the lab image">
           <p class="mt-4">We like to call this area, "The Lab".  We carved out a space in our basement to practice the art and science of making soap.  Our creator's experience with science, technology, and art helps with the soapmaking process.  The best part is testing your products.</p>
-          <p class = "lead">Follow our progress on our <span id="blog_link"><a href="http://shielded-temple-82063.herokuapp.com/" ><i class="fab fa-blogger"></i> BLOG </a></span>site as we pursue the perfect soap recipe!</p>
+          <p class = "lead">Follow our progress on our <span id="blog_link"><a href="http://shielded-temple-82063.herokuapp.com/" target="_blank" ><i class="fab fa-blogger"></i> BLOG </a></span>site as we pursue the perfect soap recipe!</p>
         </div>
-        <!-- <div class="col-md-4" style="margin-top:91px;">
-          {% if mvc_creators %}
-            {% for creator in mvc_creators %}
-            <div class="card">
-              <img class="card-img-top" src=" {{ creator.photo.url }}" alt="Seller of the month">
-              <div class="card-body">
-                <h5 class="card-title">Creator Of The Month</h5>
-                <h6 class="text-secondary">{{creater.name}}</h6>
-                <p class="card-text">{{creator.description}}
-                </p>
-              </div>
-            </div>
-            {% endfor %}
-          {% else %}
-            <div class="col-md-12">
-              <p>No MVC This Month</p>
-            </div>
-          {% endif %}
-        </div> -->
       </div>
     </div>
   </section>
@@ -103,7 +84,7 @@
     <h2 class="display-4">We Create For You</h2>
     <h4>Soap Dish was born to provide a simple means to collaborate on our creativity.  This collaboration of love goes into every Bar we make!</h4>
     <div class="col showcase-button-group">
-      <a class="lead" href="{% url 'bars' %}">
+      <a class="lead" href="{% url 'bars' %}?next=/about">
         View Our Soap Bar Collection
       </a>
     </div>
