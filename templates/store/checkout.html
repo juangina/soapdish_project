@@ -98,7 +98,7 @@
 						<fieldset id="shipping-information-fieldset" disabled>
 							<div class="form-check">
 								<label class="form-check-label">
-								  <input type="radio" class="form-check-input" name="flatrate" value="flatrate" checked>USPS Flat Rate Shipping - $5.00
+								  <input type="radio" class="form-check-input" name="flatrate" value="flatrate" checked>USPS Flat Rate Shipping - ${{order.shipping_cost}}
 								</label>
 							</div>
 							<input id="shipping-form-button" class="btn btn-success btn-block hidden" type="submit" value="Continue to Payment">
@@ -161,7 +161,7 @@
 					Order SubTotal:   ${{order.get_cart_total|floatformat:2}}
 				</h5>
 				<h5 id="shipping" class="order-summary-item">
-					Shipping (USPS Flat Rate): $5.00
+					Shipping (USPS Flat Rate): ${{order.shipping_cost}}
 				</h5>
 				<h5 class="order-summary-item">
 					Order Total:   ${{order.get_checkout_total|floatformat:2}}
