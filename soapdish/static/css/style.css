@@ -281,7 +281,7 @@
   overflow-y:scroll;
 }
 
-/* Store Page - Check Page */
+/* Store Page - Checkout Page */
 .box-element {
 	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
 	background-color: #fff;
@@ -495,6 +495,31 @@ img {
 }
 .col-lg-4, .col-lg-6, .col-lg-8, .col-lg-12 {
 	margin-top: 10px;
+}
+
+/*=======================
+  Form Page
+========================*/
+
+.formPage .formWrapper {
+  list-style: none;
+  background: var(--color-white);
+  padding: 3.5rem 5rem;
+  border: 2px solid var(--color-light);
+  border-radius: 0.7rem;
+}
+
+.formPage .formWrapper__subject {
+  font-size: 2.8rem;
+  color: var(--color-sub);
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+.content-box {
+  width: 95%;
+  max-width: 85rem;
+  margin: 0 auto;
 }
 
 

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} | The Collection {% endblock %}
+{% block title %} | Login {% endblock %}
 
 {% block content%}
 
@@ -54,12 +54,23 @@
                             </div>
 
                             <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" class="form-control" required placeholder="Enter password">
+                              <label for="password">Password</label>
+                              <input type="password" name="password" class="form-control" required placeholder="Enter password">
                             </div>
 
-                            <input type="submit" value="Login" class="btn btn-secondary btn-block">
-                            <p>Don't have an account? <a href="{% url 'register'%}">Sign Up</a></p>
+                            <div class="d-flex justify-content-between">
+                              <input type="submit" value="Login" class="btn btn-secondary w-25">
+                              <p>
+                                <a href="{% url 'reset_password' %}">Forgot Password?</a>
+                              </p>
+                            </div>
+
+                            <p class="mt-2">
+                              Don't have an account?
+                              <a class="ml-2" href="{% url 'register'%}">
+                                Sign Up
+                              </a>
+                            </p>
                         </form>
                     </div>
                 </div>
