@@ -28,14 +28,14 @@ def contact(request):
 
         #Send Mail
         send_mail(
-            'Property bar Inquiry',
+            'Property Bar Inquiry',
             'There has been an inquiry for ' + bar + '. Sign into the admin panel for more information.',
-            'soapdish@theaccidentallifestyle.net',
-            ['ericrenee21@gmail.com'],
+            contact.email,
+            ['soapdish2022@gmail.com'],
             fail_silently=False
         )
 
-        messages.success(request, 'Your request has been submitted.  An associate will get back to you soon.')
+        messages.success(request, 'Your request has been submitted.  A creator will get back to you soon.')
 
         return redirect('/bars/'+bar_id)
     return

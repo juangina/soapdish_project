@@ -26,11 +26,10 @@ def createCustomer(sender, instance, created, **kwargs):
             subject,
             message,
             "jejlifestyle@shop.theaccidentallifestyle.net",
-            ["ericrenee21@gmail.com"],
+            [customer.email],
             fail_silently=False,
         )
         # print("Email Sent to Administrator.")
-
 
 # def updateCustomer(sender, instance, created, **kwargs):
 #     customer = instance
@@ -41,7 +40,6 @@ def createCustomer(sender, instance, created, **kwargs):
 #         user.email = customer.email
 #         user.save()
 
-
 # def deleteCustomer(sender, instance, **kwargs):
 #     try:
 #         user = instance.user
@@ -49,27 +47,40 @@ def createCustomer(sender, instance, created, **kwargs):
 #     except:
 #         pass
 
-@receiver(post_save, sender=Order)
-def createOrder(sender, instance, created, **kwargs):
-	#print(sender, instance,created)
-	if created == True:
-		print("Order Created")
+# @receiver(post_save, sender=Order)
+# def createOrder(sender, instance, created, **kwargs):
+# 	#print(sender, instance,created)
+# 	if created == True:
+# 		print("Order Created")
 
-@receiver(post_save, sender=Order)
-def updateOrder(sender, instance, created, **kwargs):
-	#print(sender, instance,created)
-	order = instance
-	completed = order.complete
-	if created == False and completed == False:
-		print("Order Updated")
+# @receiver(post_save, sender=Order)
+# def updateOrder(sender, instance, created, **kwargs):
+# 	#print(sender, instance,created)
+# 	order = instance
+# 	completed = order.complete
+# 	if created == False and completed == False:
+# 		print("Order Updated")
 
 @receiver(post_save, sender=Order)
 def completeOrder(sender, instance, created, **kwargs):
 	#print(sender, instance,created)
-	order = instance
-	completed = order.complete
-	if created == False and completed == True:
-		print("Order Completed")
+    order = instance
+    completed = order.complete
+    if created == False and completed == True:
+        customer = order.customer
+
+        subject = 'Soap Dish transaction number '+str(order.transaction_id) 
+        
+        message = '\n\n'+'Your order for '+str(order.transaction_id)+' with the amount of $'+str(order.total_price)+' has been completed.'+'\n\n'+'Thank you for your business '+customer.name+'!'+'\n\n'
+
+        send_mail(
+            subject,
+            message,
+            "soapdish2022@gmail.com",
+            [customer.email],
+            fail_silently=False,
+        )       
+        #print("Order Completed")
 
 # post_save.connect(createCustomer, sender=Customer)
 # post_save.connect(updateCustomer, sender=Customer)

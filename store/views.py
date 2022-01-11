@@ -225,7 +225,7 @@ def processOrder(request):
 
 	if total == order.get_checkout_total:
 		order.complete = True
-		order.total_price = order.get_checkout_total()
+		order.total_price = order.get_checkout_total
 	order.save()
 
 	if order.shipping == True:
