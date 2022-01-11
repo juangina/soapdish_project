@@ -4,6 +4,7 @@ import uuid
 from django.db.models.deletion import CASCADE
 from bars.models import Bar
 from decimal import Decimal
+import uuid
 
 # from django.db.models.signals import post_save
 # from django.dispatch import receiver
@@ -15,7 +16,7 @@ def get_deleted_bar():
 class Customer(models.Model):
 	user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
 	name = models.CharField(max_length=200, null=True)
-	email = models.CharField(max_length=200)
+	email = models.CharField(max_length=200, blank=True)
 
 	def __str__(self):
 		return self.name
@@ -51,6 +52,21 @@ class Product(models.Model):
 			self.instock == False
 		self.save() 
 		return self.stock
+
+class SpecialFeatures(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
+    product_description = models.TextField(null=True, blank=True)
+    product_tip = models.TextField(null=True, blank=True)
+    key_ingredients = models.CharField(max_length=200, blank=True, null=True)
+    key_benefits = models.CharField(max_length=200, blank=True, null=True)
+    suitable_for = models.CharField(max_length=200, blank=True, null=True)
+    for_best_results = models.CharField(max_length=200, blank=True, null=True)
+    made_with = models.CharField(max_length=200, blank=True, null=True)
+    smells_like = models.CharField(max_length=200, blank=True, null=True)
+    notes_of = models.CharField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.name)
 
 class Order(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)

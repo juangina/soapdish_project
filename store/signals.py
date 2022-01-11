@@ -13,8 +13,19 @@ from django.conf import settings
 #**kwargs-miscellaneous keyword (key:value pair) arguments
 #print('inside signal file') #debug file statement
 
+# @receiver(post_save, sender=User)
+# def createCustomer(sender, instance, created, **kwargs):
+#     #print('Instance: ', instance)
+#     if created:
+#         user = instance
+#         customer = Customer.objects.create(
+#             user=user,
+#         )
+#         customer.save()
+
+
 @receiver(post_save, sender=Customer)
-def createCustomer(sender, instance, created, **kwargs):
+def messageCustomer(sender, instance, created, **kwargs):
     #print('Instance: ', instance)
     if created:
         customer = instance
