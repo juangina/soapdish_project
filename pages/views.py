@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from bars.choices import price_choices, fragrance_choices, colorants_choices
 from bars.models import Bar
+from blog.models import Posts
 from creators.models import Creator
 from .models import Video
 from store.utils import cookieCart, cartData, guestOrder
@@ -18,10 +19,12 @@ def index(request):
     items = data['items']
 
     bars = Bar.objects.order_by('-batch_code')[:3]
+    
     if Video.objects.filter(name='Test Video').exists():
         video = Video.objects.get(name='Test Video')
     else:
         video = ""
+
     context = {
         'bars': bars,
         'price_choices': price_choices,
@@ -41,15 +44,20 @@ def about(request):
 
     creators = Creator.objects.order_by('hire_date')
     mvc_creators = Creator.objects.all().filter(is_mvc=True)
+    
     if Video.objects.filter(name='Test Video').exists():
         video = Video.objects.get(name='Test Video')
     else:
         video = ""
+    
+    posts = Posts.objects.using('blog').order_by('-created_at')[:3]
+
     context = {
         'creators': creators,
         'mvc_creators': mvc_creators,
         'cartItems':cartItems,
-        'video': video
+        'video': video,
+        'posts': posts
     }
     return render(request, 'pages/about.html', context)
 

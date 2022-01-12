@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+<!-- Used to format integer number with commas -->
+{% load humanize %}
+
+{% block title %} | Blog Posts {% endblock %}
+
+{% block content%}
+
+
+  <!-- Alerts -->
+  {% include 'partials/_alerts.html' %}
+
+  <!-- Latest Blog Posts -->
+  <section id="postings">
+    <div class="container">
+      <h3 class="display-4 text-center mb-3">Our Latest Blog Posts</h3>
+      <!--Listing Iteration-->
+      <div class="row">
+        {% if posts %}
+          {% for post in posts %}
+            <div class="col-md-6 col-lg-4 mb-2 d-flex align-items-stretch">
+                <div class="card">
+                  <div class="card-body d-flex flex-column">
+                    <img class="card-img-top" src="{{ post.cover_image }}" alt="picture of soap">
+                    <div class="listing-heading list-body text-center mt-auto">
+                      <h4 class="text-primary">{{post.title}}</h4>
+                    </div>
+                    <div class="listing-heading list-body text-center mt-auto">
+                        <h6 class="text-primary">{{post.body}}</h6>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="col-md-12">
+            <p>No Listings Available</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+ 
+{% endblock %}

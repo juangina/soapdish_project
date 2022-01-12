@@ -13,6 +13,7 @@ INSTALLED_APPS = [
     'contacts.apps.ContactsConfig',
     'accounts.apps.AccountsConfig',
     'store.apps.StoreConfig',
+    'blog.apps.BlogConfig',
     
     'embed_video',
 
