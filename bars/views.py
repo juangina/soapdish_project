@@ -13,11 +13,14 @@ def index(request):
     bars = Bar.objects.order_by('-created_date').filter(for_sale=True)
     number_of_bars = bars.count()
     range_bars = range(number_of_bars)
-    print(range_bars)
+    #print(range_bars)
 
     paginator = Paginator(bars, 12)
     page = request.GET.get('page')
+    #next = request.GET.get('next')
+    #print(next, page)
     paged_bars = paginator.get_page(page)
+    #print(paged_bars, type(paged_bars))
 
     context = {
             'price_choices': price_choices,

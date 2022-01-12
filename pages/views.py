@@ -50,7 +50,7 @@ def about(request):
     else:
         video = ""
     
-    posts = Posts.objects.using('blog').order_by('-created_at')[:3]
+    posts = Posts.objects.using('blog_db').order_by('-created_at')[:3]
 
     context = {
         'creators': creators,

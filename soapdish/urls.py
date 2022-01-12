@@ -12,11 +12,11 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('contacts/', include('contacts.urls')),
     path('store/', include('store.urls')),
-    path('blog/', include('blog.urls')),
     
     path('chatbot/', include('chatbot.urls')),
     path('inventory/', include('inventory.urls')),
     path('api/', include('api.urls')),
+    path('blog/', include('blog.urls')),
 
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="reset_password.html"), name="reset_password"),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="reset_password_sent.html"), name="password_reset_done"),

@@ -9,7 +9,7 @@ def posts(request):
     order = data['order']
     items = data['items']
 
-    posts = Posts.objects.using('blog').order_by('-created_at')[:3]
+    posts = Posts.objects.using('blog_db').order_by('-created_at')
 
     context = {
         'posts': posts,

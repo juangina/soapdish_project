@@ -86,7 +86,16 @@
 <body>
   <!--Top Bar-->
   {% include 'partials/_topbar.html' %}
-  {% include 'partials/_navbar.html' %}
+  
+  {% if user.is_authenticated %}
+    {% if user.is_staff %}
+      <!-- Developer Nav Bar -->
+      {% include 'partials/_admin-navbar.html' %}
+    {% else %}
+      <!-- General Nav Bar -->
+      {% include 'partials/_navbar.html' %}
+    {% endif %}
+  {% endif %}
 
   {% block content %} {% endblock %}
 
