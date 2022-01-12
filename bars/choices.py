@@ -7,6 +7,7 @@ fragrance_choices = {
   'Sweet Clover': 'Sweet Clover',
   'Caffe Latte': 'Caffe Latte',
   'Coffee Shop': 'Coffee Shop',
+  'Coastal Rain': 'Coastal Rain',
   'Cactus Flower':'Cactus Flower',
 
   'Energy':'Energy',
