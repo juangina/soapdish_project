@@ -16,7 +16,32 @@ setTimeout(function() {
 }, 3000);
 
 
+pageLinks = document.getElementsByClassName('page-link');
+searchFlagDiv = document.getElementById('searchFlag');
+
+searchFlag = searchFlagDiv.getAttribute('data-searchFlag');
+//console.log('searchFlag: ', searchFlag);
+if(searchFlag == '1') {
+    for(let i=0; pageLinks.length > i; i++) {
+        pageLinks[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            let page = this.dataset.page
+            if(page) {
+                //console.log('Button Clicked - Page: ', page);
+                searchURL = `${window.location.href}&page=${page}`
+                //console.log(searchURL);
+                window.location.assign(searchURL)
+            }
+            else {
+                //console.log('Button Clicked - Page not defined.');
+            }
+            
+        })
+    }
+}
+    
 //Cookie Functions "Borrowed" from W3Schools Example
+/*
 function _setCookie(cname, cvalue, exdays) {
     const d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -50,6 +75,6 @@ function _checkCookie() {
     }
   }
 }
-
+*/
 
 

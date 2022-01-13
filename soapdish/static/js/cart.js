@@ -1,6 +1,5 @@
 //console.log('cart.js implemented');
 $(document).ready(function(){
-
 	var updateBtns = document.getElementsByClassName('update-cart')
 	var deleteBtns = document.getElementsByClassName('delete-item')
 	var updateSelection = document.getElementsByClassName('item-quantity')
@@ -159,5 +158,4 @@ $(document).ready(function(){
 			cartSummaryBottom.style.visibility = 'hidden';
 		}
 	}
-
 });
