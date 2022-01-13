@@ -17,9 +17,59 @@ def index(request):
 
     paginator = Paginator(bars, 12)
     page = request.GET.get('page')
+
+    page_button_range = 4
+    page_button_group = 1
+
+    page_button_number_of_groups = int (paginator.num_pages / page_button_range)
+    remainder = paginator.num_pages % page_button_range
+    if remainder > 0:
+        page_button_number_of_groups = page_button_number_of_groups + 1
+
+    page_button_group = int (int(page) / page_button_range)
+    remainder = int(page) % page_button_range
+    if remainder > 0:
+        page_button_group = page_button_group + 1       
+
+    #print('page_button_number_of_groups: ', page_button_number_of_groups)
+    #print('page_button_group: ', page_button_group)
+
+    leftIndex = ((page_button_group-1)*page_button_range)+1
+    rightIndex = leftIndex + page_button_range
+    if rightIndex > paginator.num_pages:
+        rightIndex = paginator.num_pages + 1
+        leftIndex = rightIndex - page_button_range
+    #print('leftIndex: ', leftIndex)
+    #print('rightIndex: ', rightIndex)
+
+
     #next = request.GET.get('next')
     #print(next, page)
-    paged_bars = paginator.get_page(page)
+    # try:
+    #     paged_bars = paginator.get_page(page)
+    # except PageNotAnInteger:
+    #     page = 1
+    #     paged_bars = paginator.get_page(page)
+    # except EmptyPage:
+    #     page = paginator.num_pages
+    #     paged_bars = paginator.get_page(page)
+    if page:
+        paged_bars = paginator.get_page(page)
+    else:
+        page=1
+        paged_bars = paginator.get_page(page)
+
+    #print(paged_bars.paginator.page_range)
+    #print(paged_bars.paginator.num_pages)
+    #print(paged_bars.number)
+
+    custom_range = paged_bars.paginator.page_range
+    custom_range = range(leftIndex,rightIndex)
+
+    # print(custom_range)
+    # for i in custom_range:
+    #     print(i)
+
     #print(paged_bars, type(paged_bars))
 
     context = {
@@ -28,6 +78,7 @@ def index(request):
             'fragrance_choices': fragrance_choices,
             'exfolients_choices': exfolients_choices,
             'bars': paged_bars,
+            'custom_range': custom_range,
             'number_of_bars': number_of_bars,
             'values': request.GET,
             'cartItems': cartItems,

@@ -135,6 +135,7 @@
 <!-- Bars -->
 <section id="listings" class="py-2">
     <div class="container">
+        
         <!--Pagenation Row Logic-->
         <div class="row">
             <div class="col-md-12">
@@ -154,7 +155,8 @@
                 {% endif %}
 
                 <!-- Logic for Pagination Numbered List Items -->
-                {% for i in bars.paginator.page_range %}
+                <!-- bars.paginator.page_range -->
+                {% for i in custom_range %}
                     {% if bars.number == i %}
                         <li class="pagination-button">
                         <a class="pagination-button-active">{{i}}</a>
