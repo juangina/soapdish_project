@@ -9,11 +9,11 @@
             <div class="cart-collapse">
                 {% if 'cart' in request.path %}
                     <a class="nav-link" href="{% url 'cart' %}">
-                        <i id="dev-cartItem" class="fas fa-shopping-cart mr-1" style="color:rgba(255,255,255, 1.0)"> [{{cartItems}}] </i>
+                        <i id="cartItem" class="fas fa-shopping-cart mr-1" style="color:rgba(255,255,255, 1.0)"> [{{cartItems}}] </i>
                     </a>  
                 {%  else %}
                     <a class="nav-link" href="{% url 'cart' %}">
-                        <i id="dev-cartItem" class="fas fa-shopping-cart mr-1" style="color:rgba(255,255,255, 0.5)"> [{{cartItems}}] </i>
+                        <i id="cartItem" class="fas fa-shopping-cart mr-1" style="color:rgba(255,255,255, 0.5)"> [{{cartItems}}] </i>
                     </a>                                
                 {% endif %}
             </div>
@@ -108,11 +108,11 @@
                         <li class="nav-item mr-3" data-toggle="tooltip" data-placement="top" title="Cart">
                             {% if 'cart' in request.path %}
                                 <a class="nav-link" href="{% url 'cart' %}">
-                                    <i id="dev-cartItem" class="fas fa-shopping-cart mr-1" style="color:rgba(255,255,255, 1.0)"> [{{cartItems}}] </i>
+                                    <i id="cartItem" class="fas fa-shopping-cart mr-1" style="color:rgba(255,255,255, 1.0)"> [{{cartItems}}] </i>
                                 </a>  
                             {%  else %}
                                 <a class="nav-link" href="{% url 'cart' %}">
-                                    <i id="dev-cartItem" class="fas fa-shopping-cart mr-1" style="color:rgba(255,255,255, 0.5)"> [{{cartItems}}] </i>
+                                    <i id="cartItem" class="fas fa-shopping-cart mr-1" style="color:rgba(255,255,255, 0.5)"> [{{cartItems}}] </i>
                             </a>                                
                             {% endif %}
                         </li>

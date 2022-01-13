@@ -61,7 +61,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="{% url 'search' %}">
+                    <form id="barSearchForm" action="{% url 'search' %}">
                     <!-- Form Row 1 -->
                     <div class="form-row">
                         <div class="col-md-12 mb-3">
@@ -123,7 +123,7 @@
                         </select>
                         </div>
                     </div>
-                    <button class="btn btn-secondary btn-block mt-4" type="submit">Submit</button>
+                    <button id="barSearchFormButton" class="btn btn-secondary btn-block mt-4" type="submit">Submit</button>
                     </form>
                     
                 </div>
@@ -134,6 +134,7 @@
 
 <!-- Bars -->
 <section id="listings" class="py-2">
+    <div id="searchFlag" data-searchFlag="{{search}}" hidden></div>
     <div class="container">
         
         <!--Pagenation Row Logic-->
@@ -146,11 +147,11 @@
                 <!-- Logic for First Pagination List Item -->
                 {% if bars.has_previous %}
                     <li class="pagination-button">
-                    <a href="?page={{bars.previous_page_number}}" >&laquo;</a>
+                    <a class="page-link" href="?page={{bars.previous_page_number}}" data-page="{{bars.previous_page_number}}">&laquo;</a>
                     </li>
                 {% else %}
                     <li class="disabled pagination-button">
-                    <a>&laquo;</a>
+                    <a class="page-link" >&laquo;</a>
                     </li>
                 {% endif %}
 
@@ -159,11 +160,11 @@
                 {% for i in custom_range %}
                     {% if bars.number == i %}
                         <li class="pagination-button">
-                        <a class="pagination-button-active">{{i}}</a>
+                        <a class="page-link pagination-button-active" data-page="{{i}}">{{i}}</a>
                         </li>
                     {% else %}
                         <li class="pagination-button" >
-                        <a href="?page={{i}}">{{i}}</a>
+                        <a class="page-link" href="?page={{i}}" data-page="{{i}}">{{i}}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
@@ -171,11 +172,11 @@
                 <!-- Logic for Last Pagination List Item -->
                 {% if bars.has_next %}
                     <li class="pagination-button">
-                    <a href="?page={{bars.next_page_number}}">&raquo;</a>
+                    <a class="page-link" href="?page={{bars.next_page_number}}" data-page="{{bars.next_page_number}}">&raquo;</a>
                     </li>
                 {% else %}
                     <li class="disabled pagination-button">
-                    <a>&raquo;</a>
+                    <a class="page-link" >&raquo;</a>
                     </li>
                 {% endif %}
                 </ul>
@@ -195,7 +196,7 @@
                                 <h5 class="text-primary">{{bar.name}}</h5>
                             </div>
                             <hr>
-                            <a href="{% url 'bar' bar.id %}?/next=/bars" >More Info</a>
+                            <a href="{% url 'bar' bar.id %}?next=/bars" >More Info</a>
                         </div>
                     </div>
                 </div>
@@ -217,23 +218,24 @@
                 <!-- Logic for First Pagination List Item -->
                 {% if bars.has_previous %}
                     <li class="pagination-button">
-                    <a href="?page={{bars.previous_page_number}}" >&laquo;</a>
+                    <a class="page-link" href="?page={{bars.previous_page_number}}" data-page="{{bars.previous_page_number}}">&laquo;</a>
                     </li>
                 {% else %}
                     <li class="disabled pagination-button">
-                    <a>&laquo;</a>
+                    <a class="page-link" >&laquo;</a>
                     </li>
                 {% endif %}
 
                 <!-- Logic for Pagination Numbered List Items -->
-                {% for i in bars.paginator.page_range %}
+                <!-- bars.paginator.page_range -->
+                {% for i in custom_range %}
                     {% if bars.number == i %}
                         <li class="pagination-button">
-                        <a class="pagination-button-active">{{i}}</a>
+                        <a class="page-link pagination-button-active" data-page="{{i}}">{{i}}</a>
                         </li>
                     {% else %}
                         <li class="pagination-button" >
-                        <a href="?page={{i}}">{{i}}</a>
+                        <a class="page-link" href="?page={{i}}" data-page="{{i}}">{{i}}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
@@ -241,11 +243,11 @@
                 <!-- Logic for Last Pagination List Item -->
                 {% if bars.has_next %}
                     <li class="pagination-button">
-                    <a href="?page={{bars.next_page_number}}">&raquo;</a>
+                    <a class="page-link" href="?page={{bars.next_page_number}}" data-page="{{bars.next_page_number}}">&raquo;</a>
                     </li>
                 {% else %}
                     <li class="disabled pagination-button">
-                    <a>&raquo;</a>
+                    <a class="page-link" >&raquo;</a>
                     </li>
                 {% endif %}
                 </ul>
@@ -254,5 +256,32 @@
         </div>
     </div>
 </section>
+
+<script type="text/javascript">
+    pageLinks = document.getElementsByClassName('page-link');
+    searchFlagDiv = document.getElementById('searchFlag');
+
+    searchFlag = searchFlagDiv.getAttribute('data-searchFlag');
+    //console.log('searchFlag: ', searchFlag);
+    if(searchFlag == '1') {
+        for(let i=0; pageLinks.length > i; i++) {
+            pageLinks[i].addEventListener('click', function (e) {
+                e.preventDefault();
+                let page = this.dataset.page
+                if(page) {
+                    //console.log('Button Clicked - Page: ', page);
+                    searchURL = `${window.location.href}&page=${page}`
+                    //console.log(searchURL);
+                    window.location.assign(searchURL)
+                }
+                else {
+                    //console.log('Button Clicked - Page not defined.');
+                }
+                
+            })
+        }
+    }
+    
+</script>
    
 {% endblock %}

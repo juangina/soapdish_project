@@ -1,0 +1,48 @@
+
+
+<!--Pagenation Row Logic-->
+<div class="row">
+    <div class="col-md-12">
+    <!-- Check if Pagination is Required -->
+    {% if bars.has_other_pages%}
+        <!-- Start Horizontal html block list of items -->
+        <ul class="pagination">
+        <!-- Logic for First Pagination List Item -->
+        {% if bars.has_previous %}
+            <li class="pagination-button">
+            <a href="?page={{bars.previous_page_number}}" >&laquo;</a>
+            </li>
+        {% else %}
+            <li class="disabled pagination-button">
+            <a>&laquo;</a>
+            </li>
+        {% endif %}
+
+        <!-- Logic for Pagination Numbered List Items -->
+        <!-- bars.paginator.page_range -->
+        {% for i in custom_range %}
+            {% if bars.number == i %}
+                <li class="pagination-button">
+                <a class="pagination-button-active">{{i}}</a>
+                </li>
+            {% else %}
+                <li class="pagination-button" >
+                <a href="?page={{i}}">{{i}}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Logic for Last Pagination List Item -->
+        {% if bars.has_next %}
+            <li class="pagination-button">
+            <a href="?page={{bars.next_page_number}}">&raquo;</a>
+            </li>
+        {% else %}
+            <li class="disabled pagination-button">
+            <a>&raquo;</a>
+            </li>
+        {% endif %}
+        </ul>
+    {% endif %}
+    </div>
+</div>

@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from bars.choices import price_choices, fragrance_choices, colorants_choices, exfolients_choices
-from .models import Bar
 from store.utils import cookieCart, cartData, guestOrder
+from .models import Bar
+from .utils import buttonPaginator
 
 def index(request):
     data = cartData(request)
@@ -10,10 +11,8 @@ def index(request):
     order = data['order']
     items = data['items']
 
-    bars = Bar.objects.order_by('-created_date').filter(for_sale=True)
+    bars = Bar.objects.order_by('created_date').filter(for_sale=True)
     number_of_bars = bars.count()
-    range_bars = range(number_of_bars)
-    #print(range_bars)
 
     paginator = Paginator(bars, 12)
     page = request.GET.get('page')
@@ -24,54 +23,7 @@ def index(request):
         page=1
         paged_bars = paginator.get_page(page)
 
-    page_button_range = 4
-    page_button_group = 1
-
-    page_button_number_of_groups = int (paginator.num_pages / page_button_range)
-    remainder = paginator.num_pages % page_button_range
-    if remainder > 0:
-        page_button_number_of_groups = page_button_number_of_groups + 1
-
-    page_button_group = int (int(page) / page_button_range)
-    remainder = int(page) % page_button_range
-    if remainder > 0:
-        page_button_group = page_button_group + 1       
-
-    #print('page_button_number_of_groups: ', page_button_number_of_groups)
-    #print('page_button_group: ', page_button_group)
-
-    leftIndex = ((page_button_group-1)*page_button_range)+1
-    rightIndex = leftIndex + page_button_range
-    if rightIndex > paginator.num_pages:
-        rightIndex = paginator.num_pages + 1
-        leftIndex = rightIndex - page_button_range
-    #print('leftIndex: ', leftIndex)
-    #print('rightIndex: ', rightIndex)
-
-
-    #next = request.GET.get('next')
-    #print(next, page)
-    # try:
-    #     paged_bars = paginator.get_page(page)
-    # except PageNotAnInteger:
-    #     page = 1
-    #     paged_bars = paginator.get_page(page)
-    # except EmptyPage:
-    #     page = paginator.num_pages
-    #     paged_bars = paginator.get_page(page)
-
-    #print(paged_bars.paginator.page_range)
-    #print(paged_bars.paginator.num_pages)
-    #print(paged_bars.number)
-
-    custom_range = paged_bars.paginator.page_range
-    custom_range = range(leftIndex,rightIndex)
-
-    # print(custom_range)
-    # for i in custom_range:
-    #     print(i)
-
-    #print(paged_bars, type(paged_bars))
+    custom_range = buttonPaginator(4, paginator, page, paged_bars)
 
     context = {
             'price_choices': price_choices,
@@ -83,6 +35,7 @@ def index(request):
             'number_of_bars': number_of_bars,
             'values': request.GET,
             'cartItems': cartItems,
+            'search': '0',
             }
 
     return render(request, 'bars/bars.html', context)
@@ -93,7 +46,6 @@ def bar(request, bar_id):
     order = data['order']
     items = data['items']
     
-    #bar = bar.objects.get(id=bar_id)
     bar = get_object_or_404(Bar, pk=bar_id)
     
     context = {
@@ -108,8 +60,9 @@ def search(request):
     order = data['order']
     items = data['items']
 
-    queryset_list = Bar.objects.order_by('-created_date').filter(for_sale=True)
+    queryset_list = Bar.objects.order_by('created_date').filter(for_sale=True)
 
+    
     # Search for Keywords in recipe
     if 'keywords' in request.GET:
         keywords = request.GET['keywords']
@@ -142,9 +95,18 @@ def search(request):
             queryset_list = queryset_list.filter(price__lte=price)
 
     number_of_bars = queryset_list.count()
+
     paginator = Paginator(queryset_list, 6)
     page = request.GET.get('page')
-    paged_bars = paginator.get_page(page)
+
+    if page:
+        paged_bars = paginator.get_page(page)
+    else:
+        page=1
+        paged_bars = paginator.get_page(page)
+
+    custom_range = buttonPaginator(4, paginator, page, paged_bars)
+    #print('request.GET: ', request.GET)
 
     context = {
         'price_choices': price_choices,
@@ -152,8 +114,10 @@ def search(request):
         'fragrance_choices': fragrance_choices,
         'exfolients_choices': exfolients_choices,
         'bars': paged_bars,
+        'custom_range': custom_range,
         'number_of_bars': number_of_bars,
         'values': request.GET,
-        'cartItems': cartItems
+        'cartItems': cartItems,
+        'search': '1',
     }
     return render(request, 'bars/bars.html', context)
