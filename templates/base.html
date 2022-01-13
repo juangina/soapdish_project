@@ -95,6 +95,8 @@
       <!-- General Nav Bar -->
       {% include 'partials/_navbar.html' %}
     {% endif %}
+  {% else %}
+      {% include 'partials/_navbar.html' %}
   {% endif %}
 
   {% block content %} {% endblock %}
