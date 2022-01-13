@@ -18,6 +18,12 @@ def index(request):
     paginator = Paginator(bars, 12)
     page = request.GET.get('page')
 
+    if page:
+        paged_bars = paginator.get_page(page)
+    else:
+        page=1
+        paged_bars = paginator.get_page(page)
+
     page_button_range = 4
     page_button_group = 1
 
@@ -53,11 +59,6 @@ def index(request):
     # except EmptyPage:
     #     page = paginator.num_pages
     #     paged_bars = paginator.get_page(page)
-    if page:
-        paged_bars = paginator.get_page(page)
-    else:
-        page=1
-        paged_bars = paginator.get_page(page)
 
     #print(paged_bars.paginator.page_range)
     #print(paged_bars.paginator.num_pages)

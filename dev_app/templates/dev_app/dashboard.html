@@ -1,0 +1,160 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- head -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Base Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+
+        function getToken(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+        var csrftoken = getToken('csrftoken')
+
+        function getCookie(name) {
+            // Split cookie string and get all individual name=value pairs in an array
+            var cookieArr = document.cookie.split(";");
+
+            // Loop through the array elements
+            for(var i = 0; i < cookieArr.length; i++) {
+                var cookiePair = cookieArr[i].split("=");
+
+                /* Removing whitespace at the beginning of the cookie name
+                and compare it with the given string */
+                if(name == cookiePair[0].trim()) {
+                    // Decode the cookie value and return
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+
+            // Return null if not found
+            return null;
+        }
+
+        var cart = JSON.parse(getCookie('cart'))
+
+        if (cart == undefined){
+        cart = {}
+        //console.log('Cart Created!', cart)
+        document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+        }
+        //console.log('Cart:', cart)
+    </script>
+
+    <title>Soap Dish - Developer </title>
+    <style>
+        li {
+            display: block;
+            padding: 1rem;
+        }
+        ul {
+            display: flex;
+        }
+    </style>
+</head>  
+
+<body>
+    <nav>
+        <div class="container">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'img/soapdish_logo.jpg' %}" alt="">
+            </a>
+                <ul>
+                    {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                        <li>
+                            <a href="{% url 'about' %}">About</a>
+                        </li>
+                        <!--Collection Link-->
+                        <li>
+                            <a href="{% url 'bars' %}">Our Collection</a>
+                        </li>
+                        <!-- Store Link -->
+                        <li>
+                            <a href="{% url 'store' %}">Store</a>
+                        </li>               
+                        <!--Dashboard Link-->
+                        <li>
+                            <a class="nav-link" href="{% url 'dashboard' %}">
+                                <i class="fas fa-user"></i>
+                           </a>
+                        </li>    
+                        <!--Logout Link cast as a Form Submission-->
+                        <li>
+                            <a href="javascript:{document.getElementById('logout').submit()}">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </a>
+                            <form action="{% url 'logout' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden">
+                            </form>
+                        </li>
+                        <!-- Cart Link -->
+                        <li>
+                            <a href="{% url 'cart' %}">
+                                <i class="fas fa-shopping-cart mr-1"> [{{cartItems}}] </i>
+                            </a>                                
+                        </li>
+                            <!-- Admin Link for Administrator User -->
+                        <li >
+                            <a href="/admin/">
+                                <i class="fas fa-database"></i>
+                            </a>
+                        </li>                                        
+                        <!--Register Link-->
+                        <li>
+                            <a href=" {% url 'register' %} ">
+                            <i class="fas fa-user-plus"></i> Register</a>
+                        </li>
+                        <!--Login Link-->
+                        <li>
+                            <a href=" {% url 'login' %} ">
+                                <i class="fas fa-sign-in-alt"></i> Login</a>
+                        </li>
+                        <!--Developer Dashboard Link-->
+                        <li>
+                            <a href=" {% url 'dev_dashboard' %} ">
+                                <i class="fas fa-laptop-code"></i></a>
+                        </li>
+                    {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <h4 style="text-decoration: 'underline';">Page for Development and Testing!</h4>
+
+    <p>This is a paragraph tag.</p>
+
+    <a href="#">This is a link tag.</a>
+
+    <div>
+        <img src="{% static 'img/soapdish_logo.jpg' %}" height="50" alt="">
+    </div>
+
+</body>
+
