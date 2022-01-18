@@ -1,4 +1,3 @@
-
 checkoutPage = document.getElementById('cart-summary-checkout')
 if(checkoutPage) {
     var total = '{{order.get_checkout_total}}'

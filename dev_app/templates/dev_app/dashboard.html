@@ -12,6 +12,93 @@
     <!-- Base Font Awesome -->
     <link rel="stylesheet" href="{% static 'css/all.css' %}">
 
+    <!-- Skeleton -->
+    <!-- <link rel="stylesheet" href="{% static 'css/normalize.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/skeleton.css' %}"> -->
+
+    <!-- Primitive -->
+    <!-- <link rel="stylesheet" href="{% static 'css/primitive.css' %}"> -->
+    
+    <!-- Tailwindcss -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+    <!-- UIkit CSS -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" /> -->
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+   <!-- Bootswatch -->
+   <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.bootswatch.minty.css' %}"> -->
+   <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.bootswatch.lumen.css' %}"> -->
+
+    <!-- Lightbox -->
+    <!-- <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}"> -->
+
+    <!-- avicon -->
+    <!-- <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/> -->
+
+    <!-- Page Title -->
+    <title>Soap Dish - Developer </title>
+
+    <!-- Custom Styling -->
+    <style>
+        :root {
+            --color1: lightgreen;
+        }
+        nav {
+            border-style: solid;
+            border-width: 2px;
+            border-color: lightgreen;
+        }
+        body .title {
+            background-color: var(--color1);
+        }
+        main {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        h2::before {
+            content: ">>> ";
+            color: red;
+          }
+        h2::after {
+        content: " <<<";
+        color: red;
+        }
+        h3::before {
+        content: ">> ";
+        color: red;
+        }
+        h3::after {
+            content: " <<";
+            color: red;
+            }
+        div {
+            margin-top: 4px;
+            margin-left: 20px;
+            margin-right: 20px;
+            border-style: solid;
+            border-width: 2px;
+            border-color: green;
+            padding: 4px 4px;
+        }
+        li {
+            display: block;
+            padding: 1rem;
+        }
+        ul,ol {
+            display: flex;
+        }
+        .section {
+            border-bottom-style: solid;
+            border-bottom-color: red;
+            border-bottom-width: 2px;
+        }
+
+    </style>
+
+    <!-- Custom Script - Cookies and Tokens -->
     <script type="text/javascript">
         var user = '{{request.user}}'
 
@@ -63,98 +150,398 @@
         //console.log('Cart:', cart)
     </script>
 
-    <title>Soap Dish - Developer </title>
-    <style>
-        li {
-            display: block;
-            padding: 1rem;
-        }
-        ul {
-            display: flex;
-        }
-    </style>
 </head>  
 
 <body>
-    <nav>
-        <div class="container">
-            <a href="{% url 'index' %}">
-                <img src="{% static 'img/soapdish_logo.jpg' %}" alt="">
-            </a>
-                <ul>
-                    {% if user.is_authenticated %}
-                    {% if user.is_staff %}
-                        <li>
-                            <a href="{% url 'about' %}">About</a>
-                        </li>
-                        <!--Collection Link-->
-                        <li>
-                            <a href="{% url 'bars' %}">Our Collection</a>
-                        </li>
-                        <!-- Store Link -->
-                        <li>
-                            <a href="{% url 'store' %}">Store</a>
-                        </li>               
-                        <!--Dashboard Link-->
-                        <li>
-                            <a class="nav-link" href="{% url 'dashboard' %}">
-                                <i class="fas fa-user"></i>
-                           </a>
-                        </li>    
-                        <!--Logout Link cast as a Form Submission-->
-                        <li>
-                            <a href="javascript:{document.getElementById('logout').submit()}">
-                                <i class="fas fa-sign-out-alt"></i>
-                            </a>
-                            <form action="{% url 'logout' %}" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden">
-                            </form>
-                        </li>
-                        <!-- Cart Link -->
-                        <li>
-                            <a href="{% url 'cart' %}">
-                                <i class="fas fa-shopping-cart mr-1"> [{{cartItems}}] </i>
-                            </a>                                
-                        </li>
-                            <!-- Admin Link for Administrator User -->
-                        <li >
-                            <a href="/admin/">
-                                <i class="fas fa-database"></i>
-                            </a>
-                        </li>                                        
-                        <!--Register Link-->
-                        <li>
-                            <a href=" {% url 'register' %} ">
-                            <i class="fas fa-user-plus"></i> Register</a>
-                        </li>
-                        <!--Login Link-->
-                        <li>
-                            <a href=" {% url 'login' %} ">
-                                <i class="fas fa-sign-in-alt"></i> Login</a>
-                        </li>
-                        <!--Developer Dashboard Link-->
-                        <li>
-                            <a href=" {% url 'dev_dashboard' %} ">
-                                <i class="fas fa-laptop-code"></i></a>
-                        </li>
-                    {% endif %}
-                    {% endif %}
-                </ul>
+
+    <div class="title">
+        <h1 style="display:inline-block" >SoapDish Developer Page</h1>
+        <div style="display:inline-block">
+            <button type="button" onclick="myFunction_set_color1()">Set Title to Red</button>
+            <button type="button" onclick="myFunction_set_color2()">Set Title to Blue</button>
+            <button type="button" onclick="myFunction_set_color3()">Set Title to Green</button>
+        </div>
+    </div>
+
+    <h2 class="section">navigation</h2>
+    <div>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                    <li>
+                        <a href="{% url 'index' %}">
+                            <img src="{% static 'img/soapdish_logo.jpg' %}" height="50" alt="">
+                        </a>
+                    </li> 
+                    <!-- About Us Link-->
+                    <li>
+                        <a href="{% url 'about' %}">About</a>
+                    </li>
+                    <!--Soap Collection Link-->
+                    <li>
+                        <a href="{% url 'bars' %}">Our Collection</a>
+                    </li>
+                    <!-- Store Link -->
+                    <li>
+                        <a href="{% url 'store' %}">Store</a>
+                    </li>               
+                    <!--Dashboard Link-->
+                    <li>
+                        <a href="{% url 'dashboard' %}" data-toggle="tooltip" data-placement="bottom" title="Dashboard">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </li>    
+                    <!--Logout Link cast as a Form Submission-->
+                    <li>
+                        <a href="javascript:{document.getElementById('logout').submit()}" data-toggle="tooltip" data-placement="bottom" title="Logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                        <form action="{% url 'logout' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden">
+                        </form>
+                    </li>
+                    <!-- Cart Link -->
+                    <li>
+                        <a href="{% url 'cart' %}" data-toggle="tooltip" data-placement="bottom" title="Shopping Cart">
+                            <i class="fas fa-shopping-cart mr-1"> [{{cartItems}}] </i>
+                        </a>                                
+                    </li>
+                    <!--Developer Dashboard Link for Administrator User -->
+                    <li>
+                        <a href=" {% url 'dev_dashboard' %} " data-toggle="tooltip" data-placement="bottom" title="Developer Dashboard">
+                            <i class="fas fa-laptop-code"></i></a>
+                    </li>
+                        <!-- Admin Link for Administrator User -->
+                    <li >
+                        <a href="/admin/" data-toggle="tooltip" data-placement="bottom" title="Admin Area">
+                            <i class="fas fa-database"></i>
+                        </a>
+                    </li>
+                    <!-- Inventory Link for Administrator User -->
+                    <li>
+                        <a href="/inventory/" data-toggle="tooltip" data-placement="bottom" title="Inventory">
+                            <i class="fas fa-dolly-flatbed" ></i>
+                        </a>
+                    </li>                                                  
+                    <!-- Chatbot Link for Administrator User -->
+                    <li>
+                        <a href="/chatbot/" data-toggle="tooltip" data-placement="bottom" title="Chatbot">
+                            <i class="fas fa-robot"></i>
+                        </a>
+                    </li>   
+                    <!-- Blog Link for Administrator User -->
+                    <li>
+                        <a href="/blog/" data-toggle="tooltip" data-placement="bottom" title="Blog">
+                            <i class="far fa-newspaper"></i>
+                        </a>
+                    </li>   
+                    <!-- Store API Link for Administrator User -->
+                    <li>
+                        <a href="/store/api_checkout" data-toggle="tooltip" data-placement="bottom" title="API Checkout">
+                            <i class="fab fa-paypal"></i>
+                        </a>
+                    </li>
+    
+                {% endif %}
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    <h2 class="section">main</h2>
+    <main>
+
+        <h3 class="section">heading with del and ins</h3>
+        <div>
+            <header>
+                <h4>This is a <del>title</del> <ins>heading</ins> tag.</h4>
+            </header>
+        </div>
+        
+        <h3 class="section">paragraph with bold and keyboard</h3>
+        <div>
+            <p>This is a <b>paragraph</b> <kbd>tag.</kbd></p>
+        </div>
+
+        <h3 class="section">image, figure, and figure caption</h3>
+        <div>
+            <figure>
+                <img src="{% static 'img/soapdish_logo.jpg' %}" height="50" alt="site logo">
+                <figcaption>
+                    Fig.1 - Soap Dish Logo</figcaption>
+              </figure>
+        </div>
+        
+        <h3 class="section">details and summary</h3>
+        <details>
+            <summary>Soap Dish</summary>
+            <p>A collaboration between father and daughter to create an affordable luxury for family and friends.</p>
+        </details>
+                
+        <h3 class="section">blockquote</h3>
+        <div>
+            <blockquote cite="http://shielded-temple-82063.herokuapp.com/">
+                What is soap without a scent?
+            </blockquote>
+        </div>
+
+        <h3 class="section">unordered list</h3>
+        <div>
+            <ul>
+                <li>
+                    javascript
+                </li>
+                <li>
+                    php
+                </li>
+                <li>
+                    python
+                </li>
+            </ul>
+        </div>
+        
+        <h3 class="section">ordered list</h3>
+        <div>
+            <ol>
+                <li>
+                    javascript
+                </li>
+                <li>
+                    php
+                </li>
+                <li>
+                    python
+                </li>
+            </ol>
+        </div>
+
+        <h3 class="section">description list with mark, Sup, and Sub</h3>
+        <div>
+            <dl>
+                <dt><mark>Coffee</mark></dt>
+                <dd><sup>Black</sup> hot drink</dd>
+                <dt>Milk</dt>
+                <dd>White cold <sub>drink</sub></dd>
+              </dl>
+        </div>
+
+        <h3 class="section">table</h3>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Contact</th>
+                        <th>Country</th>
+                      </tr>
+                      <tr>
+                </thead>
+                <tbody>
+                    <td>Native Tongue English</td>
+                    <td>Gina Johnson</td>
+                    <td>USA</td>
+                  </tr>
+                  <tr>
+                    <td>Soap Dish</td>
+                    <td>Juan Johnson</td>
+                    <td>USA</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                    <td>Company</td>
+                    <td>Contact</td>
+                    <td>Country</td>                    
+                </tfoot>
+              </table>
+        </div>
+        
+        <h3 class="section">link with emphasis</h3>
+        <div>
+            <a href="#">This is a <em>link</em> tag.</a>
+        </div>
+        
+        <h3 class="section">buttons</h3>
+        <div>
+            <button>Default Button</button>
+            <a href="#">Link Button</a>
+            <input type="button" value="Input Button">
+            <input type="submit" value="Submit Button">
+        </div>
+                
+        <h3 class="section">textarea</h3>
+        <div>
+            <textarea name="texatarea" id="textarear" cols="30" rows="10">SoapDish: An affordable luxury.</textarea>
+        </div>
+
+        <h3 class="section">basic form with fieldset, legend, and label</h3>
+        <div>
+            <form action="">
+                <fieldset>
+                  <legend>Personalia:</legend>
+                  <label for="fname">First name:</label>
+                  <input type="text" id="fname" name="fname"><br><br>
+                  <label for="lname">Last name:</label>
+                  <input type="text" id="lname" name="lname"><br><br>
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" name="email"><br><br>
+                  <label for="birthday">Birthday:</label>
+                  <input type="date" id="birthday" name="birthday"><br><br>
+                  <input type="submit" value="Submit">
+                </fieldset>
+              </form>
+        </div>
+        
+        <h3 class="section">template</h3>
+        <div>
+            <template>
+                <div>
+                    <h2>SoapDish Logo</h2>
+                    <img src="{% static 'img/soapdish_logo.jpg' %}">
+                </div>
+            </template>
+            <button onclick="showContent()">Show SoapDish Logo</button>
+            <button onclick="hideContent()">Hide SoapDish Logo</button>
+            <div id="append">
             </div>
         </div>
-    </nav>
+       
+        <!-- <h3>iframe</h3>      
+        <div>
+            <iframe src="http://127.0.0.1:8000/about" title="Soap Dish - About Page">
+            </iframe>
+        </div>         -->
+        
+        <h3 class="section">canvas</h3>
+        <div>
+            <canvas id="myCanvas">
+                Your browser does not support the canvas tag.
+            </canvas>
+        </div>
+        
+        <h3 class="section">svg - scalable vector graphics</h3>
+        <div>
+            <svg width="100" height="100">
+                <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />Sorry, your browser does not support inline SVG.
+            </svg> 
+        </div>
 
+        <h3 class="section">map</h3>
+        <img src="{% static 'img/soapdish_logo.jpg' %}" height="50" alt="site logo" usemap="#workmap">
+        <map name="workmap">
+            <area shape="rect" coords="0,0,35,50" alt="logo" href="{% url 'index' %}">
+        </map>
+        
+        <h3 class="section">time and variable</h3>
+        <div>
+            <p>Open from <time>9:00</time> to <time>21:00</time> every weekday.</p>
+            <p>I have a date on <time datetime="2008-02-14 20:00"> <var>Valentines Day</var></time>.</p>
+        </div>
 
-    <h4 style="text-decoration: 'underline';">Page for Development and Testing!</h4>
+        <h3 class="section">wbr-Word Break Opportunity</h3>
+        <div>
+            <p>SoapDish:Anaffordableluxury<wbr>SoapDish:Anaffordableluxury<wbr>SoapDish:Anaffordableluxury<wbr>SoapDish:Anaffordableluxury<wbr>SoapDish:Anaffordableluxury<wbr>SoapDish:Anaffordableluxury<wbr>SoapDish:Anaffordableluxury<wbr>SoapDish:Anaffordableluxury<wbr>SoapDish:Anaffordableluxury<wbr>SoapDish:Anaffordableluxury<wbr>SoapDish:Anaffordableluxury<wbr>SoapDish:Anaffordableluxury<wbr></p>
+        </div>
+        
+    </main>
 
-    <p>This is a paragraph tag.</p>
+    <h2 class="section">footer</h2>    
+    <footer>
+        <p>Author: Juan Johnson</p>
+        <p>
+            <a href="mailto:soapdish2020@gmail.com">
+                soapdish2022@gmail.com
+            </a>
+        </p>
+    </footer>
 
-    <a href="#">This is a link tag.</a>
+    <!-- Script for Canvas -->
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#FF0000";
+        ctx.fillRect(0, 0, 80, 80);
+    </script>
 
-    <div>
-        <img src="{% static 'img/soapdish_logo.jpg' %}" height="50" alt="">
-    </div>
+    <!-- Script for Template -->
+    <script>
+        function showContent() {
+          var temp = document.getElementsByTagName("template")[0];
+          var clon = temp.content.cloneNode(true);
+
+          var append = document.getElementById('append');
+          append.appendChild(clon);
+        }
+        function hideContent() {
+            var append = document.getElementById("append");
+            //console.log(append);
+            //console.log(append.childNodes)
+
+            while(append.childNodes[0]) {
+                append.removeChild(append.childNodes[0]);
+            }
+          }
+    </script>
+
+    <!-- UIkit JS -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script> -->
+
+    <!-- Bootstrap - jquery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <!-- Bootstrap jspopper -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <!-- Bootstrap - boostrap min -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    
+    <!-- Script for Tooltips -->
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+          })
+    </script>
+
+    <!-- Script for getting and setting variables -->
+    <script>
+        // Get the root element
+        var r = document.querySelector(':root');
+        
+        // Create a function for getting a variable value
+        function myFunction_get_color1() {
+          // Get the styles (properties and values) for the root
+          var rs = getComputedStyle(r);
+          // Alert the value of the --blue variable
+          alert("The value of --blue is: " + rs.getPropertyValue('--color1'));
+        }
+        
+        // Create a function for setting a variable value
+        function myFunction_set_color1() {
+          // Set the value of variable --blue to another value (in this case "lightblue")
+          r.style.setProperty('--color1', 'lightcoral');
+        }
+                // Create a function for setting a variable value
+        function myFunction_set_color2() {
+            // Set the value of variable --blue to another value (in this case "lightblue")
+            r.style.setProperty('--color1', 'lightblue');
+            }
+        function myFunction_set_color3() {
+            // Set the value of variable --blue to another value (in this case "lightblue")
+            r.style.setProperty('--color1', 'lightgreen');
+            }
+        </script>
+
+    <!-- <script src="{% static 'js/lightbox.min.js' %}"></script> -->
+
+    <!-- <script src="{% static 'js/jquery.js' %}"></script> -->
+
+    <!-- <script src="{% static 'js/js.cookie.js' %}"></script> -->
+
+    <!-- <script src="{% static 'js/bootstrap.js' %}"></script> -->
+    
+    <!-- <script type="text/javascript" src="{% static 'js/main.js' %}"></script> -->
+
+    <!-- <script type="text/javascript" src="{% static 'js/cart.js' %}"></script> -->
 
 </body>
 
