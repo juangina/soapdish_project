@@ -36,6 +36,7 @@ class Bar(models.Model):
     colorants = models.TextField(max_length=200, blank=True)
     nutrients = models.TextField(max_length=200, blank=True)
     exfolients = models.TextField(max_length=200, blank=True)
+    clays = models.TextField(max_length=200, blank=True)
     price = models.IntegerField(default=5)
     discount = models.IntegerField(default=8)
     photo_main = models.ImageField(upload_to='photos/%Y/%m/%d/', default='/placeholder.png')
