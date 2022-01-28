@@ -91,7 +91,7 @@
                         {% endif %}
                         >
                         <a class="nav-link" href="{% url 'dashboard' %}">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-user"> {{user.first_name}}</i>
                         </a>
                     </li>    
                     <!--Logout Link cast as a Form Submission-->

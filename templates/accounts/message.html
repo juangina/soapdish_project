@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} | Dashboard {% endblock %}
+{% block content%}
+
+<style> 
+  /* unvisited link */ #shop_link a:link {color: white;}
+  /* visited link */ #shop_link a:visited {color: white;}
+  /* mouse over link */ #shop_link a:hover {color: blue; text-decoration: underline; cursor: pointer }
+  /* selected link */ #shop_link a:active {color: blue;}
+</style>
+
+<!-- Showcase -->
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">{{user.first_name}}'s Dashboard </h1>
+          <p class="lead">Welcome to the soap dish dashboard.  Here you will find a list of all the inquiries you made.</p>
+          <p class="lead">Please shop our <span id="shop_link"><a href="{% url 'store' %}" ><i class="fas fa-store"></i> STORE</a></span> for the latest offers!</p>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+  <div class="container">
+      <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home
+            </a>
+          </li>
+          <li class="breadcrumb-item active">
+            <a href="{% url 'dashboard' %}">
+              Messages
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+              Your Message
+            </li>
+      </ol>
+      </nav>
+  </div>
+</section>
+
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}
+
+  <!-- Customer Order -->
+  <section id="dashboard" class="py-4">
+    <div class="container">
+      <div class="row">
+
+
+        <div id='account-menu-block' class="col-sm-3">
+          <ul class="nav flex-column nav-pills">
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'dashboard' %}">Messages</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'orders' %}">Orders</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contactinfo' %}">Contact Info</a>
+            </li>
+          </ul>
+        </div>
+
+
+        <div id='account-data-block' class="col-sm-9">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4>
+                    <i class="fas fa-user-plus"></i> Message Details.
+                </h4>
+                <h3>
+                    {{ userMessage.subject }}
+                </h3>
+            </div>
+            <div class="card-body">
+                {{ userMessage.body|linebreaksbr}}
+            </div>
+            <div class="card-footer">
+                <div>
+                    {{ userMessage.name }}
+                </div>
+                <div>
+                    {{ userMessage.created}}
+                </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+<!-- Services -->
+<section id="services" class="py-5 bg-secondary text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-4">
+          <i class="fas fa-chalkboard-teacher fa-4x mr-4"></i>
+          <hr>
+          <h3>Basic Soapmaking Training</h3>
+          <p>Making your own soap can be a rewarding experience.  The process of making soap is simple and can become a routine and fun activity with some basic ingredients.  The reward is the quality of the soap and the satisfaction that you know exactly what you are using to clean your body every day.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-drafting-compass fa-4x mr-4"></i>
+          <hr>
+          <h3>Website Design for Soapmakers</h3>
+          <p>Use my experience to help develop and collaborate on a personal website to display and sell your soaps to family and friends.  My services include eCommerce, eMail, and Blogging support.  Having a presence in cyperspace is one way of sharing your creativity with the world.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-microscope fa-4x mr-4"></i>
+          <hr>
+          <h3>Soapmaking Curriculum Development</h3>
+          <p>Soapmaking is a precise measurement process.  Many aspects of soapmaking can be included in your school curriculum.  The process of making soap encompasses Mathematics, Measurement, Chemistry, and Manufacturing.  Imagine your student learning these topics while producing an actual product they can use at home?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+    
+{% endblock %}

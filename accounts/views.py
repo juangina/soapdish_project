@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from requests import check_compatibility
-from contacts.models import Contact
+from contacts.models import Contact, Message
 from django.contrib.auth.decorators import login_required
 
 from store.models import Customer, Order, OrderItem, ShippingAddress, Product
@@ -78,7 +78,9 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'You are now logged in')
-            return redirect('dashboard')
+            #return redirect('dashboard')
+            #print(request.GET['next'])
+            return redirect(request.GET['next'] if 'next' in request.GET else 'dashboard')
         else:
             messages.error(request, 'Invalid creditials')
             return render(request, 'accounts/login.html')
@@ -93,6 +95,15 @@ def login(request):
         return render(request, 'accounts/login.html', context)
 
 @login_required
+def logout(request):   
+    if request.method == 'POST':
+        auth.logout(request)
+        messages.success(request, 'You are now logged out')
+        return redirect('index')
+    else:
+        return redirect('index')
+
+@login_required
 def dashboard(request):
     if request.user.is_authenticated:
         data = cartData(request)
@@ -100,12 +111,41 @@ def dashboard(request):
         order = data['order']
         items = data['items']
 
-        user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
+        userContacts = Contact.objects.order_by('-contact_date').filter(contact_id=request.user.id)
+        customer = get_object_or_404(Customer, user=request.user)
+        userMessages = customer.messages.all()
+        unreadCount = userMessages.filter(is_read=False).count()
+
         context = {
             'cartItems': cartItems,
-            'contacts': user_contacts
+            'userContacts': userContacts,
+            'userMessages': userMessages,
+            'unreadCount': unreadCount,
         }        
         return render(request, 'accounts/dashboard.html', context)
+    else:
+        messages.error(request, 'Please login to gain access to dashboard.')
+        return redirect ('login')
+
+@login_required
+def message(request, message_id):
+    if request.user.is_authenticated:
+        data = cartData(request)
+        cartItems = data['cartItems']
+        order = data['order']
+        items = data['items']
+
+        #userMessage = get_object_or_404(Message, pk=message_id)
+        customer = request.user.customer
+        userMessage = customer.messages.get(id=message_id)
+        userMessage.is_read = True
+        userMessage.save()
+
+        context = {
+            'cartItems': cartItems,
+            'userMessage': userMessage,
+        }        
+        return render(request, 'accounts/message.html', context)
     else:
         messages.error(request, 'Please login to gain access to dashboard.')
         return redirect ('login')
@@ -175,15 +215,6 @@ def order(request, order_id):
     else:
         messages.error(request, 'Please login to gain access to dashboard.')
         return redirect ('login')
-
-@login_required
-def logout(request):   
-    if request.method == 'POST':
-        auth.logout(request)
-        messages.success(request, 'You are now logged out')
-        return redirect('index')
-    else:
-        return redirect('index')
 
 @login_required
 def contactinfo(request):

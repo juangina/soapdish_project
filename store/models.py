@@ -32,6 +32,8 @@ class Product(models.Model):
 	bar = models.ForeignKey(Bar, default=None, on_delete=models.SET(get_deleted_bar), blank=True)
 	stock = models.IntegerField(default=0, null=True, blank=True)
 	instock = models.BooleanField(default=False, null=True, blank=True)
+	vote_total = models.IntegerField(default=0, null=True, blank=True)
+	vote_ratio = models.IntegerField(default=0, null=True, blank=True)
 
 	def __str__(self):
 		return self.name
@@ -52,6 +54,22 @@ class Product(models.Model):
 			self.instock == False
 		self.save() 
 		return self.stock
+	
+	@property
+	def reviewers(self):
+		queryset = self.review_set.all().values_list('customer__id', flat=True)
+		return queryset
+		
+	@property
+	def getVoteCount(self):
+		reviews = self.review_set.all()
+		#print(reviews)
+		upVotes = reviews.filter(vote='up').count()
+		totalVotes = reviews.count()
+		ratio = (upVotes / totalVotes) * 100
+		self.vote_total = totalVotes
+		self.vote_ratio = ratio
+		self.save()
 
 class SpecialFeatures(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
@@ -134,6 +152,42 @@ class ShippingAddress(models.Model):
 
 	def __str__(self):
 		return self.address
+
+class Review(models.Model):
+    VOTE_TYPE = (
+        ('up', 'Up Vote'),
+        ('down', 'Down Vote'),
+    )
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    review = models.TextField(null=True, blank=True)
+    vote = models.CharField(max_length=200, choices=VOTE_TYPE)
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True,
+                          primary_key=True, editable=False)
+
+    class Meta:
+        unique_together = [['customer', 'product']]
+
+    def __str__(self):
+        return self.vote
+
+    @property
+    def reviewers(self):
+        queryset = self.review_set.all().values_list('customer__id', flat=True)
+        return queryset	
+
+
+
+
+
+
+
+
+
+
+
+
 
 # @receiver(post_save, sender=Order)
 # def createOrder(sender, instance, created, **kwargs):

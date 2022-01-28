@@ -1,10 +1,12 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import JsonResponse
-import json
-import datetime
 from .models import * 
 from .utils import cartData, guestOrder, userCartData, guestCartData, getAccessToken, quantity_choices
-from django.contrib.auth.decorators import login_required
+from .forms import ReviewForm
+import json
+import datetime
 
 # from django import template
 # register = template.Library()
@@ -67,6 +69,15 @@ def product(request, product_id):
 	#print(product_item_count)
 
 	product = get_object_or_404(Product, pk=product_id)
+	reviews = product.review_set.all().order_by('created')
+	
+	#print(product.reviewers, request.user.customer.id)
+
+	#print(request.user.customer.email, product.bar.creator.email)
+
+	#print(product)
+	#form = ReviewForm()
+	#print(form)
 	
 	qty_available = product.stock-product_item_count
 	quantity_choices_available = {}
@@ -76,10 +87,33 @@ def product(request, product_id):
 		if str(qty_available) == key:
 			break
 
-	
+	if request.method == 'POST':
+		#form = ReviewForm(request.POST)
+		#review = form.save(commit=False)
+		if request.POST['vote']:
+			review = Review()
+			review.vote = request.POST['vote']
+			review.review = request.POST['review']
+			review.product = product
+			review.customer = request.user.customer
+			review.save()
+		else:
+			messages.success(request, 'Please vote to leave a review')
+			
+			return redirect('product', product_id=product_id)
+
+		product.getVoteCount
+
+		messages.success(request, 'Your review was successfully submitted!')
+
+		return redirect('product', product_id=product_id)		
+
+	#product.getVoteCount
 
 	context = {
         'product': product,
+		#'form': form,
+		'reviews': reviews,
         'cartItems': cartItems,
 		'quantity_choices_available': quantity_choices_available,
 		'qty_available': qty_available        

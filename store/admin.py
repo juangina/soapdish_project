@@ -39,8 +39,16 @@ class ShippingAddressAdmin(admin.ModelAdmin):
     search_fields = ('customer','order',)
     list_per_page = 50
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('id', 'customer', 'product','vote', 'created',)
+    list_display_links = ('id', 'customer',)
+    list_editable = ('vote',)
+    search_fields = ('customer','product',)
+    list_per_page = 50
+
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(ShippingAddress, ShippingAddressAdmin)
+admin.site.register(Review, ReviewAdmin)

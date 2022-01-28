@@ -60,32 +60,73 @@
         </ul>
       </div>
       <div id='account-data-block' class="col-sm-9">
-        {% if contacts %}
-        <div class="card">
-          <div class="card-header bg-primary text-white">
-              <h4><i class="fas fa-user-plus"></i> Here Are Your Inquiries.</h4>
+        <div class="inquiries">
+          {% if userContacts %}
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4><i class="fas fa-user-plus"></i> Here Are Your Inquiries.</h4>
+            </div>
           </div>
-        </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Soap Bar</th>
-                <th>Inquiry</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for contact in contacts %}
+            <table class="table">
+              <thead>
                 <tr>
-                  <td>{{ contact.id }}</td>
-                  <td><a href="{% url 'bar' contact.bar_id %}">{{ contact.bar }}</a></td>
-                  <td>{{ contact.message}}</td>
+                  <th scope="col">#</th>
+                  <th scope="col">Soap Bar</th>
+                  <th>Inquiry</th>
                 </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        {% else %}
-          <p>You have not made any inquiries.</p>
+              </thead>
+              <tbody>
+                {% for userContact in userContacts %}
+                  <tr>
+                    <td>{{ userContact.id }}</td>
+                    <td><a href="{% url 'bar' userContact.bar_id %}">{{ userContact.bar }}</a></td>
+                    <td>{{ userContact.body|linebreaksbr}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>You have not made any inquiries.</p>
+          {% endif %}
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="messages">
+          {% if userMessages %}
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4><i class="fas fa-user-plus"></i> Here Are Your Messages (<small>{{unreadCount}} unread</small>)</h4>
+            </div>
+          </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">From</th>
+                  <th scope="col">Subject</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for userMessage in userMessages %}
+                {% if userMessage.is_read == False %}
+                  <tr class="table-dark">
+                    <td>{{ userMessage.name }}</td>
+                    <td><a href="{% url 'message' userMessage.id %}">{{ userMessage.subject }}</a></td>
+                    <td>{{ userMessage.created}}</td>
+                  </tr>
+                {% else %}
+                <tr>
+                  <td>{{ userMessage.name }}</td>
+                  <td><a href="{% url 'message' userMessage.id %}">{{ userMessage.subject }}</a></td>
+                  <td>{{ userMessage.created}}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>You do not have any messages.</p>
+          {% endif %}
+        </div>
         {% endif %}
       </div>
     </div>

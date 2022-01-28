@@ -45,6 +45,8 @@
     <div class="my-4 back-button-group" style="display:none;">
       <a href="javascript:history.back()" >Back To Store</a>
     </div>
+
+    <!-- Product Summary -->
     <div class="row">
       <!-- Bar Photo Shoot -->
       <div class="col-md-7">
@@ -141,7 +143,8 @@
         <!--Add Items Event Object-->
         <button id="updateCart" class="update-cart update-cart-button mb-2" data-product="{{product.id}}" data-action="add" data-qty="{{qty_available}}" data-toggle="modal" data-target="#cart-option-Modal-product">Add to Cart</button>
       </div>
-    </div>  
+    </div>
+
     <!-- Product Attributes -->
     <div class="row mb-5 fields">
       <div class="col-12">
@@ -193,6 +196,82 @@
         </ul>
       </div>
     </div>
+
+    <!-- Product Reviews -->
+    <div class="row mb-5">
+      <div class="col-md-6">
+        {% if product.vote_total > 0 %}
+          <h3>
+            {{product.vote_ratio|floatformat}}% Positive Feedback ({{product.vote_total}} Vote{{product.vote_total|pluralize:"s"}})
+          </h3>
+          <div class="row d-flex align-items-stretch">
+            {% for review in reviews %}
+            {% if review.review %}
+              <div class="col-6 col-md-4 px-2 d-flex flex-column justify-content-between">
+                <div class='card border box-element flex-fill mb-2' >
+                  <div class="card-header"></div>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      {{review.customer.user.first_name}}
+                    </h4>
+                    <p class="card-text">
+                      {{review.review}}
+                    </p>
+                  </div>
+                  <div class="card-footer"></div>
+                </div>
+              </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <h3>No Reviews</h3>
+          <p>Be the first to leave a review</p>
+        {% endif %}
+      </div>
+      <div class="col-md-6">
+        <div>
+          <h3>
+            Leave a Review
+          </h3>
+          {% if request.user.customer.email == product.bar.creator.email %}
+            <p>
+              You cannot review your own work
+            </p>
+          {% elif request.user.customer.id in product.reviewers %}
+            <p>
+              You have submitted your review for this project
+            </p>
+          {% elif request.user.is_authenticated %}
+            <form class="form border box-element" action="{% url 'product' product.id %}" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="vote">Place Your Vote</label>
+                <!--Add Items Quantity Selector-->
+                <select name="vote" id="voteChoice" class="form-control">
+                  <option value='' selected>----------</option>
+                  <option value="up">Up Vote</option>
+                  <option value="down">Down Vote</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="review" class="col-form-label">Add a comment with your vote:</label>
+                <textarea name="review" class="form-control" placeholder="Leave a comment..."></textarea>
+              </div>
+              <input class="inquiry-button-group" type="submit" value="Add Review" />
+            </form>
+          {% else %}
+            <a href="{% url 'login' %}?next={{request.path}}">
+              Please login to leave a review
+            </a>
+          {% endif %}
+
+
+
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>  
 

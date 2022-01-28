@@ -18,12 +18,12 @@ def contact(request):
         # Check if logged in user has already made an inquiry
         if request.user.is_authenticated:
             user_id = request.user.id
-            has_contacted = Contact.objects.all().filter(bar_id=bar_id, user_id=user_id)
+            has_contacted = Contact.objects.all().filter(bar_id=bar_id, contact_id=user_id)
             if has_contacted:
                 messages.error(request, 'You have already made an inquiry for this listing')
                 return redirect('/bars/'+bar_id)
 
-        contact = Contact(bar_id=bar_id, bar=bar, name=name, email=email, phone=phone, message=message, user_id=user_id)
+        contact = Contact(bar_id=bar_id, bar=bar, name=name, email=email, phone=phone, body=message, contact_id=user_id)
         contact.save()
 
         #Send Mail

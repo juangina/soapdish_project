@@ -91,12 +91,12 @@
                             {% endif %}
                             >
                             <a class="nav-link" href="{% url 'dashboard' %}">
-                                <i class="fas fa-user"></i>
+                                <i class="fas fa-user"> {{user.first_name}}</i>
                            </a>
                         </li>    
                         <!--Logout Link cast as a Form Submission-->
                         <li class="nav-item mr-3" data-toggle="tooltip" data-placement="top" title="Logout">
-                            <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">
+                            <a class="nav-link" href="javascript:{document.getElementById('dev-logout').submit()}">
                                 <i class="fas fa-sign-out-alt"></i>
                             </a>
                             <form action="{% url 'logout' %}" method="POST" id="dev-logout">

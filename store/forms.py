@@ -6,11 +6,11 @@ from .models import Review
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
-        fields = ['value', 'body']
+        fields = ['vote', 'review']
 
         labels = {
-            'value': 'Place your vote',
-            'body': 'Add a comment with your vote'
+            'vote': 'Place your vote',
+            'review': 'Add a comment with your vote'
         }
 
     def __init__(self, *args, **kwargs):
