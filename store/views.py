@@ -173,6 +173,9 @@ def checkout(request):
 	#data = cartData(request)
 	
 	cartItems = data['cartItems']
+	if(cartItems <= 0):
+		return redirect('cart')
+
 	order = data['order']
 	items = data['items']
 
@@ -190,11 +193,19 @@ def checkout(request):
 			break	
 	#print(previous_address)
 
+	allOrders = Order.objects.all()
+	previousOrder = False
+	for allOrder in allOrders:
+		if allOrder.customer.id == request.user.id and allOrder.complete == True:
+			previousOrder = True
+			break
+	
 	context = {
 		'items':items, 
 		'order':order, 
 		'cartItems':cartItems,
-		'address':previous_address, 
+		'address':previous_address,
+		'previousOrder':previousOrder, 
 	}
 	return render(request, 'store/checkout.html', context)
 
@@ -242,11 +253,19 @@ def updateItem(request):
 
 	return JsonResponse('Item(s) was added', safe=False)
 
-#API - Returns 
+@login_required(login_url="login")
+def getTotal(request):
+	if request.user.is_authenticated:
+		customer = request.user.customer
+		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+	total = order.get_checkout_total
+	return JsonResponse({'total': total}, safe=False)
+
 @login_required(login_url="login")
 def processOrder(request):
 	transaction_id = datetime.datetime.now().timestamp()
 	data = json.loads(request.body)
+	#print(data)
 
 	if request.user.is_authenticated:
 		customer = request.user.customer
@@ -259,7 +278,7 @@ def processOrder(request):
 
 	if total == order.get_checkout_total:
 		order.complete = True
-		order.total_price = order.get_checkout_total
+		order.total_cost = order.get_checkout_total
 	order.save()
 
 	if order.shipping == True:

@@ -82,7 +82,7 @@ def completeOrder(sender, instance, created, **kwargs):
 
         subject = 'Soap Dish transaction number '+str(order.transaction_id) 
         
-        message = '\n\n'+'Your order for '+str(order.transaction_id)+' with the amount of $'+str(order.total_price)+' has been completed.'+'\n\n'+'Thank you for your business '+customer.name+'!'+'\n\n'
+        message = '\n\n'+'Your order for '+str(order.transaction_id)+' with the amount of $'+str(order.total_cost)+' has been completed.'+'\n\n'+'Thank you for your business '+customer.name+'!'+'\n\n'
 
         send_mail(
             subject,

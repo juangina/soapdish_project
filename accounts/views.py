@@ -138,8 +138,9 @@ def message(request, message_id):
         #userMessage = get_object_or_404(Message, pk=message_id)
         customer = request.user.customer
         userMessage = customer.messages.get(id=message_id)
-        userMessage.is_read = True
-        userMessage.save()
+        if userMessage.is_read == False:
+            userMessage.is_read = True
+            userMessage.save()
 
         context = {
             'cartItems': cartItems,

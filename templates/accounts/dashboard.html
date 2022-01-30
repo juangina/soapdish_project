@@ -46,6 +46,8 @@
 <section id="dashboard" class="py-4">
   <div class="container">
     <div class="row">
+
+
       <div id='account-menu-block' class="col-sm-3">
         <ul class="nav flex-column nav-pills">
           <li class="nav-item">
@@ -59,12 +61,19 @@
           </li>
         </ul>
       </div>
+
       <div id='account-data-block' class="col-sm-9">
+
         <div class="inquiries">
           {% if userContacts %}
           <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h4><i class="fas fa-user-plus"></i> Here Are Your Inquiries.</h4>
+            <div class="card-header bg-primary text-white d-flex justify-content-between">
+                <h4>
+                  <i class="fas fa-user-plus"></i> Here Are Your Inquiries.
+                </h4>
+                <button type='button' class="btn btn-light inquiry-button">
+                  Make An Inquiry
+                </button>
             </div>
           </div>
             <table class="table">
@@ -89,12 +98,18 @@
             <p>You have not made any inquiries.</p>
           {% endif %}
         </div>
+        
         {% if request.user.is_authenticated %}
         <div class="messages">
           {% if userMessages %}
           <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h4><i class="fas fa-user-plus"></i> Here Are Your Messages (<small>{{unreadCount}} unread</small>)</h4>
+            <div class="card-header bg-primary text-white d-flex justify-content-between">
+                <h4>
+                  <i class="fas fa-user-plus"></i> Here Are Your Messages (<small>{{unreadCount}} unread</small>)
+                </h4>
+                <button type='button' class="btn btn-light inquiry-button">
+                  Send Message
+                </button>
             </div>
           </div>
             <table class="table">
@@ -128,7 +143,9 @@
           {% endif %}
         </div>
         {% endif %}
+
       </div>
+
     </div>
   </div>
 </section>

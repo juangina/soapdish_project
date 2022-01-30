@@ -19,9 +19,11 @@
 </section>
 
 <!-- Checkout -->
-<section id="checkout">
+<section id="checkout" data-url="{% url 'store' %}">
 	<div class="container">
 		<div class="row">
+
+
 			<div class="col-lg-7 px-2 order-1">
 				<!-- User Information  -->
 				<div class="box-element">
@@ -123,9 +125,13 @@
 					</div>
 				</div>
 			</div>
+
+
 			<div class="col-lg-5 px-2 order-2">
 				<h3>Order Summary</h3>
 				<hr>
+
+
 				{% for item in items %}
 				<div class="row px-2 order-summary-item-list">
 					<div class="col-3 px-2">
@@ -155,20 +161,36 @@
 					</div>
 				</div>
 				{% endfor %}
-				<h5 class="order-summary-item">
-					Total Order Items:  {{order.get_cart_items}}</h5>
-				<h5 class="order-summary-item">
+
+
+				<h5 class="order-summary-item order-item-count">
+					Total Order Items:  {{order.get_cart_items}}
+				</h5>
+
+				<h5 class="order-summary-item order-subtotal">
 					Order SubTotal:   ${{order.get_cart_total|floatformat:2}}
 				</h5>
-				<h5 id="shipping" class="order-summary-item">
+
+				{% if previousOrder == False %}
+				<h5 class="order-summary-item order-discount-total">
+					Discount (First Time Buyer): $-{{order.get_cart_total|floatformat:2}}
+				</h5>
+				{% endif %}
+
+				<h5 id="shipping" class="order-summary-item order-shipping-total">
 					Shipping (USPS Flat Rate): ${{order.shipping_cost}}
 				</h5>
-				<h5 class="order-summary-item">
+
+				<h5 id='get_checkout_total' data-checkoutTotal="{{order.get_checkout_total}}" class="order-summary-item order-total">
 					Order Total:   ${{order.get_checkout_total|floatformat:2}}
 				</h5>	
 			</div>
+
+
 		</div>
 	</div>
+
+
 	<div class="container hidden">
 		<div class="row">
 			<div class="col-lg-7 px-2 order-1">
@@ -260,6 +282,8 @@
 			</div>
 		</div>
 	</div>
+
+
 </section>
 
 <!-- Checkout Delete Conformation Modal -->

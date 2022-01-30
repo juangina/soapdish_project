@@ -119,7 +119,17 @@ class Order(models.Model):
 	def get_checkout_total(self):
 		orderitems = self.orderitem_set.all()
 		total = sum([item.get_total for item in orderitems])
-		return total + self.shipping_cost 
+		
+		orders = Order.objects.all()
+		previousOrder = False
+		for order in orders:
+			if order.customer.id == self.customer.id and order.complete == True:
+				previousOrder = True
+				break
+		if previousOrder == True:
+			return total + self.shipping_cost
+		else:
+			return self.shipping_cost
 
 	@property
 	def shipping(self):
@@ -177,7 +187,23 @@ class Review(models.Model):
         queryset = self.review_set.all().values_list('customer__id', flat=True)
         return queryset	
 
-
+# class Discount(models.Model):
+# 	DISCOUNT_TYPE = (
+#         ('FTB2022', 'First Time Buyer'),
+#         ('WAF2022', 'We Are Family'),
+# 		('FRB2022', 'Frequent Buyer'),
+# 		('LYS2022', 'Loyal Subscriber'),
+#     )
+# 	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+# 	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+# 	discountType = models.CharField(max_length=200, choices=DISCOUNT_TYPE)
+# 	startDate = models.DateTimeField()
+# 	stopDate = models.DateTimeField()
+# 	discountActive = models.BooleanField(default=False)
+# 	id = models.UUIDField(default=uuid.uuid4, unique=True,
+#                           primary_key=True, editable=False)
+# 	def __str__(self):
+# 		return self.discountType
 
 
 
