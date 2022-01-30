@@ -46,9 +46,17 @@ class ReviewAdmin(admin.ModelAdmin):
     search_fields = ('customer','product',)
     list_per_page = 50
 
+class DiscountAdmin(admin.ModelAdmin):
+    list_display = ('id', 'customer', 'discountType','discountActive', 'startDate', 'stopDate',)
+    list_display_links = ('id', 'customer',)
+    list_editable = ('discountType', 'discountActive',)
+    search_fields = ('customer','discountType',)
+    list_per_page = 50
+
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(ShippingAddress, ShippingAddressAdmin)
 admin.site.register(Review, ReviewAdmin)
+admin.site.register(Discount, DiscountAdmin)

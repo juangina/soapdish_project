@@ -2,10 +2,12 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 from django.contrib.auth.models import User
-from .models import Customer, Order
+from .models import Customer, Order, Discount
 
 from django.core.mail import send_mail
 from django.conf import settings
+from datetime import datetime
+from django.db.models.functions import Extract
 
 #sender-Model used that sent the post signal
 #instance-Instance of the Model that sent the post signal
@@ -30,16 +32,21 @@ def messageCustomer(sender, instance, created, **kwargs):
     if created:
         customer = instance
 
+        discount = Discount(customer=customer, discountActive=True, startDate=datetime(2022,1,1), stopDate=datetime(2022,12,31))
+        discount.save()
+
         subject = 'Welcome to Soapdish, ' + customer.name 
         message = 'We are glad you are here!'
 
         send_mail(
             subject,
             message,
-            "jejlifestyle@shop.theaccidentallifestyle.net",
+            "soapdish2022@gmail.com",
             [customer.email],
             fail_silently=False,
         )
+
+
         # print("Email Sent to Administrator.")
 
 # def updateCustomer(sender, instance, created, **kwargs):
