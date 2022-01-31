@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
-from requests import check_compatibility
 from contacts.models import Contact, Message
 from django.contrib.auth.decorators import login_required
 
-from store.models import Customer, Order, OrderItem, ShippingAddress, Product
+from store.models import Customer, Order
 from accounts.models import PrimaryAddress
-from store.utils import cookieCart, cartData, guestOrder
+from store.utils import cartData
 
 def register(request):
     if request.method == 'POST':
@@ -106,6 +105,24 @@ def logout(request):
 @login_required
 def dashboard(request):
     if request.user.is_authenticated:
+        if request.method == 'POST':
+            # Get message form values
+            sender = request.user.customer
+            name = request.user.customer.name
+            recipient1_id = request.POST['recipient']
+            recipient1 = Customer.objects.get(id=recipient1_id)
+            subject = request.POST['subject']
+            body = request.POST['body']
+
+            message = Message()
+            message.sender = sender
+            message.recipient1 = recipient1
+            message.name = name
+            message.subject = subject
+            message.body = body                
+            message.save()
+            return redirect ('dashboard')
+
         data = cartData(request)
         cartItems = data['cartItems']
         order = data['order']
@@ -115,12 +132,14 @@ def dashboard(request):
         customer = get_object_or_404(Customer, user=request.user)
         userMessages = customer.messages.all()
         unreadCount = userMessages.filter(is_read=False).count()
+        customers = Customer.objects.all()
 
         context = {
             'cartItems': cartItems,
             'userContacts': userContacts,
             'userMessages': userMessages,
             'unreadCount': unreadCount,
+            'customers': customers,
         }        
         return render(request, 'accounts/dashboard.html', context)
     else:

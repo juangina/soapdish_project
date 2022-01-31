@@ -126,7 +126,12 @@
               </li>
             {% endfor %}
           {% else %}
-
+              <li class="list-group-item">
+                You have not placed any orders.  
+              </li>
+              <li class="list-group-item">
+                Visit our <span><a href="{% url 'store' %}" ><i class="fas fa-store"></i> STORE</a> for the latest offers!</span>
+              </li>
           {% endif %}
         </ul>
 

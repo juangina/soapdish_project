@@ -42,12 +42,12 @@
 <!-- Alerts -->
 {% include 'partials/_alerts.html' %}
 
-<!-- Customer Inquiries -->
+<!-- Customer Dashboard -->
 <section id="dashboard" class="py-4">
   <div class="container">
     <div class="row">
 
-
+<!-- Account Menu Block -->
       <div id='account-menu-block' class="col-sm-3">
         <ul class="nav flex-column nav-pills">
           <li class="nav-item">
@@ -61,9 +61,9 @@
           </li>
         </ul>
       </div>
-
+<!-- Account Data Block -->
       <div id='account-data-block' class="col-sm-9">
-
+  <!-- Customer Inquiries -->
         <div class="inquiries">
           {% if userContacts %}
           <div class="card">
@@ -71,9 +71,9 @@
                 <h4>
                   <i class="fas fa-user-plus"></i> Here Are Your Inquiries.
                 </h4>
-                <button type='button' class="btn btn-light inquiry-button">
+                <!-- <button type='button' class="btn btn-light inquiry-button">
                   Make An Inquiry
-                </button>
+                </button> -->
             </div>
           </div>
             <table class="table">
@@ -98,7 +98,7 @@
             <p>You have not made any inquiries.</p>
           {% endif %}
         </div>
-        
+  <!-- Customer Message -->
         {% if request.user.is_authenticated %}
         <div class="messages">
           {% if userMessages %}
@@ -107,7 +107,7 @@
                 <h4>
                   <i class="fas fa-user-plus"></i> Here Are Your Messages (<small>{{unreadCount}} unread</small>)
                 </h4>
-                <button type='button' class="btn btn-light inquiry-button">
+                <button type='button' class="btn btn-light inquiry-button" data-toggle="modal" data-target="#messageModal">
                   Send Message
                 </button>
             </div>
@@ -143,11 +143,60 @@
           {% endif %}
         </div>
         {% endif %}
-
       </div>
 
     </div>
   </div>
+</section>
+
+<!-- Message Modal -->
+<section id="messageModal" class="modal fade" role="dialog">
+  <!-- <div class="modal fade"> -->
+      <div class="modal-dialog modal-xl ">
+          <div class="modal-content bg-info">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="messageModalLabel">
+                    New Message
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form id="messageForm" action="{% url 'dashboard' %}" method="POST">
+                    {% csrf_token %}
+                    <!-- Form Row 1 -->
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                          <label class="sr-only">To:</label>
+                          <select name="recipient" class="form-control">
+                            <option value="" disabled>----------</option>
+                            {% for customer in customers %}
+                            <option value="{{customer.id}}">{{ customer.name }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                    </div>
+                    <!-- Form Row 2 -->
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                        <label class="sr-only">Subject</label>
+                        <input type="text" name="subject" class="form-control" placeholder="Subject">
+                        </div>
+                    </div>
+                    <!-- Form Row 3 -->
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                          <label class="sr-only">Body</label>
+                          <textarea rows="4" name="body" class="form-control" placeholder="Inquiry or Message"></textarea>
+                        </div>
+                    </div>
+                    <button id="messagesFormButton" class="btn btn-secondary btn-block mt-4" type="submit">Send</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  <!-- </div> -->
 </section>
 
 <!-- Services -->
