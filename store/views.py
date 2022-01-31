@@ -6,7 +6,7 @@ from .models import *
 from .utils import cartData, guestOrder, userCartData, guestCartData, getAccessToken, quantity_choices
 from .forms import ReviewForm
 import json
-import datetime
+from datetime import datetime
 
 # from django import template
 # register = template.Library()
@@ -199,10 +199,16 @@ def checkout(request):
 		if allOrder.customer.id == request.user.id and allOrder.complete == True:
 			previousOrder = True
 			break
+	try:
+		discount = Discount.objects.get(customer=order.customer)
+	except Discount.DoesNotExist:
+		discount = Discount.objects.create(customer=order.customer, startDate=datetime(2022,1,1), stopDate=datetime(2022,12,31), discountActive=True)
+	#discount = Discount.objects.get(customer=order.customer)
 	
 	context = {
 		'items':items, 
-		'order':order, 
+		'order':order,
+		'discount': discount, 
 		'cartItems':cartItems,
 		'address':previous_address,
 		'previousOrder':previousOrder, 

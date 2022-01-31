@@ -5,6 +5,7 @@ from django.db.models.deletion import CASCADE
 from bars.models import Bar
 from decimal import Decimal
 import uuid
+from datetime import datetime
 
 # from django.db.models.signals import post_save
 # from django.dispatch import receiver
@@ -86,6 +87,27 @@ class SpecialFeatures(models.Model):
     def __str__(self):
         return str(self.name)
 
+class Discount(models.Model):
+	DISCOUNT_TYPES = (
+        ('FTB2022', 'First Time Buyer'),
+        ('WAF2022', 'We Are Family'),
+		('FRB2022', 'Frequent Buyer'),
+		('LYS2022', 'Loyal Subscriber'),
+    )
+	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
+	discountType = models.CharField(max_length=200, default='FTB2022')
+	discountActive = models.BooleanField(default=False)
+	startDate = models.DateTimeField()
+	stopDate = models.DateTimeField()
+	ftbDiscountBalance = models.DecimalField(max_digits=5, decimal_places=2, default=4.50)
+	wafDiscountBalance = models.DecimalField(max_digits=5, decimal_places=2, default=4.50)
+	frbDiscountBalance = models.DecimalField(max_digits=5, decimal_places=2, default=4.50)
+	lysDiscountBalance = models.DecimalField(max_digits=5, decimal_places=2, default=4.50)
+	id = models.UUIDField(default=uuid.uuid4, unique=True,
+                          primary_key=True, editable=False)
+	def __str__(self):
+		return self.discountType
+
 class Order(models.Model):
 	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
 	date_ordered = models.DateTimeField(auto_now_add=True)
@@ -129,7 +151,12 @@ class Order(models.Model):
 		if previousOrder == True:
 			return self.shipping_cost + total
 		else:
-			return self.shipping_cost
+			try:
+				discount = Discount.objects.get(customer=self.customer)
+			except Discount.DoesNotExist:
+				discount = Discount(customer=self.customer, startDate=datetime(2022,1,1), stopDate=datetime(2022,12,31), discountActive=True)
+
+			return self.shipping_cost + total - discount.ftbDiscountBalance
 
 	@property
 	def shipping(self):
@@ -164,49 +191,35 @@ class ShippingAddress(models.Model):
 		return self.address
 
 class Review(models.Model):
-    VOTE_TYPE = (
+	VOTE_TYPE = (
         ('up', 'Up Vote'),
         ('down', 'Down Vote'),
     )
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    review = models.TextField(null=True, blank=True)
-    vote = models.CharField(max_length=200, choices=VOTE_TYPE)
-    created = models.DateTimeField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4, unique=True,
-                          primary_key=True, editable=False)
-
-    class Meta:
-        unique_together = [['customer', 'product']]
-
-    def __str__(self):
-        return self.vote
-
-    @property
-    def reviewers(self):
-        queryset = self.review_set.all().values_list('customer__id', flat=True)
-        return queryset	
-
-class Discount(models.Model):
-	DISCOUNT_TYPES = (
-        ('FTB2022', 'First Time Buyer'),
-        ('WAF2022', 'We Are Family'),
-		('FRB2022', 'Frequent Buyer'),
-		('LYS2022', 'Loyal Subscriber'),
-    )
-	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
-	discountType = models.CharField(max_length=200, default='FTB2022')
-	discountActive = models.BooleanField(default=False)
-	startDate = models.DateTimeField()
-	stopDate = models.DateTimeField()
-	ftbDiscountBalance = models.DecimalField(max_digits=5, decimal_places=2, default=4.50)
-	wafDiscountBalance = models.DecimalField(max_digits=5, decimal_places=2, default=4.50)
-	frbDiscountBalance = models.DecimalField(max_digits=5, decimal_places=2, default=4.50)
-	lysDiscountBalance = models.DecimalField(max_digits=5, decimal_places=2, default=4.50)
+	customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+	product = models.ForeignKey(Product, on_delete=models.CASCADE)
+	review = models.TextField(null=True, blank=True)
+	vote = models.CharField(max_length=200, choices=VOTE_TYPE)
+	created = models.DateTimeField(auto_now_add=True)
 	id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
+	class Meta:
+		unique_together = [['customer', 'product']]
+		
 	def __str__(self):
-		return self.discountType
+		return self.vote
+	
+	@property
+	def reviewers(self):
+		queryset = self.review_set.all().values_list('customer__id', flat=True)
+		return queryset
+	
+	@property
+	def lastNameInitial(self):
+		str = self.customer.user.last_name
+		firstCharacter = str[:1]
+		return firstCharacter
+
+
 
 
 

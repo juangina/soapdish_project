@@ -1,3 +1,4 @@
+//console.log('checkout.js implemented');
 $(document).ready(function(){
 
     checkoutPage = document.getElementById('cart-summary-checkout')
@@ -69,11 +70,6 @@ $(document).ready(function(){
             }
         ).render('#paypal-button-container');
 
-
-
-
-        
-        
         var userForm = document.getElementById('user-form')
         var billingForm = document.getElementById('billing-form')
         var shippingForm = document.getElementById('shipping-form')

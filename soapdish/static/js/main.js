@@ -1,3 +1,4 @@
+//console.log('main.js implemented');
 $(document).ready(function() {
 
   $(function () {
