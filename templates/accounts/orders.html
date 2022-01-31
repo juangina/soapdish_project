@@ -72,12 +72,19 @@
         </div>
       </div>
       <div id='account-data-block' class="col-sm-9 orderhistory">
-        <h1>
+        <!-- <h1>
           Order History
         </h1>
-        <hr>
+        <hr> -->
         <ul class="list-group">
           {% if customer_orders %}
+          <div class="card">
+            <div class="card-header bg-primary text-white d-flex justify-content-between">
+                <h4>
+                  <i class="fas fa-file-invoice"></i> Order History
+                </h4>
+            </div>
+          </div>
             {% for order in customer_orders %}
               <li class="list-group-item">
                 <div class="order-history-header mb-2">
@@ -126,9 +133,13 @@
               </li>
             {% endfor %}
           {% else %}
-              <li class="list-group-item">
-                You have not placed any orders.  
-              </li>
+              <div class="card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between">
+                    <h4>
+                      <i class="fas fa-file-invoice"></i> You have not placed any orders
+                    </h4>
+                </div>
+              </div>
               <li class="list-group-item">
                 Visit our <span><a href="{% url 'store' %}" ><i class="fas fa-store"></i> STORE</a> for the latest offers!</span>
               </li>
