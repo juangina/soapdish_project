@@ -31,10 +31,10 @@ def messageCustomer(sender, instance, created, **kwargs):
     #print('Instance: ', instance)
     if created:
         customer = instance
-    try:
-        discount = Discount.objects.get(customer=customer)
-    except Discount.DoesNotExist:
-        discount = Discount.objects.create(customer=customer, startDate=datetime(2022,1,1), stopDate=datetime(2022,12,31), discountActive=True)
+        try:
+            discount = Discount.objects.get(customer=customer)
+        except Discount.DoesNotExist:
+            discount = Discount.objects.create(customer=customer, startDate=datetime(2022,1,1), stopDate=datetime(2022,12,31), discountActive=True)
 
         subject = 'Welcome to Soapdish, ' + customer.name 
         message = 'We are glad you are here!'
