@@ -3,9 +3,9 @@ from django.contrib import admin
 from .models import *
 
 class ExpensesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'category', 'quantity', 'unit', 'unit_price', 'price', 'purchase_date',)
+    list_display = ('id', 'name', 'category', 'quantity', 'unit', 'unit_price', 'price', 'distributer','purchase_date',)
     list_display_links = ('name',)
-    list_editable = ('category', 'quantity', 'unit', 'unit_price', 'price',)
+    list_editable = ('category', 'quantity', 'unit', 'unit_price', 'price', 'distributer',)
     search_fields = ('name',)
     list_per_page = 20
     

@@ -1,5 +1,5 @@
 //console.log('checkout.js implemented');
-$(document).ready(function(){
+//$(document).ready(function(){
 
     checkoutPage = document.getElementById('cart-summary-checkout')
     if(checkoutPage) {
@@ -137,7 +137,7 @@ $(document).ready(function(){
         //console.log('User Info:', userFormData)
     
         //Send process results to 'backend' for database storage
-        var url = "/store/process_order/";
+        var url = '/store/process_order/';
         fetch(url, {
             method:'POST',
             headers:{
@@ -160,6 +160,6 @@ $(document).ready(function(){
             })
     }
 
-});
+//});
 
 

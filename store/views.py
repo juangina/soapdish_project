@@ -6,7 +6,7 @@ from .models import *
 from .utils import cartData, guestOrder, userCartData, guestCartData, getAccessToken, quantity_choices
 from .forms import ReviewForm
 import json
-from datetime import datetime
+import datetime
 
 # from django import template
 # register = template.Library()
