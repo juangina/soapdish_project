@@ -48,7 +48,7 @@
   position: relative;
   min-height: 50vh;
   color: #fff;
-  padding: 3rem; 
+  padding: 2rem; 
 }
 /* Creates a nice opaque overlay effect */
 #showcase .overlay {
@@ -75,6 +75,11 @@
   opacity: 0.5;
 }
 
+/* Soap Characteristic Points */
+#char-pnts {
+  padding: 2rem;
+}
+
 /* Listings - Index Page */
 #listings {
   content: "";
@@ -84,6 +89,14 @@
 }
 .listing-body {
   height: 200px;
+}
+.carousel-indicators .active {
+  height: 5px;
+  background-color: #064a00;
+}
+.carousel-indicators li {
+  height: 5px;
+  background-color: rgba(2, 29, 0, 0.4);
 }
   
 /* Services - Index Page */
@@ -96,7 +109,8 @@
   background-size: cover;
   min-height: 50vh;
   position: relative;
-  overflow: hidden; 
+  overflow: hidden;
+  padding: 2rem; 
 }
 /* Creates a nice green overlay for the services Section */
 #services::before {

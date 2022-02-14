@@ -19,6 +19,8 @@ def index(request):
     items = data['items']
 
     bars = Bar.objects.order_by('-batch_code')[:3]
+    barslist = Bar.objects.order_by('-batch_code')[:4]
+    barslist = list(barslist)
     
     if Video.objects.filter(name='Test Video').exists():
         video = Video.objects.get(name='Test Video')
@@ -27,6 +29,7 @@ def index(request):
 
     context = {
         'bars': bars,
+        'barslist': barslist,
         'price_choices': price_choices,
         'colorants_choices': colorants_choices,
         'fragrance_choices': fragrance_choices,
