@@ -202,7 +202,7 @@ def checkout(request):
 	try:
 		discount = Discount.objects.get(customer=order.customer)
 	except Discount.DoesNotExist:
-		discount = Discount.objects.create(customer=order.customer, startDate=datetime(2022,1,1), stopDate=datetime(2022,12,31), discountActive=True)
+		discount = Discount.objects.create(customer=order.customer, startDate=datetime.datetime(2022,1,1), stopDate=datetime.datetime(2022,12,31), discountActive=True)
 	#discount = Discount.objects.get(customer=order.customer)
 	
 	context = {
