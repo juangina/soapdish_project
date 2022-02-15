@@ -22,8 +22,8 @@ def index(request):
     barslist = Bar.objects.order_by('-batch_code')[:4]
     barslist = list(barslist)
     
-    if Video.objects.filter(name='Test Video').exists():
-        video = Video.objects.get(name='Test Video')
+    if Video.objects.filter(name='Soap Dish - Welcome').exists():
+        video = Video.objects.get(name='Soap Dish - Welcome')
     else:
         video = ""
 
@@ -48,8 +48,8 @@ def about(request):
     creators = Creator.objects.order_by('hire_date')
     mvc_creators = Creator.objects.all().filter(is_mvc=True)
     
-    if Video.objects.filter(name='Test Video').exists():
-        video = Video.objects.get(name='Test Video')
+    if Video.objects.filter(name='Soap Dish - Welcome').exists():
+        video = Video.objects.get(name='Soap Dish - Welcome')
     else:
         video = ""
     
