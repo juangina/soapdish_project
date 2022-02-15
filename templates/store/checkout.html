@@ -171,7 +171,7 @@
 					Order SubTotal:   ${{order.get_cart_total|floatformat:2}}
 				</h5>
 
-				{% if previousOrder == False %}
+				{% if previousOrder == false %}
 				<h5 class="order-summary-item order-discount-total">
 					Discount (First Time Buyer): $-{{discount.ftbDiscountBalance|floatformat:2}}
 				</h5>
