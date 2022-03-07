@@ -21,11 +21,6 @@ def index(request):
     bars = Bar.objects.order_by('-batch_code')[:3]
     barslist = Bar.objects.order_by('-batch_code')[:4]
     barslist = list(barslist)
-    
-    if Video.objects.filter(name='Soap Dish - Welcome').exists():
-        video = Video.objects.get(name='Soap Dish - Welcome')
-    else:
-        video = ""
 
     context = {
         'bars': bars,
@@ -34,10 +29,60 @@ def index(request):
         'colorants_choices': colorants_choices,
         'fragrance_choices': fragrance_choices,
         'cartItems': cartItems,
-        # 'video': video
     }
 
     return render(request, 'pages/index.html', context)
+
+def recipe(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+
+    bars = Bar.objects.order_by('-batch_code')[:3]
+    barslist = Bar.objects.order_by('-batch_code')[:4]
+    barslist = list(barslist)
+    
+    # Search for Keywords in recipe
+    queryset_list = Bar.objects.order_by('-created_date').filter(for_sale=True)
+    print(request.GET)
+    recipe_title = ""
+    if 'recipe' in request.GET:
+        recipe = request.GET['recipe']
+        print(recipe)
+        if recipe == 'gentles':
+            queryset_list = queryset_list.filter(recipe__icontains="Brambleberry")[:9]
+            recipe_title = "Gentles"
+    if 'recipe' in request.GET:
+        recipe = request.GET['recipe']
+        print(recipe)
+        if recipe == 'cocoa_butters':
+            queryset_list = queryset_list.filter(recipe__icontains="Cocoa Butter")[:9]
+            recipe_title = "Cocoa Butter"
+    if 'recipe' in request.GET:
+        recipe = request.GET['recipe']
+        print(recipe)
+        if recipe == 'hempseed_nutrients':
+            queryset_list = queryset_list.filter(recipe__icontains="Hempsters Delight")[:9]
+            recipe_title = "Hempseed Nutrients"
+    if 'recipe' in request.GET:
+        recipe = request.GET['recipe']
+        print(recipe)
+        if recipe == 'shea_magic':
+            queryset_list = queryset_list.filter(recipe__icontains="Rosemary")[:9]
+            recipe_title = "Shea Magic"                        
+    context = {
+        'bars': bars,
+        'barslist': barslist,
+        'queryset_list': queryset_list,
+        'recipe_title': recipe_title,
+        'price_choices': price_choices,
+        'colorants_choices': colorants_choices,
+        'fragrance_choices': fragrance_choices,
+        'cartItems': cartItems,
+    }
+
+    return render(request, 'pages/recipe.html', context)
 
 def about(request):
     data = cartData(request)

@@ -1,176 +1,210 @@
 /* Top Bar - All Pages */
-#top-bar {
-  content: "";
-}
-/* Gives Social Links in top bar some spacing */
-.social a {
-  margin-right: 1rem; 
-}
+    #top-bar {
+      content: "";
+    }
+    /* Gives Social Links in top bar some spacing */
+    .social a {
+      margin-right: 1rem; 
+    }
 
-/* Navigation Bar All Pages */
-#nav-bar {
-  content: "";
-}
-/* Sets see thru affect and keeps all fonts uppercase */
-.navbar {
-  opacity: 0.9;
-  text-transform: uppercase;
-  background-color: #064a00; 
-}
-/* Sets the site logo size */
-.logo {
-  width: 50px; 
-}
-.cart-collapse {
-  display:none;
-}
+/* Navigation Bar - All Pages */
+    #nav-bar {
+      content: "";
+    }
+    /* Sets see thru affect and keeps all fonts uppercase */
+    .navbar {
+      opacity: 0.9;
+      text-transform: uppercase;
+      background-color: #064a00; 
+    }
+    /* Sets the site logo size */
+    .logo {
+      width: 50px; 
+    }
+    .cart-collapse {
+      display:none;
+    }
 
 /* Footer - All Pages */
-#main-footer {
-  content: "Main Footer";
-  background-color: #064a00;
-  opacity: 0.9;
-}
+    #main-footer {
+      content: "Main Footer";
+      background-color: #064a00;
+      opacity: 0.9;
+    }
 
 /* Alerts - Index Page */
-#message {
-  content: "Message";
-}
+    #message {
+      content: "Message";
+    }
 
 /* Showcase - Index Page */
-/* Sets up the main visual for the home page */
-#showcase {
-  background-image: url(../img/showcase_bars_large.jpg);
-  background-position: top center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  position: relative;
-  min-height: 50vh;
-  color: #fff;
-  padding: 2rem; 
-}
-/* Creates a nice opaque overlay effect */
-#showcase .overlay {
-  content: '';
-  position: relative;
-  background: rgba(51, 51, 51, 0.8); 
-}
-/* Creates a nice button effect to link the Collection */
-.showcase-button-group  a {
-  background-color: white;
-  color: black;
-  border: 2px solid green;
-  border-radius: 8px;
-  padding: 8px 8px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-}
-.showcase-button-group  a:hover {
-  transition-duration: 0.4s;
-  cursor: pointer;
-  background: rgba(51, 51, 51, 0.8);
-  color: white;
-  opacity: 0.5;
-}
+    /* Sets up the main visual for the home page */
+    #showcase {
+      background-image: url(../img/showcase_bars_large.jpg);
+      background-position: top center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      position: relative;
+      min-height: 50vh;
+      color: #fff;
+      padding: 2rem; 
+    }
+    /* Creates a nice opaque overlay effect */
+    #showcase .overlay {
+      content: '';
+      position: relative;
+      background: rgba(51, 51, 51, 0.8); 
+    }
+    /* Creates a nice button effect to link the Collection */
+    .showcase-button-group  a {
+      background-color: white;
+      color: black;
+      border: 2px solid green;
+      border-radius: 8px;
+      padding: 8px 8px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .showcase-button-group  a:hover {
+      transition-duration: 0.4s;
+      cursor: pointer;
+      background: rgba(51, 51, 51, 0.8);
+      color: white;
+      opacity: 0.5;
+    }
 
-/* Soap Characteristic Points */
-#char-pnts {
-  padding: 2rem;
-}
+/* Soap Characteristic Points - Index Page */
+    #char-pnts {
+      padding: 2rem;
+    }
+
+/* Recipe Overlays - Index Page */
+    #recipe_listings {
+      padding: 2rem;
+    }
+    /* container for overlay */
+    .recipe_column {
+      position: relative;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    /* content for overlay will be a boostrap card */
+    /* .card */
+
+    .recipe_card_overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0.2;
+      transition: .5s ease;
+      background-color: rgba(51, 51, 51, 0.8);;
+    }
+
+    .recipe_column:hover .recipe_card_overlay {
+      opacity: 0.9;
+    }
 
 /* Listings - Index Page */
-#listings {
-  content: "";
-}
-.btn-secondary {
-  color: #fff !important; 
-}
-.listing-body {
-  height: 200px;
-}
-.carousel-indicators .active {
-  height: 5px;
-  background-color: #064a00;
-}
-.carousel-indicators li {
-  height: 5px;
-  background-color: rgba(2, 29, 0, 0.4);
-}
+    /*  */
+    #listings {
+      content: "";
+    }
+    .btn-secondary {
+      color: #fff !important; 
+    }
+    .listing-body {
+      height: 200px;
+    }
+    .carousel-indicators .active {
+      height: 5px;
+      background-color: #064a00;
+    }
+    .carousel-indicators li {
+      height: 5px;
+      background-color: rgba(2, 29, 0, 0.4);
+    }
   
 /* Services - Index Page */
-/* Creates a nice parallax effect for the Services Section*/
-#services {
-  background-image: url(../img/building.jpg);
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  min-height: 50vh;
-  position: relative;
-  overflow: hidden;
-  padding: 2rem; 
-}
-/* Creates a nice green overlay for the services Section */
-#services::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-height: 100%;
-    width: 100%;
-    background: rgba(32, 134, 107, 0.8); 
-}
+    /* Creates a nice parallax effect for the Services Section*/
+    #services {
+      background-image: url(../img/building.jpg);
+      background-position: top center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      min-height: 50vh;
+      position: relative;
+      overflow: hidden;
+      padding: 2rem; 
+    }
+    /* Creates a nice green overlay for the services Section */
+    #services::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-height: 100%;
+        width: 100%;
+        background: rgba(32, 134, 107, 0.8); 
+    }
 
 /* Showcase - Collection_SoapBot_Store_Dashboard Pages */
-#showcase-inner {
-  background-image: url(../img/building.jpg);
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  position: relative;
-  overflow: hidden;
-  min-height: 200px; 
-}
-#showcase-inner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-height: 100%;
-    width: 100%;
-    background: rgba(32, 134, 107, 0.8); 
-}
+    /*  */
+    #showcase-inner {
+      background-image: url(../img/building.jpg);
+      background-position: top center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+      min-height: 200px; 
+    }
+    #showcase-inner::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-height: 100%;
+        width: 100%;
+        background: rgba(32, 134, 107, 0.8); 
+    }
 
 /* Breadcrumb - Collection_SoapBot_Store_Dashboard Pages */
-.breadcrumb-button-group a, .breadcrumb-button-group button {
-  background-color: green;
-  border-color: green;
-  border-radius: 0.25rem;
-  background-color: white;
-  color: black;
-  border: 2px solid green;
-  padding: 8px 8px;
-  text-align: center;
-  text-decoration: none;
-}
+    /*  */
+    .breadcrumb-button-group a, .breadcrumb-button-group button {
+      background-color: green;
+      border-color: green;
+      border-radius: 0.25rem;
+      background-color: white;
+      color: black;
+      border: 2px solid green;
+      padding: 8px 8px;
+      text-align: center;
+      text-decoration: none;
+    }
 
-.breadcrumb-button-group  a:hover, .breadcrumb-button-group button:hover {
-  background: rgba(51, 51, 51, 0.8);
-  color: white;
-}
-/* .text-secondary i {
-  color: #064a00;
-} */
-.text-secondary-bar {
-  color: #064a00;
-}
-.hr-char-pnts {
-  border-top: 2px solid green;
-  width: 80%;
-}
+    .breadcrumb-button-group  a:hover, .breadcrumb-button-group button:hover {
+      background: rgba(51, 51, 51, 0.8);
+      color: white;
+    }
+    /* .text-secondary i {
+      color: #064a00;
+    } */
+    .text-secondary-bar {
+      color: #064a00;
+    }
+    .hr-char-pnts {
+      border-top: 2px solid green;
+      width: 80%;
+    }
 
 /* Search Model - Collection Page */
 #searchModal {
@@ -547,6 +581,9 @@ img {
 
 /* Media Queries */
 @media (max-width: 991px) {
+  #recipe_overlays .container {
+    position: relative;
+  }
   #showcase {
     padding-top: 4rem; 
   }
@@ -559,6 +596,9 @@ img {
 }
 
 @media (max-width: 768px) {
+  #recipe_overlays .container {
+    position: relative;
+  }
   #showcase {
     padding: 0.5rem; 
   }
@@ -581,6 +621,9 @@ img {
 }
 
 @media (max-width: 576px) {
+  #recipe_overlays .container {
+    position: relative;
+  }
   #showcase h1 {
     font-size: 30px; 
   }
