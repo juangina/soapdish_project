@@ -38,10 +38,6 @@ def recipe(request):
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
-
-    bars = Bar.objects.order_by('-batch_code')[:3]
-    barslist = Bar.objects.order_by('-batch_code')[:4]
-    barslist = list(barslist)
     
     # Search for Keywords in recipe
     queryset_list = Bar.objects.order_by('-created_date').filter(for_sale=True)
@@ -51,29 +47,27 @@ def recipe(request):
         recipe = request.GET['recipe']
         print(recipe)
         if recipe == 'gentles':
-            queryset_list = queryset_list.filter(recipe__icontains="Brambleberry")[:9]
+            queryset_list = queryset_list.filter(recipe__icontains="Brambleberry")[:6]
             recipe_title = "Gentles"
     if 'recipe' in request.GET:
         recipe = request.GET['recipe']
         print(recipe)
         if recipe == 'cocoa_butters':
-            queryset_list = queryset_list.filter(recipe__icontains="Cocoa Butter")[:9]
-            recipe_title = "Cocoa Butter"
+            queryset_list = queryset_list.filter(recipe__icontains="Cocoa Butter")[:6]
+            recipe_title = "Cocoa Butters"
     if 'recipe' in request.GET:
         recipe = request.GET['recipe']
         print(recipe)
         if recipe == 'hempseed_nutrients':
-            queryset_list = queryset_list.filter(recipe__icontains="Hempsters Delight")[:9]
+            queryset_list = queryset_list.filter(recipe__icontains="Hempsters Delight")[:6]
             recipe_title = "Hempseed Nutrients"
     if 'recipe' in request.GET:
         recipe = request.GET['recipe']
         print(recipe)
         if recipe == 'shea_magic':
-            queryset_list = queryset_list.filter(recipe__icontains="Rosemary")[:9]
+            queryset_list = queryset_list.filter(recipe__icontains="Rosemary")[:6]
             recipe_title = "Shea Magic"                        
     context = {
-        'bars': bars,
-        'barslist': barslist,
         'queryset_list': queryset_list,
         'recipe_title': recipe_title,
         'price_choices': price_choices,
