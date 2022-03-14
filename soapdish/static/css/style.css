@@ -78,11 +78,48 @@
 /* Soap Characteristic Points - Index Page */
     #char-pnts {
       padding: 2rem;
+      background-color: rgba(182,233,166,1.0);
+    }
+
+/* Listings Carousel - Index Page */
+    /*  */
+    #listings_carousel {
+      padding: 2rem;
+      background-color: rgba(152,215,245,1.0);
+    }
+    .btn-secondary {
+      color: #fff !important; 
+    }
+    .listing-body {
+      height: 200px;
+    }
+    .carousel-inner {
+      position: relative;
+    }
+    #listings_carousel .carousel_overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      background-color: rgba(152,215,245,1.0); 
+    }
+    .carousel-indicators .active {
+      height: 5px;
+      background-color: #064a00;
+    }
+    .carousel-indicators li {
+      height: 5px;
+      background-color: rgba(2, 29, 0, 0.4);
     }
 
 /* Recipe Overlays - Index Page */
     #recipe_listings {
       padding: 2rem;
+      background-color: rgba(182,233,166,1.0);
     }
     /* container for overlay */
     .recipe_column {
@@ -104,31 +141,11 @@
       width: 100%;
       opacity: 0.2;
       transition: .5s ease;
-      background-color: rgba(51, 51, 51, 0.8);;
+      background-color: rgba(51, 51, 51, 0.8);
     }
 
     .recipe_column:hover .recipe_card_overlay {
       opacity: 0.9;
-    }
-
-/* Listings - Index Page */
-    /*  */
-    #listings {
-      content: "";
-    }
-    .btn-secondary {
-      color: #fff !important; 
-    }
-    .listing-body {
-      height: 200px;
-    }
-    .carousel-indicators .active {
-      height: 5px;
-      background-color: #064a00;
-    }
-    .carousel-indicators li {
-      height: 5px;
-      background-color: rgba(2, 29, 0, 0.4);
     }
   
 /* Services - Index Page */
