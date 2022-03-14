@@ -23,7 +23,7 @@ def index(request):
         page=1
         paged_bars = paginator.get_page(page)
 
-    custom_range = buttonPaginator(4, paginator, page, paged_bars)
+    custom_range = buttonPaginator(3, paginator, page, paged_bars)
 
     context = {
             'price_choices': price_choices,

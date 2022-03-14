@@ -9,56 +9,11 @@
   <!-- Alerts -->
   {% include 'partials/_alerts.html' %}
 
-  <!-- Search Bar -->
-  <section id="showcase-inner" class="showcase-search text-white py-2" style="min-height:0;">
-    <div class="container">
-      <div class="row text-center">
-        <div class="col-md-12">
-          <form action="{% url 'inventory' %}">
-            <!-- Form Row 1 -->
-            <div class="form-row">
-
-              <div class="col-md-4 mb-2">
-                <label class="sr-only">Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Name" value="{{values.name}}">
-              </div>
-
-              <div class="col-md-4 mb-2">
-                <label class="sr-only">Keywords</label>
-                <input type="text" name="keywords" class="form-control" placeholder="Description (Walmart, Oils, etc)" value="{{values.keywords}}">
-              </div>
-
-              <div class="col-md-4 mb-2">
-                <label class="sr-only">Category</label>
-                <select name="category" class="form-control">
-                  {% for key, value in category_choices.items %}
-                    <!-- If the value key is selected, add the selected attribute -->
-                    <option value="{{key}}"
-                      {% if key == values.category %}
-                        selected
-                      {% endif %}
-                    >{{ value }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-
-            </div>
-            <button class="btn btn-secondary btn-block mt-2" type="submit">Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="py-2">
     <div class="container">
       <div class="row">
         <div class="col-12">
-          {% if category == 'expenses' %}
-            The total expenses =  $ {{expenses_sum}}
-          {% else %}
-            The total inventory value = $ {{inventory_sum}}
-          {% endif %}
+            The total inventory is =  ${{inventory_sum|floatformat:2}}
         </div>
       </div>
     </div>
@@ -67,40 +22,26 @@
   <!-- Inventory Listings -->
   <section id="listings" class="py-2">
     <div class="container">
-      <h3 class="text-center mb-3">{{category|title}} List</h3>
+      <h3 class="text-center mb-3">Bar Soap Inventory</h3>
       <!--Listing Iteration-->
         {% if inventory %}
-            <div class="row">
+            <div class="row" style="margin-left:0px;">
                 <table class="table table-bordered">
                   <thead class="thead-dark">
                     <tr>
-                      <th></th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Category</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Unit Price</th>
+                      <th style="text-align:center;" scope="col">Image</th>
+                      <th style="text-align:center;" scope="col">Name</th>
+                      <th style="text-align:center;" scope="col">Quantity</th>
+                      <th style="text-align:center;" scope="col">Total Value</th>
                     </tr>
                   </thead>
                   {% for inventory_item in inventory %}
-                  <tr>
-                    {% if category == 'expenses' %}
-                      <td></td>
-                      <th scope="row">{{inventory_item.name}}</th>
-                      <td>{{inventory_item.description}}</td>
-                      <td>{{inventory_item.category}}</td>
-                      <td>{{inventory_item.purchase_date}}</td>
-                      <td>$ {{inventory_item.unit_price}}</td>
-                    {% else %}
-                      <td><img class="row-image" src="{{inventory_item.imageURL}}"></td>
-                      <th scope="row">{{inventory_item.name}}</th>
-                      <td>{{inventory_item.name.description}}</td>
-                      <td>{{inventory_item.name.category}}</td>
-                      <td>{{inventory_item.name.purchase_date}}</td>
-                      <td>$ {{inventory_item.name.unit_price}}</td>
-                    {% endif %}
-
-                  </tr>
+                    <tr>
+                        <td style="width:20%;text-align:center;"><img class="img-fluid img-thumbnail" style="max-width:100%;" src="{{ inventory_item.image.url }}" alt="picture of soap"></td>
+                        <td style="width:25%;text-align:center;">{{inventory_item.bar_soap}}</td>
+                        <td style="width:15%;text-align:center;">{{inventory_item.quantity_available}}</td>
+                        <td style="text-align:center;">${{inventory_item.get_total_value|floatformat:2}} </td>
+                    </tr>
                   {% endfor %}
                 </table>
             </div>

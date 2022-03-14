@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+<!-- Used to format integer number with commas -->
+{% load humanize %}
+
+{% block title %} | Welcome {% endblock %}
+
+{% block content%}
+
+  <!-- Search Bar -->
+  <section id="showcase-inner" class="showcase-search text-white py-2" style="min-height:0;">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <form action="{% url 'expenses' %}">
+            <!-- Form Row 1 -->
+            <div class="form-row">
+
+              <div class="col-md-4 mb-2">
+                <label class="sr-only">Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Name" value="{{values.name}}">
+              </div>
+
+              <div class="col-md-4 mb-2">
+                <label class="sr-only">Keywords</label>
+                <input type="text" name="keywords" class="form-control" placeholder="Description (Walmart, Oils, etc)" value="{{values.keywords}}">
+              </div>
+
+              <div class="col-md-4 mb-2">
+                <label class="sr-only">Category</label>
+                <select name="category" class="form-control">
+                  {% for key, value in category_choices.items %}
+                    <!-- If the value key is selected, add the selected attribute -->
+                    <option value="{{key}}"
+                      {% if key == values.category %}
+                        selected
+                      {% endif %}
+                    >{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+            </div>
+            <button class="btn btn-secondary btn-block mt-2" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alerts -->
+  {% include 'partials/_alerts.html' %}
+
+  <section class="py-2">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+            The total expenses for {{category|title}} is =  ${{expenses_sum|floatformat:2}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expenses Listings -->
+  <section id="listings" class="py-2">
+    <div class="container">
+      <h3 class="text-center mb-3">{{category|title}} List</h3>
+      <!--Listing Iteration-->
+        {% if inventory %}
+            <div class="row">
+                <table class="table table-bordered">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Total Price</th>
+                    </tr>
+                  </thead>
+                  {% for inventory_item in inventory %}
+                    <tr>
+                        <th scope="row">{{inventory_item.name}}</th>
+                        <td>{{inventory_item.description}}</td>
+                        <td>{{inventory_item.category}}</td>
+                        <td>{{inventory_item.purchase_date}}</td>
+                        <td>$ {{inventory_item.price|floatformat:2}}</td>
+                    </tr>
+                  {% endfor %}
+                </table>
+            </div>
+        {% else %}
+          <div class="row">
+              <div class="col-12">
+                <p>No Listings Available</p>
+              </div>
+          </div>
+        {% endif %}
+    </div>
+  </section>
+
+
+  
+{% endblock %}

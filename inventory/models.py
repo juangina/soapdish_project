@@ -30,6 +30,11 @@ class Inventory(models.Model):
     image = models.ImageField(null=True, blank=True)    
     
     @property
+    def get_total_value(self):
+        total_value = self.bar_soap.price * self.quantity_available
+        return total_value
+
+    @property
     def imageURL(self):
         try:
             url = self.image.url

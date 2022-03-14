@@ -120,7 +120,7 @@
         <!-- Product Price and Quantity Available-->
         <div class="row mb-2">
           <div class="col-md-3">
-            <h5>${{ product.price}}</h5>
+            <h5>${{ product.price|floatformat:2}}</h5>
           </div>
           <div class="qty-available col-md-9 text-right">
             <h5>Qty. Available: {{qty_available}}</h5> 
