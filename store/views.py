@@ -196,11 +196,14 @@ def checkout(request):
 	allOrders = Order.objects.all()
 	previousOrder = False
 	for allOrder in allOrders:
-		if allOrder.customer.id == request.user.id and allOrder.complete == True:
+		#print(allOrder.customer.user)
+		#print(request.user)
+		if allOrder.customer.user == request.user and allOrder.complete == True:
 			previousOrder = True
 			break
 	try:
 		discount = Discount.objects.get(customer=order.customer)
+		#print(discount)
 	except Discount.DoesNotExist:
 		discount = Discount.objects.create(customer=order.customer, startDate=datetime.datetime(2022,1,1), stopDate=datetime.datetime(2022,12,31), discountActive=True)
 	#discount = Discount.objects.get(customer=order.customer)

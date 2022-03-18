@@ -32,6 +32,8 @@ class Inventory(models.Model):
     @property
     def get_total_value(self):
         total_value = self.bar_soap.price * self.quantity_available
+        # if(self.name.name == 'Hand Soap'):
+        #     total_value = 5 * self.quantity_available
         return total_value
 
     @property

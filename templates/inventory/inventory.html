@@ -31,6 +31,7 @@
                     <tr>
                       <th style="text-align:center;" scope="col">Image</th>
                       <th style="text-align:center;" scope="col">Name</th>
+                      <th style="text-align:center;" scope="col">Type</th>
                       <th style="text-align:center;" scope="col">Quantity</th>
                       <th style="text-align:center;" scope="col">Total Value</th>
                     </tr>
@@ -38,7 +39,8 @@
                   {% for inventory_item in inventory %}
                     <tr>
                         <td style="width:20%;text-align:center;"><img class="img-fluid img-thumbnail" style="max-width:100%;" src="{{ inventory_item.image.url }}" alt="picture of soap"></td>
-                        <td style="width:25%;text-align:center;">{{inventory_item.bar_soap}}</td>
+                        <td style="width:20%;text-align:center;">{{inventory_item.bar_soap}}</td>
+                        <td style="width:20%;text-align:center;">{{inventory_item.name}}</td>
                         <td style="width:15%;text-align:center;">{{inventory_item.quantity_available}}</td>
                         <td style="text-align:center;">${{inventory_item.get_total_value|floatformat:2}} </td>
                     </tr>
