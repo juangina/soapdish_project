@@ -11,7 +11,7 @@ def index(request):
     order = data['order']
     items = data['items']
 
-    bars = Bar.objects.order_by('created_date').filter(for_sale=True)
+    bars = Bar.objects.order_by('-created_date').filter(for_sale=True)
     number_of_bars = bars.count()
 
     paginator = Paginator(bars, 12)
