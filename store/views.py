@@ -207,7 +207,13 @@ def checkout(request):
 	except Discount.DoesNotExist:
 		discount = Discount.objects.create(customer=order.customer, startDate=datetime.datetime(2022,1,1), stopDate=datetime.datetime(2022,12,31), discountActive=True)
 	#discount = Discount.objects.get(customer=order.customer)
-	print(previousOrder)
+	# print(previousOrder)
+
+	#Initial Shipping Cost
+	order.shipping_cost = 7.50
+	order.save()
+	# print(order.shipping_cost)
+	
 	context = {
 		'items':items, 
 		'order':order,
@@ -267,14 +273,14 @@ def getTotal(request):
 	if request.user.is_authenticated:
 		customer = request.user.customer
 		order, created = Order.objects.get_or_create(customer=customer, complete=False)
-	total = order.get_checkout_total
+	total = float(order.get_checkout_total)
 	return JsonResponse({'total': total}, safe=False)
 
 @login_required(login_url="login")
 def processOrder(request):
 	transaction_id = datetime.datetime.now().timestamp()
 	data = json.loads(request.body)
-	#print(data)
+	# print(data)
 
 	if request.user.is_authenticated:
 		customer = request.user.customer
@@ -301,6 +307,43 @@ def processOrder(request):
 		)
 
 	return JsonResponse('Payment submitted..', safe=False)
+
+@login_required(login_url="login")
+def updateOrderShipping(request):
+	data = json.loads(request.body)
+	# print(data)
+
+	if request.user.is_authenticated:
+		customer = request.user.customer
+		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+	else:
+		customer, order = guestOrder(request, data)
+
+	shipping = (data['shippingInfo']['shippingTotal'])
+	if shipping == 'priority':
+		shipping_total = 7.50
+	elif shipping == 'firstclass':
+		shipping_total = 5.00
+	elif shipping == 'delivery':
+		shipping_total = 2.00
+	elif shipping == 'pickup':
+		shipping_total = 0.00
+	else:
+		shipping_total = 7.50	
+	
+	order.shipping_cost = (shipping_total)
+	# print(shipping_total)
+	order.save()
+
+	shipping_cost = order.shipping_cost
+	order_total = order.get_checkout_total
+
+	data = {
+		"shipping_cost": shipping_cost,
+		"order_total": order_total
+	}
+
+	return JsonResponse(data, safe=False)
 
 #Renders paypal api checkout page 
 @login_required(login_url='login')

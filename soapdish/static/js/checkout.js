@@ -5,7 +5,7 @@
     if(checkoutPage) {
         //var total = '{{order.get_checkout_total}}'
         checkoutTotal = document.getElementById('get_checkout_total');
-        total = checkoutTotal.getAttribute("data-checkoutTotal");
+        // total = checkoutTotal.getAttribute("data-checkoutTotal");
         // console.log(total);
 
         // returnURL = document.getElementById('checkout');
@@ -38,6 +38,8 @@
         
                 //Callback to Set up the transaction
                 createOrder: function(data, actions) {
+                    total = checkoutTotal.getAttribute("data-checkoutTotal");
+                    console.log("The current total is: ", total)
                 
                     return actions.order.create({
                     /////////////////////////////	
@@ -76,36 +78,91 @@
         
         userForm.addEventListener('submit', function(e){
                 e.preventDefault()
-                console.log('User Form Submitted...')
+                //console.log('User Form Submitted...')
+                //console.log('User Info:', userForm.name.value)
                 document.getElementById('user-information').innerHTML = "Done:  User Information"
                 document.getElementById('user-form-button').classList.add("hidden");
                 document.getElementById('billing-information').innerHTML = "Step Two:  Verify and Complete Billing Address"
                 document.getElementById("billing-information-fieldset").disabled = false;
+                document.getElementById("user-information-fieldset").disabled = true;
                 document.getElementById('billing-form-button').classList.remove("hidden");
             }
         )
-        
         billingForm.addEventListener('submit', function(e){
                 e.preventDefault()
-                console.log('Billing Form Submitted...')
+                //console.log('Billing Form Submitted...')
+                //console.log('Billing Info:', billingForm.address.value)
                 document.getElementById('billing-information').innerHTML = "Done:  Billing Information"
                 document.getElementById('billing-form-button').classList.add("hidden");
                 document.getElementById('shipping-information').innerHTML = "Verify and Complete Shipping Method"
                 document.getElementById("shipping-information-fieldset").disabled = false;
+                document.getElementById("billing-information-fieldset").disabled = true;
                 document.getElementById('shipping-form-button').classList.remove("hidden");
             }
         )
-        
         shippingForm.addEventListener('submit', function(e){
                 e.preventDefault()
-                console.log('Shipping Form Submitted...')
+                //console.log('Shipping Form Submitted...')
+                //console.log('Shipping Info:', shippingForm.shipping.value)
                 document.getElementById('shipping-information').innerHTML = "Done:  Shipping Information"
+                document.getElementById("shipping-information-fieldset").disabled = true;
                 document.getElementById('shipping-form-button').classList.add("hidden");
                 document.getElementById('purchase-information').innerHTML = "Review and Complete Your Payment!"
             }
         )
+        shippingForm.addEventListener('change', function(e) {
+            e.preventDefault()
+            //console.log('Shipping Form Changed...')
+            //console.log('Shipping Info:', shippingForm.shipping.value)
+            updateShippingData()
+        } )
         
+    }
+    function updateShippingData() {
+        var shippingInfo = {
+            'shippingTotal':null,
+            'shippingType':null,
+        }
+        
+        shippingInfo.shippingTotal = shippingForm.shipping.value
 
+        var url = '/store/update_order_shipping/';
+        fetch(url, {
+            method:'POST',
+            headers:{
+                'Content-Type':'applicaiton/json',
+                'X-CSRFToken':csrftoken,
+            }, 
+            body:JSON.stringify({'shippingInfo':shippingInfo}),
+            
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            //console.log('Success:', data);
+            if(shippingForm.shipping.value == 'priority') {
+                shippingInfo.shippingType = 'USPS Priority'
+            } 
+            else if (shippingForm.shipping.value == 'firstclass') {
+                shippingInfo.shippingType = 'USPS First Class'
+            } 
+            else if (shippingForm.shipping.value == 'delivery') {
+                shippingInfo.shippingType = 'Direct Delivery'
+            } 
+            else if (shippingForm.shipping.value == 'pickup') {
+                shippingInfo.shippingType = 'Customer Pickup'
+            }
+            else {
+                shippingInfo.shippingType = 'USPS Priority'
+            }
+
+            document.getElementById('shipping_cost').innerHTML = `Shipping (${shippingInfo.shippingType}): $${parseFloat(data.shipping_cost).toFixed(2)}`
+
+            document.getElementById('get_checkout_total').innerHTML = `Order Total: $${parseFloat(data.order_total).toFixed(2)}`
+
+            document.getElementById('get_checkout_total').setAttribute("data-checkoutTotal", data.order_total)
+            
+            //alert('Shipping Information Updated');  
+            })
     }
 
     function submitFormData(){
@@ -124,7 +181,6 @@
             'zipcode':null,
         }
     
-    
         userFormData.name = userForm.name.value
         userFormData.email = userForm.email.value
     
@@ -135,6 +191,7 @@
     
         //console.log('Billing Info:', billingInfo)
         //console.log('User Info:', userFormData)
+        //console.log('Shipping Info:', shippingForm)
     
         //Send process results to 'backend' for database storage
         var url = '/store/process_order/';

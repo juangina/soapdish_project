@@ -149,14 +149,29 @@ class Order(models.Model):
 				previousOrder = True
 				break
 		if previousOrder == True:
-			return self.shipping_cost + total
+			
+			# print("self.shipping_cost is type: ", type(self.shipping_cost))
+			# print("total is type: ", type(total))
+
+			shipping_cost = float(self.shipping_cost)
+			total_cost = float(total)
+			
+			# print("shipping_cost is type: ", type(shipping_cost))
+			# print("total is type: ", type(total_cost))
+			
+			# return (self.shipping_cost) + total
+			return (shipping_cost) + (total_cost)
 		else:
 			try:
 				discount = Discount.objects.get(customer=self.customer)
 			except Discount.DoesNotExist:
 				discount = Discount(customer=self.customer, startDate=datetime(2022,1,1), stopDate=datetime(2022,12,31), discountActive=True)
 
-			return self.shipping_cost + total - discount.ftbDiscountBalance
+			shipping_cost = float(self.shipping_cost)
+			total_cost = float(total)
+			discount = float(discount.ftbDiscountBalance)
+
+			return shipping_cost + total_cost - discount
 
 	@property
 	def shipping(self):

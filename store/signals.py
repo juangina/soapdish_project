@@ -9,6 +9,8 @@ from django.conf import settings
 from datetime import datetime
 from django.db.models.functions import Extract
 
+from decimal import Decimal, ROUND_UP
+
 #sender-Model used that sent the post signal
 #instance-Instance of the Model that sent the post signal
 #created-Boolean to indicate whether this was get_or_create()
@@ -88,9 +90,11 @@ def completeOrder(sender, instance, created, **kwargs):
     if created == False and completed == True:
         customer = order.customer
 
-        subject = 'Soap Dish transaction number '+str(order.transaction_id) 
+        subject = 'Soap Dish transaction number '+str(order.transaction_id)
+
+        total_cost = Decimal(str(order.total_cost)).quantize(Decimal('0.01'), rounding=ROUND_UP) 
         
-        message = '\n\n'+'Your order for '+str(order.transaction_id)+' with the amount of $'+str(order.total_cost)+' has been completed.'+'\n\n'+'Thank you for your business '+customer.name+'!'+'\n\n'
+        message = '\n\n'+'Your order for '+str(order.transaction_id)+' with the amount of $'+str(total_cost)+' has been completed.'+'\n\n'+'Thank you for your business '+customer.name+'!'+'\n\n'
 
         send_mail(
             subject,

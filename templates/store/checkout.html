@@ -55,7 +55,7 @@
 				<div class="box-element">
 					<div class='d-flex justify-content-between'>
 						<p>
-							Step One: 
+							Step Two: 
 						</p>
 						<p id="billing-information">
 							Billing Information
@@ -91,7 +91,7 @@
 							Step Three: 
 						</p>
 						<p id="shipping-information">
-							Shipping Information
+							Delivery Options
 						</p>
 					</div>
 					<hr>
@@ -99,8 +99,23 @@
 						{% csrf_token %}
 						<fieldset id="shipping-information-fieldset" disabled>
 							<div class="form-check">
-								<label class="form-check-label">
-								  <input type="radio" class="form-check-input" name="flatrate" value="flatrate" checked>USPS Flat Rate Shipping - ${{order.shipping_cost}}
+								<label class="form-check-label" for="flatrate">
+								  <input type="radio" class="form-check-input" id="flatrate" name="shipping" value="priority" checked>USPS Priority - $7.50
+								</label>
+							</div>
+							<div class="form-check" for="firstclass">
+								<label class="form-check-label" for="firstclass">
+									<input type="radio" class="form-check-input" id="firstclass" name="shipping" value="firstclass" >USPS First Class - $5.00
+								</label>
+							</div>
+							<div class="form-check">
+								<label class="form-check-label" for="delivery">
+									<input type="radio" class="form-check-input" id="delivery" name="shipping" value="delivery" >Direct Delivery - $2.00
+								</label>
+							</div>
+							<div class="form-check">
+								<label class="form-check-label" for="pickup">
+									<input type="radio" class="form-check-input" id="pickup" name="shipping" value="pickup" >Customer Pickup - $0.00
 								</label>
 							</div>
 							<input id="shipping-form-button" class="btn btn-success btn-block hidden" type="submit" value="Continue to Payment">
@@ -177,8 +192,8 @@
 				</h5>
 				{% endif %}
 
-				<h5 id="shipping" class="order-summary-item order-shipping-total">
-					Shipping (USPS Flat Rate): ${{order.shipping_cost}}
+				<h5 id="shipping_cost" class="order-summary-item order-shipping-total">
+					Shipping (USPS Priority): $7.50
 				</h5>
 
 				<h5 id='get_checkout_total' data-checkoutTotal="{{order.get_checkout_total}}" class="order-summary-item order-total">
