@@ -11,7 +11,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
-from .serializers import BarSerializer, CreatorSerializer, Conversation_MetaSerializer, Conversation_DialogSerializer, ContactSerializer,CustomerSerializer,ProductSerializer,OrderSerializer,OrderItemSerializer,ShippingAddressSerializer
+from .serializers import BarSerializer, CreatorSerializer, ContactSerializer,CustomerSerializer,ProductSerializer,OrderSerializer,OrderItemSerializer,ShippingAddressSerializer
 
 from bars.models import Bar
 from creators.models import Creator
@@ -106,7 +106,7 @@ def getToken(request):
 	payload='grant_type=client_credentials'
 	response = requests.request("POST", url, headers = headers, data = payload)
 	response_json = response.json()
-	print(response_json)
+	# print(response_json)
 
 	# Authorization = "Bearer {}"
 	# Authorization = Authorization.format(access_token)
@@ -184,7 +184,7 @@ def approveOrder(request, order_id):
 
 	response = requests.request("GET", url, headers=headers, data=payload)
 	response_json = response.json()
-	print(response_json)
+	# print(response_json)
 
 	return JsonResponse(response_json, safe=False)
 

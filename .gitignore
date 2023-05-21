@@ -1,11 +1,14 @@
+.vscode
 *.log
 *.pot
 *.pyc
 __pycache__/
-/soapdish/local_settings.py
+venv
 db.sqlite3
 /media
-venv
 /static
-.vscode
+/reference
+/soapdish/local_settings.py
+
+
 

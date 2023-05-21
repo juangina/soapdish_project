@@ -41,29 +41,29 @@ def recipe(request):
     
     # Search for Keywords in recipe
     queryset_list = Bar.objects.order_by('-created_date').filter(for_sale=True)
-    print(request.GET)
+    # print(request.GET)
     recipe_title = ""
     if 'recipe' in request.GET:
         recipe = request.GET['recipe']
-        print(recipe)
+        # print(recipe)
         if recipe == 'gentles':
             queryset_list = queryset_list.filter(recipe__icontains="Brambleberry")[:6]
             recipe_title = "Gentles"
     if 'recipe' in request.GET:
         recipe = request.GET['recipe']
-        print(recipe)
+        # print(recipe)
         if recipe == 'cocoa_butters':
             queryset_list = queryset_list.filter(recipe__icontains="Cocoa Butter")[:6]
             recipe_title = "Cocoa Butters"
     if 'recipe' in request.GET:
         recipe = request.GET['recipe']
-        print(recipe)
+        # print(recipe)
         if recipe == 'hempseed_nutrients':
             queryset_list = queryset_list.filter(recipe__icontains="Hempsters Delight")[:6]
             recipe_title = "Hempseed Nutrients"
     if 'recipe' in request.GET:
         recipe = request.GET['recipe']
-        print(recipe)
+        # print(recipe)
         if recipe == 'shea_magic':
             queryset_list = queryset_list.filter(recipe__icontains="Rosemary")[:6]
             recipe_title = "Shea Magic"                        
@@ -113,8 +113,8 @@ class BarListView(ListView):
 
 
     def get_context_data(self, **kwargs):
-        print("self.args: ", self.args)
-        print("self.kwargs: ", self.kwargs)
+        # print("self.args: ", self.args)
+        # print("self.kwargs: ", self.kwargs)
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
@@ -132,8 +132,8 @@ class CreatorBarListView(ListView):
 
 
     def get_context_data(self, **kwargs):
-        print("self.args: ", self.args)
-        print("self.kwargs: ", self.kwargs)
+        # print("self.args: ", self.args)
+        # print("self.kwargs: ", self.kwargs)
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of a single creator

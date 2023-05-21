@@ -5,7 +5,6 @@ from creators.models import Creator
 from bars.models import Bar
 from contacts.models import Contact
 from store.models import Customer, Product, Order, OrderItem, ShippingAddress
-from chatbot.models import Conversation_Meta, Conversation_Dialog
 
 class CreatorSerializer(serializers.ModelSerializer):
     class Meta:
