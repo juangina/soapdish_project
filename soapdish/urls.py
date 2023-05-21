@@ -14,7 +14,6 @@ urlpatterns = [
     path('contacts/', include('contacts.urls')),
     path('store/', include('store.urls')),
     
-    path('chatbot/', include('chatbot.urls')),
     path('inventory/', include('inventory.urls')),
     path('api/', include('api.urls')),
     path('blog/', include('blog.urls')),

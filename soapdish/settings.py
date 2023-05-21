@@ -4,7 +4,16 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-#print(BASE_DIR)
+
+# SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = os.environ.get("SECRET_KEY")
+
+# SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = int(os.environ.get("DEBUG", default=0)
+
+# 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
+# For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
+# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 # Application definition
 INSTALLED_APPS = [
@@ -15,11 +24,11 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'store.apps.StoreConfig',
     'blog.apps.BlogConfig',
+    'dev_app.apps.DevAppConfig',
     
     'embed_video',
 
     'inventory.apps.InventoryConfig',
-    'chatbot.apps.ChatbotConfig',
     'rest_framework',
     'corsheaders',
     
@@ -33,8 +42,8 @@ INSTALLED_APPS = [
 
     'mathfilters',
 
-    #'chatterbot.ext.django_chatterbot',
-    #'chat.apps.ChatConfig',
+    'storages',
+
 ]
 REST_FRAMEWORK = {
 
@@ -154,15 +163,15 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'soapdish/static')
 ]
 
 # Media Folder Setting
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
 
 
 # Messages
@@ -175,46 +184,6 @@ MESSAGE_TAGS = {
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CHATTERBOT = {
-    'name': 'Tech Support Bot',
-    'logic_adapters': [
-        'chatterbot.logic.MathematicalEvaluation',
-        'chatterbot.logic.TimeLogicAdapter',
-        'chatterbot.logic.BestMatch'
-    ]
-}
-
-# Security Settings kept in separate file
-#######################################################################
-# # SECURITY WARNING: keep the secret key used in production secret! --
-# SECRET_KEY = ''
-
-# # SECURITY WARNING: don't run with debug turned on in production! --
-# DEBUG = True
-
-# ALLOWED_HOSTS = []
-
-# Database --
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases --
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': '',
-#         'NAME': '',
-#         'USER': '',
-#         'PASSWORD': '',
-#         'HOST': ''
-#     }
-# }
-
-# Email config --
-#EMAIL_HOST = ''
-#EMAIL_PORT = ''
-#EMAIL_HOST_USER = ''
-#EMAIL_HOST_PASSWORD = ''
-#EMAIL_USE_TLS
-#######################################################################
 
 try:
     from .local_settings import *
