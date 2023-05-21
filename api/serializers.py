@@ -61,15 +61,3 @@ class ShippingAddressSerializer(serializers.ModelSerializer):
 
 
 
-
-class Conversation_MetaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Conversation_Meta
-        fields = '__all__'
-
-class Conversation_DialogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Conversation_Dialog
-        fields = '__all__'
-
-
