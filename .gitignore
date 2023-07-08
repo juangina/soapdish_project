@@ -6,6 +6,10 @@ __pycache__/
 venv
 db.sqlite3
 .env.dev
+.env.dev.db
+.env.prod
+.env.prod.db
+/data
 /media
 /static
 /reference
