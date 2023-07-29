@@ -5,9 +5,10 @@
 __pycache__/
 venv
 db.sqlite3
-.env.dev
+.entrypoint.dev.sh
+.env.dev.server
 .env.dev.db
-.env.prod
+.env.prod.server
 .env.prod.db
 /data
 /media
