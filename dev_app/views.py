@@ -27,7 +27,7 @@ def dashboard(request):
 class DocumentCreateView(CreateView):
     model = Document
     fields = ['upload', ]
-    success_url = reverse_lazy('dev_dashboard')
+    success_url = reverse_lazy('document_upload')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

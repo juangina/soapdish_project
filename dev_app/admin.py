@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import *
+
+class DocumentsAdmin(admin.ModelAdmin):
+  list_display = ('upload', 'uploaded_at',)
+  list_display_links = ('upload',)
+  search_fields = ('upload',)
+
+admin.site.register(Document, DocumentsAdmin)
